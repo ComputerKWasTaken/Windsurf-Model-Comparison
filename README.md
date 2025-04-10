@@ -45,7 +45,6 @@ assessment of each model's capabilities.
 
 ```
 windsurf-model-comparison/
-├── .github/                    # GitHub workflows and templates
 ├── public/                     # Static assets
 │   └── images/                 # Image assets
 │       └── logos/              # Company logos for AI models
