@@ -3,7 +3,7 @@
   publish = "dist"
   
   # Command to build the site
-  command = "npm ci && npm run build"
+  command = "npm install && npm run build"
 
 # Redirects and headers
 [[redirects]]
