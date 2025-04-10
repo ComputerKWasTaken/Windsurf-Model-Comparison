@@ -3,7 +3,7 @@
   publish = "dist"
   
   # Command to build the site
-  command = "npm install && VITE_SKIP_TS_CHECK=true npm run vite-only-build"
+  command = "npm install && npx vite build"
 
 # Redirects and headers
 [[redirects]]
