@@ -74,13 +74,13 @@ const formatNumber = (num: number): string => {
     </div>
 
     <!-- Category Tabs -->
-    <div class="bg-gray-100 dark:bg-gray-700 px-6 py-2 border-b border-gray-200 dark:border-gray-600 flex overflow-x-auto">
+    <div class="bg-gray-100 dark:bg-gray-700 px-4 sm:px-6 py-2 border-b border-gray-200 dark:border-gray-600 flex overflow-x-auto scrollbar-hide">
       <button 
         v-for="category in categories" 
         :key="category.id"
         @click="changeCategory(category.id as Category | 'overall')"
         :class="[
-          'px-4 py-2 text-sm font-medium rounded-md whitespace-nowrap',
+          'px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium rounded-md whitespace-nowrap mr-1 sm:mr-2',
           selectedCategory === category.id 
             ? 'bg-blue-600 text-white' 
             : 'text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
@@ -91,7 +91,7 @@ const formatNumber = (num: number): string => {
     </div>
     
     <!-- Sort Controls -->
-    <div class="px-6 py-3 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
+    <div class="px-6 py-3 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-3 sm:space-y-0">
       <div class="flex items-center">
         <span class="text-sm text-gray-600 dark:text-gray-400 mr-2">Sort by:</span>
         <select 
@@ -120,7 +120,8 @@ const formatNumber = (num: number): string => {
     
     <!-- Leaderboard Table -->
     <div class="overflow-x-auto">
-      <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+      <!-- Desktop Table (hidden on small screens) -->
+      <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700 hidden md:table">
         <thead class="bg-gray-50 dark:bg-gray-900">
           <tr>
             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Rank</th>
@@ -183,6 +184,59 @@ const formatNumber = (num: number): string => {
           </tr>
         </tbody>
       </table>
+
+      <!-- Mobile Card View (visible only on small screens) -->
+      <div class="md:hidden">
+        <div v-for="(model, index) in displayedModels" :key="model.id" class="border-b border-gray-200 dark:border-gray-700 p-4">
+          <div class="flex items-center mb-3">
+            <div class="flex-shrink-0 h-10 w-10 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center mr-3">
+              <span v-if="!model.logoUrl" class="text-xl font-bold text-gray-500 dark:text-gray-400">
+                {{ model.name.substring(0, 1) }}
+              </span>
+              <img v-else :src="model.logoUrl" alt="" class="h-10 w-10 rounded-full">
+            </div>
+            <div>
+              <div class="flex items-baseline">
+                <span class="text-lg font-semibold text-gray-900 dark:text-white mr-2">{{ index + 1 }}.</span>
+                <span class="text-sm font-medium text-gray-900 dark:text-white">{{ model.name }}</span>
+              </div>
+              <div class="text-xs text-gray-600 dark:text-gray-400">{{ model.company }}</div>
+            </div>
+          </div>
+          
+          <div class="grid grid-cols-2 gap-2 text-sm">
+            <div class="flex justify-between">
+              <span class="text-gray-500 dark:text-gray-400">Rating:</span>
+              <span class="font-semibold" :class="index < 3 ? 'text-blue-600 dark:text-blue-400' : 'text-gray-900 dark:text-white'">
+                {{ model.ratings[selectedCategory] }}
+              </span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-500 dark:text-gray-400">Cost:</span>
+              <span class="text-gray-900 dark:text-white">{{ model.costCredits }}</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-500 dark:text-gray-400">Context:</span>
+              <span class="text-gray-900 dark:text-white">{{ formatNumber(model.contextWindow) }}</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-500 dark:text-gray-400">Speed:</span>
+              <span class="text-gray-900 dark:text-white">{{ model.speed }} t/s</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-500 dark:text-gray-400">Votes:</span>
+              <span class="text-gray-900 dark:text-white">{{ model.votes }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Empty state when no models -->
+        <div v-if="displayedModels.length === 0" class="px-6 py-12 text-center">
+          <div class="text-gray-500 dark:text-gray-400">
+            No models available
+          </div>
+        </div>
+      </div>
     </div>
     
     <!-- Call-to-action for voting -->
