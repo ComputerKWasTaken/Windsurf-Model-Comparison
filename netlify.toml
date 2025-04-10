@@ -1,0 +1,40 @@
+[build]
+  # Directory to publish (relative to root of the repo)
+  publish = "dist"
+  
+  # Command to build the site
+  command = "npm run build"
+
+# Redirects and headers
+[[redirects]]
+  # Redirect all paths to index.html for SPA routing
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Environment variables
+[build.environment]
+  # Production NODE_ENV
+  NODE_ENV = "production"
+
+# Headers for security and caching
+[[headers]]
+  # Define headers for all files
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    
+# Cache control headers for assets
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Add an asset for immutable content
+[[headers]]
+  for = "/*.svg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

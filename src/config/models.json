@@ -1,0 +1,220 @@
+{
+  "models": [
+    {
+      "id": "3.5-sonnet",
+      "name": "Claude 3.5 Sonnet",
+      "company": "Anthropic",
+      "costCredits": 1,
+      "contextWindow": 200000,
+      "speed": 76,
+      "logoUrl": "/images/logos/anthropic.png",
+      "ratings": {
+        "overall": 1200,
+        "agentic": 1200,
+        "planning": 1200,
+        "debugging": 1200,
+        "refactoring": 1200,
+        "explaining": 1200
+      },
+      "votes": 0
+    },
+    {
+      "id": "gpt-4o",
+      "name": "GPT-4o",
+      "company": "OpenAI",
+      "costCredits": 1,
+      "contextWindow": 128000,
+      "speed": 188,
+      "logoUrl": "/images/logos/openai.png",
+      "ratings": {
+        "overall": 1200,
+        "agentic": 1200,
+        "planning": 1200,
+        "debugging": 1200,
+        "refactoring": 1200,
+        "explaining": 1200
+      },
+      "votes": 0
+    },
+    {
+      "id": "3.7-sonnet",
+      "name": "Claude 3.7 Sonnet",
+      "company": "Anthropic",
+      "costCredits": 1,
+      "contextWindow": 200000,
+      "speed": 77,
+      "logoUrl": "/images/logos/anthropic.png",
+      "ratings": {
+        "overall": 1200,
+        "agentic": 1200,
+        "planning": 1200,
+        "debugging": 1200,
+        "refactoring": 1200,
+        "explaining": 1200
+      },
+      "votes": 0
+    },
+    {
+      "id": "3.7-sonnet-thinking",
+      "name": "Claude 3.7 Sonnet (Thinking)",
+      "company": "Anthropic",
+      "costCredits": 1.25,
+      "contextWindow": 200000,
+      "speed": 77,
+      "logoUrl": "/images/logos/anthropic.png",
+      "ratings": {
+        "overall": 1200,
+        "agentic": 1200,
+        "planning": 1200,
+        "debugging": 1200,
+        "refactoring": 1200,
+        "explaining": 1200
+      },
+      "votes": 0
+    },
+    {
+      "id": "gemini-2.5-pro",
+      "name": "Gemini 2.5 Pro",
+      "company": "Google",
+      "costCredits": 1,
+      "contextWindow": 1000000,
+      "speed": 198,
+      "logoUrl": "/images/logos/google.png",
+      "ratings": {
+        "overall": 1200,
+        "agentic": 1200,
+        "planning": 1200,
+        "debugging": 1200,
+        "refactoring": 1200,
+        "explaining": 1200
+      },
+      "votes": 0
+    },
+    {
+      "id": "deepseek-v3",
+      "name": "DeepSeek V3 (0324)",
+      "company": "DeepSeek",
+      "costCredits": 0,
+      "contextWindow": 128000,
+      "speed": 25,
+      "logoUrl": "/images/logos/deepseek.png",
+      "ratings": {
+        "overall": 1200,
+        "agentic": 1200,
+        "planning": 1200,
+        "debugging": 1200,
+        "refactoring": 1200,
+        "explaining": 1200
+      },
+      "votes": 0
+    },
+    {
+      "id": "deepseek-r1",
+      "name": "DeepSeek R1",
+      "company": "DeepSeek",
+      "costCredits": 0.5,
+      "contextWindow": 128000,
+      "speed": 23,
+      "logoUrl": "/images/logos/deepseek.png",
+      "ratings": {
+        "overall": 1200,
+        "agentic": 1200,
+        "planning": 1200,
+        "debugging": 1200,
+        "refactoring": 1200,
+        "explaining": 1200
+      },
+      "votes": 0
+    },
+    {
+      "id": "grok-3",
+      "name": "Grok 3",
+      "company": "xAI",
+      "costCredits": 1,
+      "contextWindow": 1000000,
+      "speed": 200,
+      "logoUrl": "/images/logos/xai.png",
+      "ratings": {
+        "overall": 1200,
+        "agentic": 1200,
+        "planning": 1200,
+        "debugging": 1200,
+        "refactoring": 1200,
+        "explaining": 1200
+      },
+      "votes": 0
+    },
+    {
+      "id": "grok-3-mini-thinking",
+      "name": "Grok 3 Mini (Thinking)",
+      "company": "xAI",
+      "costCredits": 0.125,
+      "contextWindow": 1000000,
+      "speed": 200,
+      "logoUrl": "/images/logos/xai.png",
+      "ratings": {
+        "overall": 1200,
+        "agentic": 1200,
+        "planning": 1200,
+        "debugging": 1200,
+        "refactoring": 1200,
+        "explaining": 1200
+      },
+      "votes": 0
+    },
+    {
+      "id": "o3-mini-medium-reasoning",
+      "name": "O3 Mini (Medium Reasoning)",
+      "company": "OpenAI",
+      "costCredits": 1,
+      "contextWindow": 200000,
+      "speed": 177,
+      "logoUrl": "/images/logos/openai.png",
+      "ratings": {
+        "overall": 1200,
+        "agentic": 1200,
+        "planning": 1200,
+        "debugging": 1200,
+        "refactoring": 1200,
+        "explaining": 1200
+      },
+      "votes": 0
+    },
+    {
+      "id": "gemini-2.0-flash",
+      "name": "Gemini 2.0 Flash",
+      "company": "Google",
+      "costCredits": 0.25,
+      "contextWindow": 1000000,
+      "speed": 244,
+      "logoUrl": "/images/logos/google.png",
+      "ratings": {
+        "overall": 1200,
+        "agentic": 1200,
+        "planning": 1200,
+        "debugging": 1200,
+        "refactoring": 1200,
+        "explaining": 1200
+      },
+      "votes": 0
+    },
+    {
+      "id": "cascade-base",
+      "name": "Cascade Base",
+      "company": "Windsurf",
+      "costCredits": 0,
+      "contextWindow": 128000,
+      "speed": 121,
+      "logoUrl": "/images/logos/windsurf.png",
+      "ratings": {
+        "overall": 1200,
+        "agentic": 1200,
+        "planning": 1200,
+        "debugging": 1200,
+        "refactoring": 1200,
+        "explaining": 1200
+      },
+      "votes": 0
+    }
+  ]
+}
