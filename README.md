@@ -92,7 +92,7 @@ windsurf-model-comparison/
    - [x] Initialize Vue 3 + TypeScript project with Vite
    - [x] Configure TailwindCSS
    - [x] Set up Supabase backend
-   - [ ] Configure Netlify deployment
+   - [x] Configure Netlify deployment
 
 2. **Core Infrastructure (Phase 2)**
    - [x] Create models.json with initial model data
