@@ -52,26 +52,26 @@ onMounted(() => {
     <AppHeader />
     
     <!-- Main Content -->
-    <main class="flex-grow container mx-auto px-4 py-8">
-      <h1 class="text-3xl font-bold text-center mb-8 text-gray-900 dark:text-white">
+    <main class="flex-grow container mx-auto px-3 sm:px-4 py-4 sm:py-8">
+      <h1 class="text-2xl sm:text-3xl font-bold text-center mb-4 sm:mb-8 text-gray-900 dark:text-white">
         Windsurf Model Comparison
       </h1>
       
       <!-- Loading state -->
       <div v-if="loading" class="flex justify-center items-center py-12">
-        <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-        <p class="ml-3 text-gray-700 dark:text-gray-300">Connecting to database...</p>
+        <div class="animate-spin rounded-full h-10 w-10 sm:h-12 sm:w-12 border-t-2 border-b-2 border-blue-500"></div>
+        <p class="ml-3 text-sm sm:text-base text-gray-700 dark:text-gray-300">Connecting to database...</p>
       </div>
       
       <!-- Error state -->
-      <div v-else-if="error" class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-8 rounded">
+      <div v-else-if="error" class="bg-red-100 border-l-4 border-red-500 text-red-700 p-3 sm:p-4 mb-4 sm:mb-8 rounded text-sm sm:text-base">
         <p class="font-bold">Error</p>
         <p>{{ error }}</p>
-        <p class="text-sm mt-2">Using local data as fallback.</p>
+        <p class="text-xs sm:text-sm mt-2">Using local data as fallback.</p>
       </div>
       
       <!-- Main content -->
-      <div v-else class="max-w-6xl mx-auto space-y-8">
+      <div v-else class="max-w-6xl mx-auto space-y-4 sm:space-y-8">
         <MainLeaderboard />
         <ModelComparer />
       </div>

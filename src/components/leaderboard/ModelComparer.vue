@@ -84,17 +84,17 @@ onMounted(() => {
     </div>
 
     <!-- Category Selection -->
-    <div class="px-6 py-4 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+    <div class="px-4 sm:px-6 py-4 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
       <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
         Select Category:
       </label>
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 sm:gap-3">
         <button 
           v-for="category in categories" 
           :key="category.id"
           @click="changeCategory(category.id as Category)"
           :class="[
-            'px-4 py-2 text-sm font-medium rounded-md text-left',
+            'px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium rounded-md text-left',
             selectedCategory === category.id 
               ? 'bg-blue-600 text-white' 
               : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
@@ -111,34 +111,36 @@ onMounted(() => {
     <!-- Comparison Cards -->
     <div class="p-6">
       <!-- Has models to compare -->
-      <div v-if="modelA && modelB" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div v-if="modelA && modelB" class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
         <!-- Model A -->
         <div class="card hover:shadow-lg transition-shadow cursor-pointer" @click="handleVote(modelA.id, modelB.id)">
-          <div class="text-center mb-4">
-            <div class="flex-shrink-0 h-16 w-16 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto">
-              <span v-if="!modelA.logoUrl" class="text-2xl font-bold text-gray-500 dark:text-gray-400">
+          <div class="flex items-center mb-4">
+            <div class="flex-shrink-0 h-12 w-12 md:h-16 md:w-16 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center mr-3">
+              <span v-if="!modelA.logoUrl" class="text-xl md:text-2xl font-bold text-gray-500 dark:text-gray-400">
                 {{ modelA.name.substring(0, 1) }}
               </span>
-              <img v-else :src="modelA.logoUrl" alt="" class="h-16 w-16 rounded-full">
+              <img v-else :src="modelA.logoUrl" alt="" class="h-12 w-12 md:h-16 md:w-16 rounded-full">
             </div>
-            <h3 class="mt-2 text-xl font-bold text-gray-900 dark:text-white">{{ modelA.name }}</h3>
-            <p class="text-sm text-gray-600 dark:text-gray-400">{{ modelA.company }}</p>
+            <div>
+              <h3 class="text-lg md:text-xl font-bold text-gray-900 dark:text-white">{{ modelA.name }}</h3>
+              <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">{{ modelA.company }}</p>
+            </div>
           </div>
           
-          <div class="space-y-3">
-            <div class="flex justify-between text-sm">
+          <div class="space-y-2 sm:space-y-3">
+            <div class="flex justify-between text-xs sm:text-sm">
               <span class="text-gray-500 dark:text-gray-400">Cost:</span>
               <span class="font-medium text-gray-900 dark:text-white">{{ modelA.costCredits }} credits</span>
             </div>
-            <div class="flex justify-between text-sm">
+            <div class="flex justify-between text-xs sm:text-sm">
               <span class="text-gray-500 dark:text-gray-400">Context Window:</span>
               <span class="font-medium text-gray-900 dark:text-white">{{ modelA.contextWindow.toLocaleString() }} tokens</span>
             </div>
-            <div class="flex justify-between text-sm">
+            <div class="flex justify-between text-xs sm:text-sm">
               <span class="text-gray-500 dark:text-gray-400">Speed:</span>
               <span class="font-medium text-gray-900 dark:text-white">{{ modelA.speed }} tokens/sec</span>
             </div>
-            <div class="flex justify-between text-sm">
+            <div class="flex justify-between text-xs sm:text-sm">
               <span class="text-gray-500 dark:text-gray-400">Current Rating:</span>
               <span class="font-semibold text-blue-600 dark:text-blue-400">{{ modelA.ratings[selectedCategory] }}</span>
             </div>
@@ -151,31 +153,33 @@ onMounted(() => {
 
         <!-- Model B -->
         <div class="card hover:shadow-lg transition-shadow cursor-pointer" @click="handleVote(modelB.id, modelA.id)">
-          <div class="text-center mb-4">
-            <div class="flex-shrink-0 h-16 w-16 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto">
-              <span v-if="!modelB.logoUrl" class="text-2xl font-bold text-gray-500 dark:text-gray-400">
+          <div class="flex items-center mb-4">
+            <div class="flex-shrink-0 h-12 w-12 md:h-16 md:w-16 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center mr-3">
+              <span v-if="!modelB.logoUrl" class="text-xl md:text-2xl font-bold text-gray-500 dark:text-gray-400">
                 {{ modelB.name.substring(0, 1) }}
               </span>
-              <img v-else :src="modelB.logoUrl" alt="" class="h-16 w-16 rounded-full">
+              <img v-else :src="modelB.logoUrl" alt="" class="h-12 w-12 md:h-16 md:w-16 rounded-full">
             </div>
-            <h3 class="mt-2 text-xl font-bold text-gray-900 dark:text-white">{{ modelB.name }}</h3>
-            <p class="text-sm text-gray-600 dark:text-gray-400">{{ modelB.company }}</p>
+            <div>
+              <h3 class="text-lg md:text-xl font-bold text-gray-900 dark:text-white">{{ modelB.name }}</h3>
+              <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">{{ modelB.company }}</p>
+            </div>
           </div>
           
-          <div class="space-y-3">
-            <div class="flex justify-between text-sm">
+          <div class="space-y-2 sm:space-y-3">
+            <div class="flex justify-between text-xs sm:text-sm">
               <span class="text-gray-500 dark:text-gray-400">Cost:</span>
               <span class="font-medium text-gray-900 dark:text-white">{{ modelB.costCredits }} credits</span>
             </div>
-            <div class="flex justify-between text-sm">
+            <div class="flex justify-between text-xs sm:text-sm">
               <span class="text-gray-500 dark:text-gray-400">Context Window:</span>
               <span class="font-medium text-gray-900 dark:text-white">{{ modelB.contextWindow.toLocaleString() }} tokens</span>
             </div>
-            <div class="flex justify-between text-sm">
+            <div class="flex justify-between text-xs sm:text-sm">
               <span class="text-gray-500 dark:text-gray-400">Speed:</span>
               <span class="font-medium text-gray-900 dark:text-white">{{ modelB.speed }} tokens/sec</span>
             </div>
-            <div class="flex justify-between text-sm">
+            <div class="flex justify-between text-xs sm:text-sm">
               <span class="text-gray-500 dark:text-gray-400">Current Rating:</span>
               <span class="font-semibold text-blue-600 dark:text-blue-400">{{ modelB.ratings[selectedCategory] }}</span>
             </div>
