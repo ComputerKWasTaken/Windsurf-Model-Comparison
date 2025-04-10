@@ -2,10 +2,70 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Custom Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+:root {
+  /* Mint & Evergreen Pastel Color Palette */
+  --mint-100: #e0f5ee;
+  --mint-200: #c1ebe0;
+  --mint-300: #a3e0d1;
+  --mint-400: #84d6c3;
+  --mint-500: #66ccb4;
+  --mint-600: #52a390;
+  --mint-700: #3d7a6c;
+  --mint-800: #295248;
+  --mint-900: #142924;
+  
+  --evergreen-100: #e3f1e9;
+  --evergreen-200: #c7e3d3;
+  --evergreen-300: #abd5bd;
+  --evergreen-400: #8fc7a7;
+  --evergreen-500: #73b991;
+  --evergreen-600: #5c9474;
+  --evergreen-700: #456f57;
+  --evergreen-800: #2e4a3a;
+  --evergreen-900: #17251d;
+  
+  --accent-mint: #66ccb4;
+  --accent-evergreen: #5c9474;
+  --accent-teal: #4db6ac;
+  --accent-sage: #a8c6b4;
+  
+  /* Neutral colors */
+  --neutral-50: #f9fafb;
+  --neutral-100: #f3f4f6;
+  --neutral-200: #e5e7eb;
+  --neutral-300: #d1d5db;
+  --neutral-400: #9ca3af;
+  --neutral-500: #6b7280;
+  --neutral-600: #4b5563;
+  --neutral-700: #374151;
+  --neutral-800: #1f2937;
+  --neutral-900: #111827;
+  
+  /* Dark mode colors */
+  --dark-mint-900: #0a1512;
+  --dark-mint-800: #142924;
+  --dark-mint-700: #1e3d36;
+  --dark-mint-600: #295248;
+  --dark-evergreen-900: #0b120e;
+  --dark-evergreen-800: #17251d;
+  --dark-evergreen-700: #22382b;
+  --dark-evergreen-600: #2e4a3a;
+}
+
 /* Custom styles that extend Tailwind */
 @layer base {
   body {
-    @apply bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100;
+    @apply bg-neutral-50 dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100;
     @apply min-h-screen;
   }
 }
@@ -16,15 +76,15 @@
   }
   
   .btn-primary {
-    @apply btn bg-blue-600 text-white hover:bg-blue-700;
+    @apply btn bg-mint-600 text-white hover:bg-mint-700 transition-all duration-300;
   }
   
   .btn-secondary {
-    @apply btn bg-gray-200 text-gray-900 hover:bg-gray-300;
+    @apply btn bg-evergreen-200 text-evergreen-800 hover:bg-evergreen-300 transition-all duration-300;
   }
   
   .card {
-    @apply bg-white dark:bg-gray-800 rounded-lg shadow-md p-6;
+    @apply bg-white dark:bg-neutral-800 rounded-lg shadow-md p-6 border border-mint-100 dark:border-dark-mint-700;
   }
   
   .badge {
