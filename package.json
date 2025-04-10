@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "netlify-build": "vue-tsc -b && vite build"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.49.4",

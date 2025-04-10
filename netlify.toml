@@ -3,7 +3,7 @@
   publish = "dist"
   
   # Command to build the site
-  command = "npm install && npm run build"
+  command = "npm install && npm run netlify-build"
 
 # Redirects and headers
 [[redirects]]
