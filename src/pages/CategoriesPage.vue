@@ -4,6 +4,12 @@
 // Categories with descriptions
 const categories = [
   {
+    id: 'overall',
+    name: 'Overall',
+    description: 'General performance across all categories',
+    icon: '📊'
+  },
+  {
     id: 'agentic',
     name: 'Agentic Workflow',
     description: 'Effectiveness in autonomous action and tool utilization',
@@ -59,7 +65,7 @@ const categories = [
               <h3 class="text-heading-3 mb-2">{{ category.name }}</h3>
               <p class="text-body text-gray-600 dark:text-gray-300">{{ category.description }}</p>
               <router-link 
-                :to="`/?category=${category.id}`" 
+                :to="category.id === 'overall' ? '/' : { path: '/', query: { category: category.id } }" 
                 class="inline-block mt-4 text-mint-600 dark:text-mint-400 hover:text-mint-800 dark:hover:text-mint-300 font-medium"
               >
                 View Leaderboard →

@@ -1,10 +1,13 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted, watch } from 'vue';
 import { useModelStore } from '../../stores/modelStore';
+import { useRoute, useRouter } from 'vue-router';
 import type { Category } from '../../types/model';
 
-// Initialize store
+// Initialize store and router
 const modelStore = useModelStore();
+const route = useRoute();
+const router = useRouter();
 
 // Category selection
 const selectedCategory = ref<Category | 'overall'>('overall');
@@ -48,7 +51,36 @@ const changeSortField = (field: string) => {
 const changeCategory = (category: Category | 'overall') => {
   selectedCategory.value = category;
   modelStore.setSelectedCategory(category);
+  
+  // Update URL query parameter when category changes
+  if (category === 'overall') {
+    router.push({ path: '/' });
+  } else {
+    router.push({ path: '/', query: { category } });
+  }
 };
+
+// Read category from URL on component mount
+onMounted(() => {
+  const categoryParam = route.query.category as Category | 'overall' | undefined;
+  if (categoryParam && categories.some(c => c.id === categoryParam)) {
+    changeCategory(categoryParam);
+  }
+});
+
+// Watch for URL changes
+watch(
+  () => route.query.category,
+  (newCategory) => {
+    if (newCategory && categories.some(c => c.id === newCategory)) {
+      selectedCategory.value = newCategory as Category | 'overall';
+      modelStore.setSelectedCategory(newCategory as Category | 'overall');
+    } else if (!newCategory) {
+      selectedCategory.value = 'overall';
+      modelStore.setSelectedCategory('overall');
+    }
+  }
+);
 
 // Get models sorted according to current settings
 const displayedModels = computed(() => {
