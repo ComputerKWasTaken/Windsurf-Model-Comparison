@@ -1,6 +1,9 @@
 -- Security-focused schema for Supabase database
 -- Use this script AFTER initializing with supabase-init-schema.sql and loading initial data
 
+-- Do note that after running this, new models cannot be automatically added for security purposes
+-- If you intend on adding new models, make a backup or duplicate of the database
+
 -- First, drop any existing policies
 DROP POLICY IF EXISTS "Admin can select models" ON models;
 DROP POLICY IF EXISTS "Admin can insert models" ON models;

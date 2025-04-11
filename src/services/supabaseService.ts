@@ -35,14 +35,20 @@ export const supabaseService = {
 
   /**
    * Seed initial model data if the table is empty
+   * Also updates existing models with new information from models.json
    */
   async seedInitialData(models: Model[]): Promise<void> {
-    const { data: existingModels } = await supabase
+    const { data: existingModels, error: fetchError } = await supabase
       .from('models')
-      .select('id')
-      .limit(1);
+      .select('*');
+
+    if (fetchError) {
+      console.error('Error fetching existing models:', fetchError);
+      throw fetchError;
+    }
 
     if (!existingModels?.length) {
+      // No models found, seed all data
       console.log('No models found, seeding initial data...');
       const { error } = await supabase
         .from('models')
@@ -54,7 +60,101 @@ export const supabaseService = {
       }
       console.log('Initial models seeded successfully');
     } else {
-      console.log('Models already exist in database, skipping seed');
+      console.log('Models exist in database, checking for updates...');
+      
+      // Process updates and additions
+      await this.updateExistingModels(existingModels, models);
+    }
+  },
+
+  /**
+   * Update existing models with new information from models.json
+   * Only updates allowed fields: name, company, costCredits, contextWindow, speed, logoUrl
+   * Also adds new models that exist in models.json but not in the database
+   */
+  async updateExistingModels(existingModels: Model[], newModels: Model[]): Promise<void> {
+    const existingModelMap = new Map<string, Model>();
+    existingModels.forEach(model => existingModelMap.set(model.id, model));
+    
+    const modelsToUpdate: Model[] = [];
+    const modelsToAdd: Model[] = [];
+    
+    // Check each model from the JSON file
+    for (const newModel of newModels) {
+      const existingModel = existingModelMap.get(newModel.id);
+      
+      if (existingModel) {
+        // Check if any updatable fields have changed
+        const hasChanges = (
+          existingModel.name !== newModel.name ||
+          existingModel.company !== newModel.company ||
+          existingModel.costCredits !== newModel.costCredits ||
+          existingModel.contextWindow !== newModel.contextWindow ||
+          existingModel.speed !== newModel.speed ||
+          existingModel.logoUrl !== newModel.logoUrl
+        );
+        
+        if (hasChanges) {
+          // Create updated model with only allowed changes
+          const updatedModel = {
+            ...existingModel,
+            name: newModel.name,
+            company: newModel.company,
+            costCredits: newModel.costCredits,
+            contextWindow: newModel.contextWindow,
+            speed: newModel.speed,
+            logoUrl: newModel.logoUrl
+          };
+          
+          modelsToUpdate.push(updatedModel);
+        }
+      } else {
+        // This is a new model that doesn't exist in the database
+        modelsToAdd.push(newModel);
+      }
+    }
+    
+    // Perform updates if needed
+    if (modelsToUpdate.length > 0) {
+      console.log(`Updating ${modelsToUpdate.length} existing models with new information`);
+      
+      // Update each model individually to avoid conflicts
+      for (const model of modelsToUpdate) {
+        const { error } = await supabase
+          .from('models')
+          .update({
+            name: model.name,
+            company: model.company,
+            costCredits: model.costCredits,
+            contextWindow: model.contextWindow,
+            speed: model.speed,
+            logoUrl: model.logoUrl
+          })
+          .eq('id', model.id);
+          
+        if (error) {
+          console.error(`Error updating model ${model.id}:`, error);
+          // Continue with other updates even if one fails
+        }
+      }
+    }
+    
+    // Add new models if needed
+    if (modelsToAdd.length > 0) {
+      console.log(`Adding ${modelsToAdd.length} new models from models.json`);
+      
+      const { error } = await supabase
+        .from('models')
+        .insert(modelsToAdd);
+        
+      if (error) {
+        console.error('Error adding new models:', error);
+        // Don't throw, as we've already processed updates
+      }
+    }
+    
+    if (modelsToUpdate.length === 0 && modelsToAdd.length === 0) {
+      console.log('No model updates or additions needed');
     }
   },
 

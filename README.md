@@ -78,11 +78,11 @@ windsurf-model-comparison/
 │   ├── types/                  # TypeScript type definitions
 │   │   └── model.ts            # Type definitions for models and votes
 │   ├── utils/                  # Utility functions
-│   │   ├── App.vue             # Root component
-│   │   ├── main.ts             # Application entry point
-│   │   ├── shims-vue.d.ts      # Vue type definitions
-│   │   └── style.css           # Global styles
-│   │   └── vite-env.d.ts       # Vite environment variables
+│   ├── App.vue                 # Root component
+│   ├── main.ts                 # Application entry point
+│   ├── shims-vue.d.ts          # Vue type definitions
+│   ├── style.css               # Global styles
+│   ├── vite-env.d.ts           # Vite environment variables
 ├── .env                        # Environment variables (Supabase credentials)
 ├── .eslintrc.js                # ESLint configuration
 ├── .gitignore                  # Git ignore file
