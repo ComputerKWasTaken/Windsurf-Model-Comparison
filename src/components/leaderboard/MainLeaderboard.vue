@@ -168,20 +168,67 @@ const formatNumber = (num: number): string => {
           </tr>
         </thead>
         <tbody class="divide-y divide-mint-200 dark:divide-dark-mint-700 transition-colors duration-300">
-          <tr v-for="(model, index) in displayedModels" :key="model.id" class="hover:bg-mint-50 dark:hover:bg-dark-mint-900 transition-all duration-300 cursor-pointer hover:shadow-sm group" @click="(e) => { const el = e.currentTarget as HTMLElement; el.classList.toggle('bg-mint-50'); el.classList.toggle('dark:bg-dark-mint-900'); }">
+          <tr v-for="(model, index) in displayedModels" :key="model.id" 
+              :class="{
+                'hover:bg-yellow-50 dark:hover:bg-yellow-900/20 border-l-4 border-yellow-400': index === 0,
+                'hover:bg-gray-50 dark:hover:bg-gray-800/20 border-l-4 border-gray-300': index === 1,
+                'hover:bg-amber-50 dark:hover:bg-amber-900/20 border-l-4 border-amber-500': index === 2,
+                'hover:bg-mint-50 dark:hover:bg-dark-mint-900': index > 2
+              }"
+              class="transition-all duration-300 cursor-pointer hover:shadow-sm group" 
+              @click="(e) => { 
+                const el = e.currentTarget as HTMLElement; 
+                if (index === 0) {
+                  el.classList.toggle('bg-yellow-50');
+                  el.classList.toggle('dark:bg-yellow-900/20');
+                } else if (index === 1) {
+                  el.classList.toggle('bg-gray-50');
+                  el.classList.toggle('dark:bg-gray-800/20');
+                } else if (index === 2) {
+                  el.classList.toggle('bg-amber-50');
+                  el.classList.toggle('dark:bg-amber-900/20');
+                } else {
+                  el.classList.toggle('bg-mint-50');
+                  el.classList.toggle('dark:bg-dark-mint-900');
+                }
+              }">
             <td class="px-6 py-4 whitespace-nowrap">
-              <div class="text-heading-4">{{ index + 1 }}</div>
+              <div class="text-heading-4" :class="{
+                'text-yellow-500 dark:text-yellow-400': index === 0,
+                'text-gray-400 dark:text-gray-300': index === 1,
+                'text-amber-600 dark:text-amber-500': index === 2,
+                'text-evergreen-800 dark:text-mint-200': index > 2
+              }">{{ index + 1 }}</div>
             </td>
             <td class="px-6 py-4 whitespace-nowrap">
               <div class="flex items-center">
-                <div class="flex-shrink-0 h-10 w-10 flex items-center justify-center transition-colors duration-300">
-                  <span v-if="!model.logoUrl" class="text-xl font-bold text-evergreen-500 dark:text-mint-400 transition-colors duration-300">
+                <div class="flex-shrink-0 h-10 w-10 flex items-center justify-center transition-colors duration-300"
+                     :class="{
+                       'bg-yellow-100 dark:bg-yellow-900/30 rounded-full': index === 0,
+                       'bg-gray-100 dark:bg-gray-800/30 rounded-full': index === 1,
+                       'bg-amber-100 dark:bg-amber-900/30 rounded-full': index === 2
+                     }">
+                  <span v-if="!model.logoUrl" class="text-xl font-bold transition-colors duration-300"
+                        :class="{
+                          'text-yellow-500 dark:text-yellow-400': index === 0,
+                          'text-gray-400 dark:text-gray-300': index === 1,
+                          'text-amber-600 dark:text-amber-500': index === 2,
+                          'text-evergreen-500 dark:text-mint-400': index > 2
+                        }">
                     {{ model.name.substring(0, 1) }}
                   </span>
                   <img v-else :src="model.logoUrl" alt="" class="h-10 w-10">
                 </div>
                 <div class="ml-4">
-                  <div class="text-sm font-medium text-evergreen-800 dark:text-mint-200 transition-colors duration-300">{{ model.name }}</div>
+                  <div class="text-sm font-medium transition-colors duration-300"
+                       :class="{
+                         'text-yellow-600 dark:text-yellow-400 font-semibold': index === 0,
+                         'text-gray-500 dark:text-gray-300 font-semibold': index === 1,
+                         'text-amber-700 dark:text-amber-500 font-semibold': index === 2,
+                         'text-evergreen-800 dark:text-mint-200': index > 2
+                       }">
+                    {{ model.name }}
+                  </div>
                 </div>
               </div>
             </td>
@@ -189,7 +236,12 @@ const formatNumber = (num: number): string => {
               <div class="text-body">{{ model.company }}</div>
             </td>
             <td class="px-6 py-4 whitespace-nowrap">
-              <div class="text-sm font-semibold" :class="index < 3 ? 'text-mint-600 dark:text-mint-400' : 'text-evergreen-800 dark:text-mint-200'">
+              <div class="text-sm font-semibold" :class="{
+                'text-yellow-600 dark:text-yellow-400': index === 0,
+                'text-gray-500 dark:text-gray-300': index === 1,
+                'text-amber-700 dark:text-amber-500': index === 2,
+                'text-evergreen-800 dark:text-mint-200': index > 2
+              }">
                 {{ model.ratings[selectedCategory] }}
               </div>
             </td>
@@ -220,7 +272,14 @@ const formatNumber = (num: number): string => {
 
       <!-- Mobile Card View (visible only on small screens) -->
       <div class="md:hidden">
-        <div v-for="(model, index) in displayedModels" :key="model.id" class="border-b border-gray-200 dark:border-gray-700 p-4 hover:bg-mint-50 dark:hover:bg-dark-mint-900 transition-all duration-300 cursor-pointer transform hover:scale-[1.01] hover:shadow-sm active:scale-[0.99]">
+        <div v-for="(model, index) in displayedModels" :key="model.id" 
+             :class="{
+               'border-l-4 border-yellow-400 hover:bg-yellow-50 dark:hover:bg-yellow-900/20': index === 0,
+               'border-l-4 border-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/20': index === 1,
+               'border-l-4 border-amber-500 hover:bg-amber-50 dark:hover:bg-amber-900/20': index === 2,
+               'hover:bg-mint-50 dark:hover:bg-dark-mint-900': index > 2
+             }"
+             class="border-b border-gray-200 dark:border-gray-700 p-4 transition-all duration-300 cursor-pointer transform hover:scale-[1.01] hover:shadow-sm active:scale-[0.99]">
           <div class="flex items-center mb-3">
             <div class="flex-shrink-0 h-10 w-10 flex items-center justify-center mr-3">
               <span v-if="!model.logoUrl" class="text-xl font-bold text-gray-500 dark:text-gray-400">
@@ -230,8 +289,20 @@ const formatNumber = (num: number): string => {
             </div>
             <div>
               <div class="flex items-baseline">
-                <span class="text-lg font-semibold text-gray-900 dark:text-white mr-2">{{ index + 1 }}.</span>
-                <span class="text-sm font-medium text-gray-900 dark:text-white">{{ model.name }}</span>
+                <span class="text-lg font-semibold mr-2"
+                      :class="{
+                        'text-yellow-500 dark:text-yellow-400': index === 0,
+                        'text-gray-400 dark:text-gray-300': index === 1,
+                        'text-amber-600 dark:text-amber-500': index === 2,
+                        'text-gray-900 dark:text-white': index > 2
+                      }">{{ index + 1 }}.</span>
+                <span class="text-sm font-medium"
+                      :class="{
+                        'text-yellow-600 dark:text-yellow-400 font-semibold': index === 0,
+                        'text-gray-500 dark:text-gray-300 font-semibold': index === 1,
+                        'text-amber-700 dark:text-amber-500 font-semibold': index === 2,
+                        'text-gray-900 dark:text-white': index > 2
+                      }">{{ model.name }}</span>
               </div>
               <div class="text-xs text-gray-600 dark:text-gray-400">{{ model.company }}</div>
             </div>
@@ -240,7 +311,12 @@ const formatNumber = (num: number): string => {
           <div class="grid grid-cols-2 gap-2 text-sm">
             <div class="flex justify-between">
               <span class="text-gray-500 dark:text-gray-400">Rating:</span>
-              <span class="font-semibold" :class="index < 3 ? 'text-blue-600 dark:text-blue-400' : 'text-gray-900 dark:text-white'">
+              <span class="font-semibold" :class="{
+                'text-yellow-600 dark:text-yellow-400': index === 0,
+                'text-gray-500 dark:text-gray-300': index === 1,
+                'text-amber-700 dark:text-amber-500': index === 2,
+                'text-gray-900 dark:text-white': index > 2
+              }">
                 {{ model.ratings[selectedCategory] }}
               </span>
             </div>
