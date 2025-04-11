@@ -185,6 +185,10 @@ export const useModelStore = defineStore('models', {
 
     setSelectedCategory(category: Category | 'overall') {
       this.selectedCategory = category;
+      // Update sort to use the new category
+      this.sortBy = category;
+      // Keep the current sort direction when changing categories
+      this.updateSort(category, this.sortDir as 'asc' | 'desc');
     },
 
     /**
