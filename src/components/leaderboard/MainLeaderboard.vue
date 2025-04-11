@@ -80,9 +80,9 @@ const formatNumber = (num: number): string => {
         :key="category.id"
         @click="changeCategory(category.id as Category | 'overall')"
         :class="[
-          'px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium rounded-md whitespace-nowrap mr-1 sm:mr-2',
+          'px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium rounded-md whitespace-nowrap mr-1 sm:mr-2 transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-mint-500 focus:ring-opacity-50',
           selectedCategory === category.id 
-            ? 'bg-mint-600 text-white' 
+            ? 'bg-mint-600 text-white shadow-md' 
             : 'text-evergreen-700 dark:text-mint-300 hover:bg-mint-200 dark:hover:bg-dark-mint-600'
         ]"
       >
@@ -97,7 +97,7 @@ const formatNumber = (num: number): string => {
         <select 
           v-model="sortBy" 
           @change="changeSortField(sortBy)"
-          class="bg-white dark:bg-dark-mint-700 border border-mint-300 dark:border-dark-mint-600 text-evergreen-800 dark:text-mint-200 text-sm rounded-lg focus:ring-mint-500 focus:border-mint-500 p-2 transition-colors duration-300"
+          class="bg-white dark:bg-dark-mint-700 border border-mint-300 dark:border-dark-mint-600 text-evergreen-800 dark:text-mint-200 text-sm rounded-lg focus:ring-mint-500 focus:border-mint-500 p-2 transition-all duration-300 cursor-pointer hover:border-mint-500 dark:hover:border-mint-400 focus:shadow-md"
         >
           <option v-for="option in sortOptions" :key="option.id" :value="option.id">
             {{ option.name }}
@@ -106,10 +106,10 @@ const formatNumber = (num: number): string => {
         
         <button 
           @click="toggleSortDirection" 
-          class="ml-2 p-2 text-evergreen-600 dark:text-mint-400 hover:bg-mint-100 dark:hover:bg-dark-mint-700 rounded-md transition-colors duration-300"
+          class="ml-2 p-2 text-evergreen-600 dark:text-mint-400 hover:bg-mint-100 dark:hover:bg-dark-mint-700 rounded-md transition-all duration-300 transform hover:scale-110 active:scale-95 focus:outline-none focus:ring-2 focus:ring-mint-500 focus:ring-opacity-50"
         >
-          <span v-if="sortDirection === 'desc'">↓</span>
-          <span v-else>↑</span>
+          <span v-if="sortDirection === 'desc'" class="inline-block transition-transform duration-300 hover:translate-y-1">↓</span>
+          <span v-else class="inline-block transition-transform duration-300 hover:-translate-y-1">↑</span>
         </button>
       </div>
       
@@ -135,7 +135,7 @@ const formatNumber = (num: number): string => {
           </tr>
         </thead>
         <tbody class="divide-y divide-mint-200 dark:divide-dark-mint-700 transition-colors duration-300">
-          <tr v-for="(model, index) in displayedModels" :key="model.id" class="hover:bg-mint-50 dark:hover:bg-dark-mint-900 transition-colors duration-300">
+          <tr v-for="(model, index) in displayedModels" :key="model.id" class="hover:bg-mint-50 dark:hover:bg-dark-mint-900 transition-all duration-300 cursor-pointer hover:shadow-sm group" @click="(e) => { const el = e.currentTarget as HTMLElement; el.classList.toggle('bg-mint-50'); el.classList.toggle('dark:bg-dark-mint-900'); }">
             <td class="px-6 py-4 whitespace-nowrap">
               <div class="text-heading-4">{{ index + 1 }}</div>
             </td>
@@ -187,7 +187,7 @@ const formatNumber = (num: number): string => {
 
       <!-- Mobile Card View (visible only on small screens) -->
       <div class="md:hidden">
-        <div v-for="(model, index) in displayedModels" :key="model.id" class="border-b border-gray-200 dark:border-gray-700 p-4">
+        <div v-for="(model, index) in displayedModels" :key="model.id" class="border-b border-gray-200 dark:border-gray-700 p-4 hover:bg-mint-50 dark:hover:bg-dark-mint-900 transition-all duration-300 cursor-pointer transform hover:scale-[1.01] hover:shadow-sm active:scale-[0.99]">
           <div class="flex items-center mb-3">
             <div class="flex-shrink-0 h-10 w-10 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center mr-3">
               <span v-if="!model.logoUrl" class="text-xl font-bold text-gray-500 dark:text-gray-400">
@@ -244,7 +244,7 @@ const formatNumber = (num: number): string => {
       <p class="text-body mb-4">
         Help improve the rankings by voting on model comparisons
       </p>
-      <button class="btn-primary">
+      <button class="btn-primary transform transition-all duration-300 hover:scale-105 hover:shadow-lg active:scale-95 focus:outline-none focus:ring-4 focus:ring-mint-500 focus:ring-opacity-50">
         Vote Now
       </button>
     </div>

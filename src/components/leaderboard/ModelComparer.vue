@@ -94,9 +94,9 @@ onMounted(() => {
           :key="category.id"
           @click="changeCategory(category.id as Category)"
           :class="[
-            'px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium rounded-md text-left',
+            'px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium rounded-md text-left transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-mint-500 focus:ring-opacity-50',
             selectedCategory === category.id 
-              ? 'bg-mint-600 text-white' 
+              ? 'bg-mint-600 text-white shadow-md' 
               : 'bg-mint-100 dark:bg-dark-mint-700 text-evergreen-700 dark:text-mint-300 hover:bg-mint-200 dark:hover:bg-dark-mint-600'
           ]"
         >
@@ -113,7 +113,7 @@ onMounted(() => {
       <!-- Has models to compare -->
       <div v-if="modelA && modelB" class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
         <!-- Model A -->
-        <div class="card hover:shadow-lg transition-all duration-300 cursor-pointer transform hover:-translate-y-1" @click="handleVote(modelA.id, modelB.id)">
+        <div class="card hover:shadow-lg transition-all duration-300 cursor-pointer transform hover:-translate-y-1 hover:bg-mint-50 dark:hover:bg-dark-mint-900 active:scale-[0.98]" @click="handleVote(modelA.id, modelB.id)">
           <div class="flex items-center mb-4">
             <div class="flex-shrink-0 h-12 w-12 md:h-16 md:w-16 bg-mint-200 dark:bg-dark-mint-700 rounded-full flex items-center justify-center mr-3 transition-colors duration-300">
               <span v-if="!modelA.logoUrl" class="text-xl md:text-2xl font-bold text-evergreen-500 dark:text-mint-400 transition-colors duration-300">
@@ -146,13 +146,13 @@ onMounted(() => {
             </div>
           </div>
           
-          <button class="w-full mt-6 btn-primary">
+          <button class="w-full mt-6 btn-primary transform transition-all duration-300 hover:scale-105 hover:shadow-md active:scale-95 focus:outline-none focus:ring-2 focus:ring-mint-500 focus:ring-opacity-50">
             Vote for {{ modelA.name }}
           </button>
         </div>
 
         <!-- Model B -->
-        <div class="card hover:shadow-lg transition-all duration-300 cursor-pointer transform hover:-translate-y-1" @click="handleVote(modelB.id, modelA.id)">
+        <div class="card hover:shadow-lg transition-all duration-300 cursor-pointer transform hover:-translate-y-1 hover:bg-mint-50 dark:hover:bg-dark-mint-900 active:scale-[0.98]" @click="handleVote(modelB.id, modelA.id)">
           <div class="flex items-center mb-4">
             <div class="flex-shrink-0 h-12 w-12 md:h-16 md:w-16 bg-mint-200 dark:bg-dark-mint-700 rounded-full flex items-center justify-center mr-3 transition-colors duration-300">
               <span v-if="!modelB.logoUrl" class="text-xl md:text-2xl font-bold text-evergreen-500 dark:text-mint-400 transition-colors duration-300">
@@ -185,19 +185,19 @@ onMounted(() => {
             </div>
           </div>
           
-          <button class="w-full mt-6 btn-primary">
+          <button class="w-full mt-6 btn-primary transform transition-all duration-300 hover:scale-105 hover:shadow-md active:scale-95 focus:outline-none focus:ring-2 focus:ring-mint-500 focus:ring-opacity-50">
             Vote for {{ modelB.name }}
           </button>
         </div>
       </div>
       
       <!-- No more models to compare in this category -->
-      <div v-else class="text-center py-8 animate-fade-in">
+      <div v-else class="text-center py-8 animate-fade-in transition-opacity duration-500">
         <div class="text-subtitle mb-4">
           You've voted on all available models in this category.
         </div>
         <p class="text-body mb-4">Try selecting a different category.</p>
-        <button @click="voteStore.resetVotes()" class="btn-secondary">
+        <button @click="voteStore.resetVotes()" class="btn-secondary transform transition-all duration-300 hover:scale-105 hover:shadow-md active:scale-95 focus:outline-none focus:ring-2 focus:ring-mint-500 focus:ring-opacity-50">
           Reset Votes (For Testing)
         </button>
       </div>

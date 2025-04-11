@@ -58,9 +58,15 @@ onMounted(() => {
       </h1>
       
       <!-- Loading state -->
-      <div v-if="loading" class="flex justify-center items-center py-12">
-        <div class="animate-spin rounded-full h-10 w-10 sm:h-12 sm:w-12 border-t-2 border-b-2 border-mint-600 dark:border-mint-400"></div>
-        <p class="ml-3 text-body-small sm:text-body animate-pulse-subtle">Connecting to database...</p>
+      <div v-if="loading" class="flex flex-col justify-center items-center py-12 space-y-6">
+        <div class="relative">
+          <div class="animate-spin rounded-full h-16 w-16 sm:h-20 sm:w-20 border-4 border-mint-200 dark:border-dark-mint-700"></div>
+          <div class="animate-spin rounded-full h-16 w-16 sm:h-20 sm:w-20 border-t-4 border-mint-600 dark:border-mint-400 absolute top-0 left-0"></div>
+        </div>
+        <div class="text-center">
+          <p class="text-subtitle animate-pulse-subtle">Loading models...</p>
+          <p class="text-caption mt-2">Please wait while we fetch the latest data</p>
+        </div>
       </div>
       
       <!-- Error state -->

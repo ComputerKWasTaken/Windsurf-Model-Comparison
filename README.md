@@ -174,8 +174,8 @@ experience of the application:
 ### Animations & Interactions
 
 - [x] Add subtle animations for state transitions
-- [ ] Implement loading animations
-- [ ] Create interactive elements with hover/click effects
+- [x] Implement loading animations
+- [x] Create interactive elements with hover/click effects
 - [ ] Add motion to leaderboard position changes
 
 ## 📄 License
