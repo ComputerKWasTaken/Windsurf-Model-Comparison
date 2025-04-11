@@ -31,7 +31,7 @@ const availableModels = computed(() => {
   );
 });
 
-// Choose two random models to compare
+// Choose two random models to compare with weighted probability based on vote count
 const selectRandomModels = () => {
   // If we have less than 2 models available, we can't compare
   if (availableModels.value.length < 2) {
@@ -40,15 +40,67 @@ const selectRandomModels = () => {
     return;
   }
   
-  // Select two different random models
-  const randomIndex1 = Math.floor(Math.random() * availableModels.value.length);
-  let randomIndex2 = Math.floor(Math.random() * (availableModels.value.length - 1));
+  // Calculate weights inversely proportional to vote counts
+  // Models with fewer votes will have higher weights (higher chance of being selected)
+  const weights = availableModels.value.map(model => {
+    // Add 1 to avoid division by zero and ensure all models have some chance
+    const voteCount = model.votes + 1;
+    // Use inverse of vote count as weight (fewer votes = higher weight)
+    return 1 / voteCount;
+  });
   
-  // Adjust second index to avoid duplicates
-  if (randomIndex2 >= randomIndex1) randomIndex2++;
+  // Calculate the sum of all weights for normalization
+  const totalWeight = weights.reduce((sum, weight) => sum + weight, 0);
   
-  modelA.value = availableModels.value[randomIndex1];
-  modelB.value = availableModels.value[randomIndex2];
+  // Normalize weights to sum to 1
+  const normalizedWeights = weights.map(weight => weight / totalWeight);
+  
+  // Create cumulative distribution for weighted random selection
+  const cumulativeWeights = [];
+  let cumulativeWeight = 0;
+  
+  for (const weight of normalizedWeights) {
+    cumulativeWeight += weight;
+    cumulativeWeights.push(cumulativeWeight);
+  }
+  
+  // Select first model using weighted random selection
+  const random1 = Math.random();
+  let index1 = 0;
+  
+  while (index1 < cumulativeWeights.length && random1 > cumulativeWeights[index1]) {
+    index1++;
+  }
+  
+  // Create new weights excluding the first selected model
+  const weightsWithoutFirst = [...weights];
+  weightsWithoutFirst.splice(index1, 1);
+  
+  // Recalculate normalized and cumulative weights
+  const newTotalWeight = weightsWithoutFirst.reduce((sum, weight) => sum + weight, 0);
+  const newNormalizedWeights = weightsWithoutFirst.map(weight => weight / newTotalWeight);
+  
+  const newCumulativeWeights = [];
+  let newCumulativeWeight = 0;
+  
+  for (const weight of newNormalizedWeights) {
+    newCumulativeWeight += weight;
+    newCumulativeWeights.push(newCumulativeWeight);
+  }
+  
+  // Select second model using weighted random selection
+  const random2 = Math.random();
+  let index2 = 0;
+  
+  while (index2 < newCumulativeWeights.length && random2 > newCumulativeWeights[index2]) {
+    index2++;
+  }
+  
+  // Adjust index2 if it needs to account for the removed first model
+  if (index2 >= index1) index2++;
+  
+  modelA.value = availableModels.value[index1];
+  modelB.value = availableModels.value[index2];
 };
 
 // Handle user vote
