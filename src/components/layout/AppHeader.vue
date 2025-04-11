@@ -16,15 +16,13 @@ const toggleMobileMenu = () => {
       <div class="flex justify-between items-center">
         <!-- Logo and Title -->
         <div class="flex items-center space-x-2">
-          <div class="text-mint-600 dark:text-mint-400 transition-all duration-300 transform hover:scale-110 hover:rotate-3">
-            <!-- Icon could be added here -->
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-            </svg>
+          <div class="transition-all duration-300 transform hover:scale-110 hover:rotate-3">
+            <!-- Logo image -->
+            <img src="/images/logos/profileimage-transparent.png" alt="computerK Transparent Logo" class="h-10 w-10" />
           </div>
           <div>
             <h1 class="text-heading-3 truncate">Windsurf Model Comparison</h1>
-            <p class="text-caption hidden sm:block">LLM Model Leaderboards</p>
+            <p class="text-caption hidden sm:block">An LLM model leaderboard by computerK</p>
           </div>
         </div>
         

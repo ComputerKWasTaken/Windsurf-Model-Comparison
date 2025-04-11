@@ -228,18 +228,6 @@ export const useVoteStore = defineStore('votes', {
       this.setCookie(this.COOKIE_NAME, voteData, 365);
     },
 
-    /**
-     * Reset all votes (primarily for testing)
-     * NOTE: This only resets local votes, not votes in Supabase
-     */
-    resetVotes() {
-      this.userVotes = {};
-      this.saveToCookie();
-      // We'll regenerate a new browser ID to ensure future votes aren't affected
-      this.userBrowserId = '';
-      localStorage.removeItem('windsurf_browser_id');
-      this.generateBrowserId();
-    },
 
     // Helper to get cookie
     getCookie(name: string): string | null {

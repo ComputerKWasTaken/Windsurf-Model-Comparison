@@ -196,10 +196,7 @@ onMounted(() => {
         <div class="text-subtitle mb-4">
           You've voted on all available models in this category.
         </div>
-        <p class="text-body mb-4">Try selecting a different category.</p>
-        <button @click="voteStore.resetVotes()" class="btn-secondary transform transition-all duration-300 hover:scale-105 hover:shadow-md active:scale-95 focus:outline-none focus:ring-2 focus:ring-mint-500 focus:ring-opacity-50">
-          Reset Votes (For Testing)
-        </button>
+        <p class="text-body mb-4">Please vote on a different category.</p>
       </div>
     </div>
   </div>
