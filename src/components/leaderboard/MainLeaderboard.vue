@@ -42,7 +42,8 @@ const changeSortField = (field: string) => {
     toggleSortDirection();
   } else {
     sortBy.value = field;
-    sortDirection.value = 'desc'; // Default to descending for new field
+    // Apply default sort direction based on the field
+    sortDirection.value = field === 'costCredits' ? 'asc' : 'desc';
     modelStore.updateSort(field, sortDirection.value);
   }
 };

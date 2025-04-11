@@ -26,6 +26,7 @@ export const useModelStore = defineStore('models', {
       }
       
       return [...state.models].sort((a, b) => {
+        // First, determine the primary values to compare based on sortBy
         const aValue = state.sortBy === 'overall' 
           ? a.ratings[state.sortBy as keyof typeof a.ratings]
           : state.sortBy === 'costCredits' 
@@ -46,7 +47,31 @@ export const useModelStore = defineStore('models', {
                 ? b.speed
                 : b.ratings[state.sortBy as keyof typeof b.ratings];
 
-        return state.sortDir === 'desc' ? bValue - aValue : aValue - bValue;
+        // Primary comparison based on sortBy and sortDir
+        const primaryCompare = state.sortDir === 'desc' ? bValue - aValue : aValue - bValue;
+        
+        // If primary values are equal, apply multi-level sorting
+        if (primaryCompare === 0) {
+          // When sorting by technical attributes, first use overall rating as tie-breaker
+          if (['costCredits', 'contextWindow', 'speed'].includes(state.sortBy)) {
+            const ratingCompare = b.ratings.overall - a.ratings.overall;
+            if (ratingCompare !== 0) return ratingCompare;
+          }
+          
+          // Then, apply standard tie-breakers in this order
+          // For cost credits, lower is better (ascending)
+          const costCompare = a.costCredits - b.costCredits;
+          if (costCompare !== 0) return costCompare;
+          
+          // For context window, higher is better (descending)
+          const contextCompare = b.contextWindow - a.contextWindow;
+          if (contextCompare !== 0) return contextCompare;
+          
+          // For speed, higher is better (descending)
+          return b.speed - a.speed;
+        }
+        
+        return primaryCompare;
       });
     },
 
@@ -58,9 +83,33 @@ export const useModelStore = defineStore('models', {
         }
         
         return [...state.models].sort((a, b) => {
+          // Primary sort by the specified category rating
           const aValue = a.ratings[category as keyof typeof a.ratings];
           const bValue = b.ratings[category as keyof typeof b.ratings];
-          return bValue - aValue; // Default sort is descending
+          const primaryCompare = bValue - aValue; // Default sort is descending
+          
+          // If primary values are equal, apply multi-level sorting
+          if (primaryCompare === 0) {
+            // When category is not 'overall', use overall rating as the first tie-breaker
+            if (category !== 'overall') {
+              const ratingCompare = b.ratings.overall - a.ratings.overall;
+              if (ratingCompare !== 0) return ratingCompare;
+            }
+            
+            // Then apply standard tie-breakers
+            // For cost credits, lower is better (ascending)
+            const costCompare = a.costCredits - b.costCredits;
+            if (costCompare !== 0) return costCompare;
+            
+            // For context window, higher is better (descending)
+            const contextCompare = b.contextWindow - a.contextWindow;
+            if (contextCompare !== 0) return contextCompare;
+            
+            // For speed, higher is better (descending)
+            return b.speed - a.speed;
+          }
+          
+          return primaryCompare;
         });
       };
     },
@@ -207,17 +256,22 @@ export const useModelStore = defineStore('models', {
       }
     },
 
-    updateSort(sortBy: string, sortDir: 'asc' | 'desc' = 'desc') {
+    updateSort(sortBy: string, sortDir?: 'asc' | 'desc') {
       this.sortBy = sortBy;
-      this.sortDir = sortDir;
+      
+      // Set default sort direction based on the metric if not explicitly provided
+      if (sortDir === undefined) {
+        // Cost should be ascending (lower is better), everything else descending
+        this.sortDir = sortBy === 'costCredits' ? 'asc' : 'desc';
+      } else {
+        this.sortDir = sortDir;
+      }
     },
 
     setSelectedCategory(category: Category | 'overall') {
       this.selectedCategory = category;
-      // Update sort to use the new category
-      this.sortBy = category;
-      // Keep the current sort direction when changing categories
-      this.updateSort(category, this.sortDir as 'asc' | 'desc');
+      // Update sort to use the new category with appropriate default sort direction
+      this.updateSort(category);
     },
 
     /**
