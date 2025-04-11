@@ -33,7 +33,7 @@ const isActive = (routeName: string) => {
             <img src="/images/logos/profileimage-transparent.png" alt="computerK Transparent Logo" class="h-10 w-10" />
           </div>
           <div>
-            <h1 class="text-heading-3 truncate">Windsurf Model Comparison</h1>
+            <h1 class="text-heading-3">Windsurf Model Comparison</h1>
             <p class="text-caption hidden sm:block">An LLM model leaderboard by computerK</p>
           </div>
         </div>
