@@ -244,9 +244,11 @@ const formatNumber = (num: number): string => {
       <p class="text-body mb-4">
         Help improve the rankings by voting on model comparisons
       </p>
-      <button class="btn-primary transform transition-all duration-300 hover:scale-105 hover:shadow-lg active:scale-95 focus:outline-none focus:ring-4 focus:ring-mint-500 focus:ring-opacity-50">
-        Vote Now
-      </button>
+      <router-link to="/vote" class="inline-block">
+        <button class="btn-primary transform transition-all duration-300 hover:scale-105 hover:shadow-lg active:scale-95 focus:outline-none focus:ring-4 focus:ring-mint-500 focus:ring-opacity-50">
+          Vote Now
+        </button>
+      </router-link>
     </div>
   </div>
 </template>

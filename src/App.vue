@@ -3,10 +3,6 @@ import { onMounted, ref } from 'vue';
 import { useModelStore } from './stores/modelStore';
 import { useVoteStore } from './stores/voteStore';
 // @ts-ignore - Vue SFC imports
-import MainLeaderboard from './components/leaderboard/MainLeaderboard.vue';
-// @ts-ignore - Vue SFC imports
-import ModelComparer from './components/leaderboard/ModelComparer.vue';
-// @ts-ignore - Vue SFC imports
 import AppHeader from './components/layout/AppHeader.vue';
 // @ts-ignore - Vue SFC imports
 import AppFooter from './components/layout/AppFooter.vue';
@@ -53,10 +49,6 @@ onMounted(() => {
     
     <!-- Main Content -->
     <main class="flex-grow container mx-auto px-3 sm:px-4 py-4 sm:py-8">
-      <h1 class="text-heading-1 text-center mb-4 sm:mb-8">
-        Windsurf Model Comparison
-      </h1>
-      
       <!-- Loading state -->
       <div v-if="loading" class="flex flex-col justify-center items-center py-12 space-y-6">
         <div class="relative">
@@ -76,11 +68,8 @@ onMounted(() => {
         <p class="text-caption mt-2">Using local data as fallback.</p>
       </div>
       
-      <!-- Main content -->
-      <div v-else class="max-w-6xl mx-auto space-y-4 sm:space-y-8 animate-slide-up">
-        <MainLeaderboard />
-        <ModelComparer />
-      </div>
+      <!-- Main content - Router View -->
+      <router-view v-else />
     </main>
     
     <!-- Footer -->

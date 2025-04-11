@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useRoute } from 'vue-router';
+
+// Get current route
+const route = useRoute();
 
 // Mobile menu state
 const mobileMenuOpen = ref(false);
@@ -7,6 +11,14 @@ const mobileMenuOpen = ref(false);
 // Toggle mobile menu
 const toggleMobileMenu = () => {
   mobileMenuOpen.value = !mobileMenuOpen.value;
+};
+
+// Check if route is active
+const isActive = (routeName: string) => {
+  if (routeName === 'MainLeaderboard') {
+    return route.path === '/' || route.path.startsWith('/?');
+  }
+  return route.name === routeName;
 };
 </script>
 
@@ -28,22 +40,51 @@ const toggleMobileMenu = () => {
         
         <!-- Desktop Navigation -->
         <nav class="hidden md:flex space-x-6">
-          <a href="#" class="text-body hover:text-mint-600 dark:hover:text-mint-400 transition-all duration-300 relative group">
+          <router-link 
+            to="/" 
+            class="text-body hover:text-mint-600 dark:hover:text-mint-400 transition-all duration-300 relative group"
+            :class="{ 'text-mint-600 dark:text-mint-400 font-medium': isActive('MainLeaderboard') }"
+          >
             Main Leaderboard
-            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-mint-500 transition-all duration-300 group-hover:w-full"></span>
-          </a>
-          <a href="#" class="text-body hover:text-mint-600 dark:hover:text-mint-400 transition-all duration-300 relative group">
+            <span class="absolute bottom-0 left-0 h-0.5 bg-mint-500 transition-all duration-300" 
+                  :class="isActive('MainLeaderboard') ? 'w-full' : 'w-0 group-hover:w-full'"></span>
+          </router-link>
+          <router-link 
+            to="/categories" 
+            class="text-body hover:text-mint-600 dark:hover:text-mint-400 transition-all duration-300 relative group"
+            :class="{ 'text-mint-600 dark:text-mint-400 font-medium': isActive('Categories') }"
+          >
             Categories
-            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-mint-500 transition-all duration-300 group-hover:w-full"></span>
-          </a>
-          <a href="#" class="text-body hover:text-mint-600 dark:hover:text-mint-400 transition-all duration-300 relative group">
+            <span class="absolute bottom-0 left-0 h-0.5 bg-mint-500 transition-all duration-300" 
+                  :class="isActive('Categories') ? 'w-full' : 'w-0 group-hover:w-full'"></span>
+          </router-link>
+          <router-link 
+            to="/compare" 
+            class="text-body hover:text-mint-600 dark:hover:text-mint-400 transition-all duration-300 relative group"
+            :class="{ 'text-mint-600 dark:text-mint-400 font-medium': isActive('CompareModels') }"
+          >
             Compare Models
-            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-mint-500 transition-all duration-300 group-hover:w-full"></span>
-          </a>
-          <a href="#" class="text-body hover:text-mint-600 dark:hover:text-mint-400 transition-all duration-300 relative group">
+            <span class="absolute bottom-0 left-0 h-0.5 bg-mint-500 transition-all duration-300" 
+                  :class="isActive('CompareModels') ? 'w-full' : 'w-0 group-hover:w-full'"></span>
+          </router-link>
+          <router-link 
+            to="/vote" 
+            class="text-body hover:text-mint-600 dark:hover:text-mint-400 transition-all duration-300 relative group"
+            :class="{ 'text-mint-600 dark:text-mint-400 font-medium': isActive('ModelVoting') }"
+          >
+            Vote Now
+            <span class="absolute bottom-0 left-0 h-0.5 bg-mint-500 transition-all duration-300" 
+                  :class="isActive('ModelVoting') ? 'w-full' : 'w-0 group-hover:w-full'"></span>
+          </router-link>
+          <router-link 
+            to="/about" 
+            class="text-body hover:text-mint-600 dark:hover:text-mint-400 transition-all duration-300 relative group"
+            :class="{ 'text-mint-600 dark:text-mint-400 font-medium': isActive('About') }"
+          >
             About
-            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-mint-500 transition-all duration-300 group-hover:w-full"></span>
-          </a>
+            <span class="absolute bottom-0 left-0 h-0.5 bg-mint-500 transition-all duration-300" 
+                  :class="isActive('About') ? 'w-full' : 'w-0 group-hover:w-full'"></span>
+          </router-link>
         </nav>
 
         <!-- Mobile menu button -->
@@ -61,18 +102,46 @@ const toggleMobileMenu = () => {
       <!-- Mobile Navigation Menu -->
       <div v-if="mobileMenuOpen" class="md:hidden mt-4 pt-4 border-t border-mint-200 dark:border-dark-mint-700 animate-fade-in transition-all duration-500 transform origin-top">
         <div class="flex flex-col space-y-4">
-          <a href="#" class="text-body py-2 hover:text-mint-600 dark:hover:text-mint-400 transition-all duration-300 transform hover:translate-x-1 hover:font-medium">
+          <router-link 
+            to="/" 
+            class="text-body py-2 hover:text-mint-600 dark:hover:text-mint-400 transition-all duration-300 transform hover:translate-x-1"
+            :class="{ 'text-mint-600 dark:text-mint-400 font-medium translate-x-1': isActive('MainLeaderboard') }"
+            @click="mobileMenuOpen = false"
+          >
             Main Leaderboard
-          </a>
-          <a href="#" class="text-body py-2 hover:text-mint-600 dark:hover:text-mint-400 transition-all duration-300 transform hover:translate-x-1 hover:font-medium">
+          </router-link>
+          <router-link 
+            to="/categories" 
+            class="text-body py-2 hover:text-mint-600 dark:hover:text-mint-400 transition-all duration-300 transform hover:translate-x-1"
+            :class="{ 'text-mint-600 dark:text-mint-400 font-medium translate-x-1': isActive('Categories') }"
+            @click="mobileMenuOpen = false"
+          >
             Categories
-          </a>
-          <a href="#" class="text-body py-2 hover:text-mint-600 dark:hover:text-mint-400 transition-all duration-300 transform hover:translate-x-1 hover:font-medium">
+          </router-link>
+          <router-link 
+            to="/compare" 
+            class="text-body py-2 hover:text-mint-600 dark:hover:text-mint-400 transition-all duration-300 transform hover:translate-x-1"
+            :class="{ 'text-mint-600 dark:text-mint-400 font-medium translate-x-1': isActive('CompareModels') }"
+            @click="mobileMenuOpen = false"
+          >
             Compare Models
-          </a>
-          <a href="#" class="text-body py-2 hover:text-mint-600 dark:hover:text-mint-400 transition-all duration-300 transform hover:translate-x-1 hover:font-medium">
+          </router-link>
+          <router-link 
+            to="/vote" 
+            class="text-body py-2 hover:text-mint-600 dark:hover:text-mint-400 transition-all duration-300 transform hover:translate-x-1"
+            :class="{ 'text-mint-600 dark:text-mint-400 font-medium translate-x-1': isActive('ModelVoting') }"
+            @click="mobileMenuOpen = false"
+          >
+            Vote Now
+          </router-link>
+          <router-link 
+            to="/about" 
+            class="text-body py-2 hover:text-mint-600 dark:hover:text-mint-400 transition-all duration-300 transform hover:translate-x-1"
+            :class="{ 'text-mint-600 dark:text-mint-400 font-medium translate-x-1': isActive('About') }"
+            @click="mobileMenuOpen = false"
+          >
             About
-          </a>
+          </router-link>
         </div>
       </div>
     </div>

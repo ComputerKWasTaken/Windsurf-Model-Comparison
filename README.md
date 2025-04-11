@@ -21,6 +21,11 @@ assessment of each model's capabilities.
   - Debugging: Proficiency in identifying and resolving code issues
   - Refactoring: Skill in improving code quality without changing functionality
   - Explaining: Ability to clearly explain code and concepts
+- **Model Comparison**: Direct side-by-side comparison of up to three models
+  with:
+  - Visual performance rating bars for each category
+  - Detailed technical specifications comparison
+  - Color-coded visualization for easy differentiation
 - **Model Details**: Comprehensive information about each model including:
   - Provider company
   - Cost (in credits)
@@ -29,7 +34,7 @@ assessment of each model's capabilities.
 - **Sorting Capabilities**: Sort leaderboards by specific categories or model
   characteristics
 - **Voting System**: Cookie-based system allowing users to vote once per
-  model/category
+  model/category with a dedicated voting interface
 
 ## 🛠️ Technology Stack
 
@@ -52,13 +57,19 @@ windsurf-model-comparison/
 │   ├── assets/                 # Project assets (images, fonts)
 │   ├── components/             # Vue components
 │   │   ├── common/             # Shared/reusable components
-│   │   ├── layout/             # Layout components
+│   │   ├── layout/             # Layout components (includes AppHeader with navigation)
 │   │   └── leaderboard/        # Leaderboard-specific components
 │   ├── composables/            # Vue composables for reusable logic
 │   ├── config/                 # Configuration files
 │   │   └── models.json         # Model information data
 │   ├── pages/                  # Page components
+│   │   ├── AboutPage.vue       # Information about the application
+│   │   ├── CategoriesPage.vue  # List of category leaderboards
+│   │   ├── CompareModelsPage.vue # Side-by-side model comparison
+│   │   ├── ModelVotingPage.vue # Interface for voting on model pairs
+│   │   └── MainLeaderboardPage.vue # Overall model rankings
 │   ├── router/                 # Vue Router configuration
+│   │   └── index.ts            # Route definitions and navigation setup
 │   ├── services/               # Service layer for API interactions
 │   │   └── supabaseService.ts  # Supabase client and database methods
 │   ├── stores/                 # Pinia stores for state management
@@ -67,9 +78,11 @@ windsurf-model-comparison/
 │   ├── types/                  # TypeScript type definitions
 │   │   └── model.ts            # Type definitions for models and votes
 │   ├── utils/                  # Utility functions
-│   ├── App.vue                 # Root component
-│   ├── main.ts                 # Application entry point
-│   └── style.css               # Global styles
+│   │   ├── App.vue             # Root component
+│   │   ├── main.ts             # Application entry point
+│   │   ├── shims-vue.d.ts      # Vue type definitions
+│   │   └── style.css           # Global styles
+│   │   └── vite-env.d.ts       # Vite environment variables
 ├── .env                        # Environment variables (Supabase credentials)
 ├── .eslintrc.js                # ESLint configuration
 ├── .gitignore                  # Git ignore file
@@ -81,13 +94,15 @@ windsurf-model-comparison/
 ├── supabase-init-schema.sql    # Initial SQL schema for Supabase database setup
 ├── supabase-secure-schema.sql  # Security-focused SQL schema with rate limiting
 ├── tailwind.config.js          # Tailwind CSS configuration
+├── vite.config.ts            # Vite configuration
+├── tailwind.config.js          # Tailwind CSS configuration
 ├── tsconfig.json               # TypeScript configuration
 └── vite.config.ts              # Vite configuration
 ```
 
 ## 🧮 ELO Rating System
 
-The application will use an adapted ELO rating system to rank models:
+The application uses an adapted ELO rating system to rank models:
 
 1. Each model starts with a base rating of 1200 in each category
 2. When users vote on models:
@@ -97,11 +112,40 @@ The application will use an adapted ELO rating system to rank models:
      actual outcomes
    - The K-factor (maximum rating change) will be tuned based on vote volume
 
+## 📊 Model Comparison & Voting
+
+The application features two complementary tools for model evaluation:
+
+### Model Comparison Tool
+
+Allows users to:
+
+1. Select up to three different models to compare side-by-side
+2. View detailed technical specifications including:
+   - Cost in credits
+   - Context window size
+   - Processing speed
+   - Total number of votes received
+3. Compare performance ratings across all categories with visual progress bars
+4. Easily identify strengths and weaknesses of each model with color-coded
+   indicators
+5. Clear selections and make new comparisons as needed
+
+### Model Voting Interface
+
+Enables users to:
+
+1. Vote between pairs of models in specific performance categories
+2. Select from five specialized categories to focus voting
+3. View model specifications while making voting decisions
+4. Contribute to the community-driven ELO rating system
+5. Access directly from the main leaderboard via the "Vote Now" button
+
 ## 🔧 Development Setup
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/windsurf-model-comparison.git
+   git clone https://github.com/ComputerKWasTaken/Windsurf-Model-Comparison.git
    cd windsurf-model-comparison
    ```
 
