@@ -75,17 +75,17 @@ onMounted(() => {
   <div class="bg-white dark:bg-dark-mint-800 rounded-lg shadow-md overflow-hidden border border-mint-200 dark:border-dark-mint-700 transition-colors duration-300">
     <!-- Comparison Header -->
     <div class="p-6 bg-mint-100 dark:bg-dark-mint-700 transition-colors duration-300">
-      <h2 class="text-2xl font-bold text-evergreen-800 dark:text-mint-200 font-display transition-colors duration-300">
+      <h2 class="text-heading-2">
         Compare & Vote
       </h2>
-      <p class="text-evergreen-600 dark:text-mint-400 mt-1 transition-colors duration-300">
+      <p class="text-subtitle mt-1">
         Which model performs better in the selected category?
       </p>
     </div>
 
     <!-- Category Selection -->
     <div class="px-4 sm:px-6 py-4 bg-white dark:bg-dark-mint-800 border-b border-mint-200 dark:border-dark-mint-700 transition-colors duration-300">
-      <label class="block text-sm font-medium text-evergreen-700 dark:text-mint-300 mb-2 transition-colors duration-300">
+      <label class="block text-body-small font-medium mb-2">
         Select Category:
       </label>
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 sm:gap-3">
@@ -122,27 +122,27 @@ onMounted(() => {
               <img v-else :src="modelA.logoUrl" alt="" class="h-12 w-12 md:h-16 md:w-16 rounded-full">
             </div>
             <div>
-              <h3 class="text-lg md:text-xl font-bold text-evergreen-800 dark:text-mint-200 transition-colors duration-300">{{ modelA.name }}</h3>
-              <p class="text-xs md:text-sm text-evergreen-600 dark:text-mint-400 transition-colors duration-300">{{ modelA.company }}</p>
+              <h3 class="text-heading-4">{{ modelA.name }}</h3>
+              <p class="text-caption">{{ modelA.company }}</p>
             </div>
           </div>
           
           <div class="space-y-2 sm:space-y-3">
             <div class="flex justify-between text-xs sm:text-sm">
-              <span class="text-evergreen-500 dark:text-mint-400 transition-colors duration-300">Cost:</span>
-              <span class="font-medium text-evergreen-800 dark:text-mint-200 transition-colors duration-300">{{ modelA.costCredits }} credits</span>
+              <span class="text-caption">Cost:</span>
+              <span class="text-body-small font-medium">{{ modelA.costCredits }} credits</span>
             </div>
             <div class="flex justify-between text-xs sm:text-sm">
-              <span class="text-evergreen-500 dark:text-mint-400 transition-colors duration-300">Context Window:</span>
-              <span class="font-medium text-evergreen-800 dark:text-mint-200 transition-colors duration-300">{{ modelA.contextWindow.toLocaleString() }} tokens</span>
+              <span class="text-caption">Context Window:</span>
+              <span class="text-body-small font-medium">{{ modelA.contextWindow.toLocaleString() }} tokens</span>
             </div>
             <div class="flex justify-between text-xs sm:text-sm">
-              <span class="text-evergreen-500 dark:text-mint-400 transition-colors duration-300">Speed:</span>
-              <span class="font-medium text-evergreen-800 dark:text-mint-200 transition-colors duration-300">{{ modelA.speed }} tokens/sec</span>
+              <span class="text-caption">Speed:</span>
+              <span class="text-body-small font-medium">{{ modelA.speed }} tokens/sec</span>
             </div>
             <div class="flex justify-between text-xs sm:text-sm">
-              <span class="text-evergreen-500 dark:text-mint-400 transition-colors duration-300">Current Rating:</span>
-              <span class="font-semibold text-mint-600 dark:text-mint-400 transition-colors duration-300">{{ modelA.ratings[selectedCategory] }}</span>
+              <span class="text-caption">Current Rating:</span>
+              <span class="text-body-small font-semibold text-mint-600 dark:text-mint-400">{{ modelA.ratings[selectedCategory] }}</span>
             </div>
           </div>
           
@@ -161,27 +161,27 @@ onMounted(() => {
               <img v-else :src="modelB.logoUrl" alt="" class="h-12 w-12 md:h-16 md:w-16 rounded-full">
             </div>
             <div>
-              <h3 class="text-lg md:text-xl font-bold text-gray-900 dark:text-white">{{ modelB.name }}</h3>
-              <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">{{ modelB.company }}</p>
+              <h3 class="text-heading-4">{{ modelB.name }}</h3>
+              <p class="text-caption">{{ modelB.company }}</p>
             </div>
           </div>
           
           <div class="space-y-2 sm:space-y-3">
             <div class="flex justify-between text-xs sm:text-sm">
-              <span class="text-gray-500 dark:text-gray-400">Cost:</span>
-              <span class="font-medium text-gray-900 dark:text-white">{{ modelB.costCredits }} credits</span>
+              <span class="text-caption">Cost:</span>
+              <span class="text-body-small font-medium">{{ modelB.costCredits }} credits</span>
             </div>
             <div class="flex justify-between text-xs sm:text-sm">
-              <span class="text-gray-500 dark:text-gray-400">Context Window:</span>
-              <span class="font-medium text-gray-900 dark:text-white">{{ modelB.contextWindow.toLocaleString() }} tokens</span>
+              <span class="text-caption">Context Window:</span>
+              <span class="text-body-small font-medium">{{ modelB.contextWindow.toLocaleString() }} tokens</span>
             </div>
             <div class="flex justify-between text-xs sm:text-sm">
-              <span class="text-gray-500 dark:text-gray-400">Speed:</span>
-              <span class="font-medium text-gray-900 dark:text-white">{{ modelB.speed }} tokens/sec</span>
+              <span class="text-caption">Speed:</span>
+              <span class="text-body-small font-medium">{{ modelB.speed }} tokens/sec</span>
             </div>
             <div class="flex justify-between text-xs sm:text-sm">
-              <span class="text-gray-500 dark:text-gray-400">Current Rating:</span>
-              <span class="font-semibold text-blue-600 dark:text-blue-400">{{ modelB.ratings[selectedCategory] }}</span>
+              <span class="text-caption">Current Rating:</span>
+              <span class="text-body-small font-semibold text-mint-600 dark:text-mint-400">{{ modelB.ratings[selectedCategory] }}</span>
             </div>
           </div>
           
@@ -193,10 +193,10 @@ onMounted(() => {
       
       <!-- No more models to compare in this category -->
       <div v-else class="text-center py-8 animate-fade-in">
-        <div class="text-evergreen-500 dark:text-mint-400 mb-4 transition-colors duration-300">
+        <div class="text-subtitle mb-4">
           You've voted on all available models in this category.
         </div>
-        <p class="mb-4 text-evergreen-700 dark:text-mint-300 transition-colors duration-300">Try selecting a different category.</p>
+        <p class="text-body mb-4">Try selecting a different category.</p>
         <button @click="voteStore.resetVotes()" class="btn-secondary">
           Reset Votes (For Testing)
         </button>

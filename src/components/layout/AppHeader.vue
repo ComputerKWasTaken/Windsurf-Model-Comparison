@@ -23,23 +23,23 @@ const toggleMobileMenu = () => {
             </svg>
           </div>
           <div>
-            <h1 class="text-xl font-bold text-evergreen-800 dark:text-mint-200 truncate font-display transition-colors duration-300">Windsurf Model Comparison</h1>
-            <p class="text-sm text-evergreen-600 dark:text-mint-400 hidden sm:block transition-colors duration-300">LLM Model Leaderboards</p>
+            <h1 class="text-heading-3 truncate">Windsurf Model Comparison</h1>
+            <p class="text-caption hidden sm:block">LLM Model Leaderboards</p>
           </div>
         </div>
         
         <!-- Desktop Navigation -->
         <nav class="hidden md:flex space-x-6">
-          <a href="#" class="text-evergreen-700 dark:text-mint-300 hover:text-mint-600 dark:hover:text-mint-400 transition-colors duration-300">
+          <a href="#" class="text-body hover:text-mint-600 dark:hover:text-mint-400 transition-colors duration-300">
             Main Leaderboard
           </a>
-          <a href="#" class="text-evergreen-700 dark:text-mint-300 hover:text-mint-600 dark:hover:text-mint-400 transition-colors duration-300">
+          <a href="#" class="text-body hover:text-mint-600 dark:hover:text-mint-400 transition-colors duration-300">
             Categories
           </a>
-          <a href="#" class="text-evergreen-700 dark:text-mint-300 hover:text-mint-600 dark:hover:text-mint-400 transition-colors duration-300">
+          <a href="#" class="text-body hover:text-mint-600 dark:hover:text-mint-400 transition-colors duration-300">
             Compare Models
           </a>
-          <a href="#" class="text-evergreen-700 dark:text-mint-300 hover:text-mint-600 dark:hover:text-mint-400 transition-colors duration-300">
+          <a href="#" class="text-body hover:text-mint-600 dark:hover:text-mint-400 transition-colors duration-300">
             About
           </a>
         </nav>
@@ -59,16 +59,16 @@ const toggleMobileMenu = () => {
       <!-- Mobile Navigation Menu -->
       <div v-if="mobileMenuOpen" class="md:hidden mt-4 pt-4 border-t border-mint-200 dark:border-dark-mint-700 animate-fade-in">
         <div class="flex flex-col space-y-4">
-          <a href="#" class="text-evergreen-700 dark:text-mint-300 hover:text-mint-600 dark:hover:text-mint-400 py-2 transition-colors duration-300">
+          <a href="#" class="text-body py-2 hover:text-mint-600 dark:hover:text-mint-400 transition-colors duration-300">
             Main Leaderboard
           </a>
-          <a href="#" class="text-evergreen-700 dark:text-mint-300 hover:text-mint-600 dark:hover:text-mint-400 py-2 transition-colors duration-300">
+          <a href="#" class="text-body py-2 hover:text-mint-600 dark:hover:text-mint-400 transition-colors duration-300">
             Categories
           </a>
-          <a href="#" class="text-evergreen-700 dark:text-mint-300 hover:text-mint-600 dark:hover:text-mint-400 py-2 transition-colors duration-300">
+          <a href="#" class="text-body py-2 hover:text-mint-600 dark:hover:text-mint-400 transition-colors duration-300">
             Compare Models
           </a>
-          <a href="#" class="text-evergreen-700 dark:text-mint-300 hover:text-mint-600 dark:hover:text-mint-400 py-2 transition-colors duration-300">
+          <a href="#" class="text-body py-2 hover:text-mint-600 dark:hover:text-mint-400 transition-colors duration-300">
             About
           </a>
         </div>

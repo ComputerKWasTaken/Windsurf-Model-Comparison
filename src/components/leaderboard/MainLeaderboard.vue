@@ -65,10 +65,10 @@ const formatNumber = (num: number): string => {
   <div class="bg-white dark:bg-dark-mint-800 rounded-lg shadow-md overflow-hidden border border-mint-200 dark:border-dark-mint-700 transition-colors duration-300">
     <!-- Leaderboard Header -->
     <div class="p-6 bg-mint-100 dark:bg-dark-mint-700 transition-colors duration-300">
-      <h2 class="text-2xl font-bold text-evergreen-800 dark:text-mint-200 font-display transition-colors duration-300">
+      <h2 class="text-heading-2">
         {{ categories.find(c => c.id === selectedCategory)?.name }} Leaderboard
       </h2>
-      <p class="text-evergreen-600 dark:text-mint-400 mt-1 transition-colors duration-300">
+      <p class="text-subtitle mt-1">
         Rankings based on community evaluations of LLM capabilities
       </p>
     </div>
@@ -113,7 +113,7 @@ const formatNumber = (num: number): string => {
         </button>
       </div>
       
-      <div class="text-sm text-evergreen-600 dark:text-mint-400 transition-colors duration-300">
+      <div class="text-body-small">
         {{ displayedModels.length }} models
       </div>
     </div>
@@ -124,20 +124,20 @@ const formatNumber = (num: number): string => {
       <table class="min-w-full divide-y divide-mint-200 dark:divide-dark-mint-700 hidden md:table transition-colors duration-300">
         <thead class="bg-mint-50 dark:bg-dark-mint-900 transition-colors duration-300">
           <tr>
-            <th class="px-6 py-3 text-left text-xs font-medium text-evergreen-500 dark:text-mint-400 uppercase tracking-wider transition-colors duration-300">Rank</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-evergreen-500 dark:text-mint-400 uppercase tracking-wider transition-colors duration-300">Model</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-evergreen-500 dark:text-mint-400 uppercase tracking-wider transition-colors duration-300">Company</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-evergreen-500 dark:text-mint-400 uppercase tracking-wider transition-colors duration-300">Rating</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-evergreen-500 dark:text-mint-400 uppercase tracking-wider transition-colors duration-300">Cost</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-evergreen-500 dark:text-mint-400 uppercase tracking-wider transition-colors duration-300">Context</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-evergreen-500 dark:text-mint-400 uppercase tracking-wider transition-colors duration-300">Speed</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-evergreen-500 dark:text-mint-400 uppercase tracking-wider transition-colors duration-300">Votes</th>
+            <th class="px-6 py-3 text-left text-caption uppercase tracking-wider">Rank</th>
+            <th class="px-6 py-3 text-left text-caption uppercase tracking-wider">Model</th>
+            <th class="px-6 py-3 text-left text-caption uppercase tracking-wider">Company</th>
+            <th class="px-6 py-3 text-left text-caption uppercase tracking-wider">Rating</th>
+            <th class="px-6 py-3 text-left text-caption uppercase tracking-wider">Cost</th>
+            <th class="px-6 py-3 text-left text-caption uppercase tracking-wider">Context</th>
+            <th class="px-6 py-3 text-left text-caption uppercase tracking-wider">Speed</th>
+            <th class="px-6 py-3 text-left text-caption uppercase tracking-wider">Votes</th>
           </tr>
         </thead>
         <tbody class="divide-y divide-mint-200 dark:divide-dark-mint-700 transition-colors duration-300">
           <tr v-for="(model, index) in displayedModels" :key="model.id" class="hover:bg-mint-50 dark:hover:bg-dark-mint-900 transition-colors duration-300">
             <td class="px-6 py-4 whitespace-nowrap">
-              <div class="text-lg font-semibold text-evergreen-800 dark:text-mint-200 transition-colors duration-300">{{ index + 1 }}</div>
+              <div class="text-heading-4">{{ index + 1 }}</div>
             </td>
             <td class="px-6 py-4 whitespace-nowrap">
               <div class="flex items-center">
@@ -153,7 +153,7 @@ const formatNumber = (num: number): string => {
               </div>
             </td>
             <td class="px-6 py-4 whitespace-nowrap">
-              <div class="text-sm text-evergreen-800 dark:text-mint-200 transition-colors duration-300">{{ model.company }}</div>
+              <div class="text-body">{{ model.company }}</div>
             </td>
             <td class="px-6 py-4 whitespace-nowrap">
               <div class="text-sm font-semibold" :class="index < 3 ? 'text-mint-600 dark:text-mint-400' : 'text-evergreen-800 dark:text-mint-200'">
@@ -241,7 +241,7 @@ const formatNumber = (num: number): string => {
     
     <!-- Call-to-action for voting -->
     <div class="p-6 bg-mint-50 dark:bg-dark-mint-900 text-center transition-colors duration-300">
-      <p class="text-evergreen-700 dark:text-mint-300 mb-4 transition-colors duration-300">
+      <p class="text-body mb-4">
         Help improve the rankings by voting on model comparisons
       </p>
       <button class="btn-primary">

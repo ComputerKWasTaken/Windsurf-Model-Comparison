@@ -53,21 +53,21 @@ onMounted(() => {
     
     <!-- Main Content -->
     <main class="flex-grow container mx-auto px-3 sm:px-4 py-4 sm:py-8">
-      <h1 class="text-2xl sm:text-3xl font-bold text-center mb-4 sm:mb-8 text-evergreen-800 dark:text-mint-200 font-display">
+      <h1 class="text-heading-1 text-center mb-4 sm:mb-8">
         Windsurf Model Comparison
       </h1>
       
       <!-- Loading state -->
       <div v-if="loading" class="flex justify-center items-center py-12">
         <div class="animate-spin rounded-full h-10 w-10 sm:h-12 sm:w-12 border-t-2 border-b-2 border-mint-600 dark:border-mint-400"></div>
-        <p class="ml-3 text-sm sm:text-base text-evergreen-700 dark:text-mint-300 animate-pulse-subtle">Connecting to database...</p>
+        <p class="ml-3 text-body-small sm:text-body animate-pulse-subtle">Connecting to database...</p>
       </div>
       
       <!-- Error state -->
       <div v-else-if="error" class="bg-red-100 border-l-4 border-red-500 text-red-700 p-3 sm:p-4 mb-4 sm:mb-8 rounded text-sm sm:text-base animate-fade-in">
-        <p class="font-bold">Error</p>
-        <p>{{ error }}</p>
-        <p class="text-xs sm:text-sm mt-2">Using local data as fallback.</p>
+        <p class="text-heading-4">Error</p>
+        <p class="text-body">{{ error }}</p>
+        <p class="text-caption mt-2">Using local data as fallback.</p>
       </div>
       
       <!-- Main content -->

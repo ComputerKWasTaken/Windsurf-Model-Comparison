@@ -62,11 +62,50 @@
   --dark-evergreen-600: #2e4a3a;
 }
 
+/* Typography System */
+@layer components {
+  .text-heading-1 {
+    @apply font-heading text-4xl font-bold leading-tight tracking-tight text-evergreen-800 dark:text-mint-200 transition-colors duration-300;
+  }
+
+  .text-heading-2 {
+    @apply font-heading text-3xl font-semibold leading-tight tracking-tight text-evergreen-800 dark:text-mint-200 transition-colors duration-300;
+  }
+
+  .text-heading-3 {
+    @apply font-heading text-2xl font-semibold leading-tight text-evergreen-800 dark:text-mint-200 transition-colors duration-300;
+  }
+
+  .text-heading-4 {
+    @apply font-heading text-xl font-semibold leading-snug text-evergreen-800 dark:text-mint-200 transition-colors duration-300;
+  }
+
+  .text-subtitle {
+    @apply font-accent text-lg font-medium text-evergreen-600 dark:text-mint-400 transition-colors duration-300;
+  }
+
+  .text-body {
+    @apply font-body text-base leading-relaxed text-evergreen-700 dark:text-mint-300 transition-colors duration-300;
+  }
+
+  .text-body-small {
+    @apply font-body text-sm leading-relaxed text-evergreen-600 dark:text-mint-400 transition-colors duration-300;
+  }
+
+  .text-caption {
+    @apply font-body text-xs text-evergreen-500 dark:text-mint-500 transition-colors duration-300;
+  }
+
+  .text-mono {
+    @apply font-mono text-sm text-evergreen-700 dark:text-mint-300 transition-colors duration-300;
+  }
+}
+
 /* Custom styles that extend Tailwind */
 @layer base {
   body {
-    @apply bg-neutral-50 dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100;
-    @apply min-h-screen;
+    @apply bg-mint-50 dark:bg-dark-mint-900 text-evergreen-800 dark:text-mint-200 font-body;
+    @apply min-h-screen transition-colors duration-300;
   }
 }
 
@@ -76,15 +115,15 @@
   }
   
   .btn-primary {
-    @apply btn bg-mint-600 text-white hover:bg-mint-700 transition-all duration-300;
+    @apply btn bg-mint-600 text-white hover:bg-mint-700 font-accent font-medium transition-all duration-300;
   }
   
   .btn-secondary {
-    @apply btn bg-evergreen-200 text-evergreen-800 hover:bg-evergreen-300 transition-all duration-300;
+    @apply btn bg-evergreen-200 text-evergreen-800 hover:bg-evergreen-300 font-accent font-medium transition-all duration-300;
   }
   
   .card {
-    @apply bg-white dark:bg-neutral-800 rounded-lg shadow-md p-6 border border-mint-100 dark:border-dark-mint-700;
+    @apply bg-white dark:bg-dark-mint-800 rounded-lg shadow-md p-6 border border-mint-100 dark:border-dark-mint-700 transition-colors duration-300;
   }
   
   .badge {

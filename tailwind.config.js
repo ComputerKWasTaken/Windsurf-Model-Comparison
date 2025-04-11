@@ -9,6 +9,7 @@ export default {
       colors: {
         // Mint palette
         mint: {
+          50: '#f0faf7',
           100: '#e0f5ee',
           200: '#c1ebe0',
           300: '#a3e0d1',
@@ -55,6 +56,10 @@ export default {
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
         display: ['Montserrat', 'system-ui', 'sans-serif'],
+        heading: ['Poppins', 'Montserrat', 'system-ui', 'sans-serif'],
+        mono: ['JetBrains Mono', 'Consolas', 'monospace'],
+        accent: ['Quicksand', 'system-ui', 'sans-serif'],
+        body: ['Inter', 'Roboto', 'system-ui', 'sans-serif'],
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-in-out',
