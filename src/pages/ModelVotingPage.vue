@@ -59,6 +59,12 @@ const handleVote = (winningModelId: string, losingModelId: string) => {
   selectRandomModels();
 };
 
+// Handle skipping a vote
+const handleSkipVote = () => {
+  // Simply select new models to compare without recording a vote
+  selectRandomModels();
+};
+
 // Change category
 const changeCategory = (category: Category) => {
   selectedCategory.value = category;
@@ -88,7 +94,7 @@ onMounted(() => {
             Compare & Vote
           </h2>
           <p class="text-subtitle mt-1">
-            Which model performs better in the selected category?
+            Which model performs better in the selected category? You can also skip if you're unsure.
           </p>
         </div>
 
@@ -197,6 +203,19 @@ onMounted(() => {
                 Vote for {{ modelB.name }}
               </button>
             </div>
+          </div>
+          
+          <!-- Skip Vote Button -->
+          <div v-if="modelA && modelB" class="mt-6 text-center">
+            <button 
+              @click="handleSkipVote" 
+              class="px-6 py-2 bg-gray-200 dark:bg-dark-mint-700 text-gray-700 dark:text-mint-100 rounded-md hover:bg-gray-300 dark:hover:bg-dark-mint-600 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-mint-500 focus:ring-opacity-50"
+            >
+              Skip this vote (I'm not sure)
+            </button>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">
+              Not familiar with these models? Click to skip and get a new pair.
+            </p>
           </div>
           
           <!-- No more models to compare in this category -->
