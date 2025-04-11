@@ -1,10 +1,9 @@
 -- Security-focused schema for Supabase database
 -- Use this script AFTER initializing with supabase-init-schema.sql and loading initial data
+-- This can also be used to restore security after using supabase-update-schema.sql
 
--- Do note that after running this, new models cannot be automatically added for security purposes
--- If you intend on adding new models, make a backup or duplicate of the database
-
--- First, drop any existing policies
+-- First, drop ALL existing policies to avoid conflicts
+-- Drop admin policies from init schema
 DROP POLICY IF EXISTS "Admin can select models" ON models;
 DROP POLICY IF EXISTS "Admin can insert models" ON models;
 DROP POLICY IF EXISTS "Admin can update models" ON models;
@@ -13,6 +12,17 @@ DROP POLICY IF EXISTS "Admin can insert votes" ON votes;
 DROP POLICY IF EXISTS "Admin can select rate_limits" ON rate_limits;
 DROP POLICY IF EXISTS "Admin can insert rate_limits" ON rate_limits;
 DROP POLICY IF EXISTS "Admin can update rate_limits" ON rate_limits;
+
+-- Drop policies from update schema
+DROP POLICY IF EXISTS "Allow model insertion" ON models;
+DROP POLICY IF EXISTS "Allow model updates" ON models;
+
+-- Drop policies from this schema (in case it's being reapplied)
+DROP POLICY IF EXISTS "Models are viewable by everyone" ON models;
+DROP POLICY IF EXISTS "Restricted model updates" ON models;
+DROP POLICY IF EXISTS "Anyone can view votes" ON votes;
+DROP POLICY IF EXISTS "Validated vote insertion" ON votes;
+DROP POLICY IF EXISTS "Allow public access to rate_limits" ON rate_limits;
 
 -- Create restricted policies for normal operation
 

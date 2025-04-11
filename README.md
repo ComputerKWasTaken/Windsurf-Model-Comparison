@@ -92,6 +92,7 @@ windsurf-model-comparison/
 ├── postcss.config.js           # PostCSS configuration for Tailwind
 ├── README.md                   # Project documentation
 ├── supabase-init-schema.sql    # Initial SQL schema for Supabase database setup
+├── supabase-update-schema.sql  # SQL schema for temporary model updates
 ├── supabase-secure-schema.sql  # Security-focused SQL schema with rate limiting
 ├── tailwind.config.js          # Tailwind CSS configuration
 ├── vite.config.ts            # Vite configuration
