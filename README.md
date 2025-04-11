@@ -154,30 +154,6 @@ The application will use an adapted ELO rating system to rank models:
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## 🎨 Design Enhancement Tasks
-
-The following design tasks are planned to improve the visual appeal and user
-experience of the application:
-
-### Color Scheme
-
-- [x] Implement a pastel color palette throughout the application
-- [x] Create a consistent color theme for different categories
-- [x] Add color coding for model performance indicators
-
-### Typography
-
-- [x] Integrate a wider variety of fonts for different UI elements
-- [x] Establish a clear typographic hierarchy
-- [x] Ensure font consistency across different components
-
-### Animations & Interactions
-
-- [x] Add subtle animations for state transitions
-- [x] Implement loading animations
-- [x] Create interactive elements with hover/click effects
-- [ ] Add motion to leaderboard position changes
-
 ## 📄 License
 
 This project is licensed under the MIT License - see the LICENSE file for
