@@ -63,6 +63,35 @@ export const useModelStore = defineStore('models', {
           return bValue - aValue; // Default sort is descending
         });
       };
+    },
+
+    /**
+     * Calculate the percentile rank of a model for a specific category
+     * Returns a number from 0 to 100 representing the model's percentile
+     */
+    getModelPercentile: (state) => (modelId: string, category: Category | 'overall') => {
+      if (!Array.isArray(state.models) || state.models.length <= 1) {
+        return 100; // If only one model, it's in the 100th percentile
+      }
+
+      const model = state.models.find(m => m.id === modelId);
+      if (!model) return 0;
+
+      // Get the rating for this model in the specified category
+      const modelRating = model.ratings[category as keyof typeof model.ratings];
+      
+      // Count how many models have a rating less than or equal to this model
+      const modelsBelow = state.models.filter(m => 
+        m.ratings[category as keyof typeof m.ratings] <= modelRating
+      ).length;
+      
+      // Calculate percentile (models below divided by total models, times 100)
+      // Subtract 1 from modelsBelow to exclude the current model, unless it's the lowest
+      const totalModels = state.models.length;
+      const percentile = Math.round(((modelsBelow - 1) / (totalModels - 1)) * 100);
+      
+      // Ensure the percentile is between 0 and 100
+      return Math.max(0, Math.min(100, percentile));
     }
   },
 

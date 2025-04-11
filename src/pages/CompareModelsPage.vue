@@ -52,11 +52,20 @@ const getModelColor = (index: number) => {
   return colors[index % colors.length];
 };
 
-// Calculate the percentage of max rating (1200 is base, 2000 is a reasonable max)
-const calculatePercentage = (rating: number) => {
-  const min = 1200;
-  const max = 2000;
-  return Math.min(100, Math.max(0, ((rating - min) / (max - min)) * 100));
+// Calculate the percentile rank for a model in a specific category
+const getModelPercentile = (modelId: string, category: 'overall' | keyof Pick<Model['ratings'], 'agentic' | 'planning' | 'debugging' | 'refactoring' | 'explaining'>) => {
+  return modelStore.getModelPercentile(modelId, category);
+};
+
+// Get the ordinal suffix (st, nd, rd, th) for numbers
+const getOrdinalSuffix = (n: number) => {
+  if (n > 3 && n < 21) return 'th'; // 4th-20th
+  switch (n % 10) {
+    case 1: return 'st';
+    case 2: return 'nd';
+    case 3: return 'rd';
+    default: return 'th';
+  }
 };
 </script>
 
@@ -218,7 +227,8 @@ const calculatePercentage = (rating: number) => {
           </table>
           
           <!-- Performance Ratings Comparison -->
-          <h3 class="text-heading-3 mb-4">Performance Ratings</h3>
+          <h3 class="text-heading-3 mb-2">Performance Ratings</h3>
+          <p class="text-body-small mb-4">Bars show percentile rank compared to all models (wider bar = higher percentile)</p>
           
           <div class="space-y-6">
             <!-- Overall Rating -->
@@ -235,20 +245,19 @@ const calculatePercentage = (rating: number) => {
                       class="w-3 h-3 rounded-full mr-1"
                       :style="{ backgroundColor: getModelColor(index) }"
                     ></div>
-                    <span class="text-caption">{{ model.name }}: {{ model.ratings.overall }}</span>
+                    <span class="text-caption">{{ model.name }}: {{ model.ratings.overall }} ({{ getModelPercentile(model.id, 'overall') }}<sup>{{ getOrdinalSuffix(getModelPercentile(model.id, 'overall')) }}</sup> percentile)</span>
                   </div>
                 </div>
               </div>
-              <div class="relative h-8 bg-gray-200 dark:bg-dark-mint-700 rounded-full overflow-hidden">
+              <div class="relative bg-gray-200 dark:bg-dark-mint-700 rounded-lg overflow-hidden space-y-2 p-2">
                 <div 
                   v-for="(model, index) in selectedModels" 
                   :key="`${model.id}-overall-bar`"
-                  class="absolute top-0 h-full rounded-full transition-all duration-500"
+                  class="h-6 rounded-full transition-all duration-500 flex items-center"
                   :style="{ 
-                    width: `${calculatePercentage(model.ratings.overall)}%`, 
+                    width: `${getModelPercentile(model.id, 'overall')}%`, 
                     backgroundColor: getModelColor(index),
-                    opacity: 0.8,
-                    left: 0
+                    opacity: 0.9
                   }"
                 ></div>
               </div>
@@ -275,20 +284,19 @@ const calculatePercentage = (rating: number) => {
                       class="w-3 h-3 rounded-full mr-1"
                       :style="{ backgroundColor: getModelColor(index) }"
                     ></div>
-                    <span class="text-caption">{{ model.name }}: {{ model.ratings[category.id] }}</span>
+                    <span class="text-caption">{{ model.name }}: {{ model.ratings[category.id] }} ({{ getModelPercentile(model.id, category.id) }}<sup>{{ getOrdinalSuffix(getModelPercentile(model.id, category.id)) }}</sup> percentile)</span>
                   </div>
                 </div>
               </div>
-              <div class="relative h-8 bg-gray-200 dark:bg-dark-mint-700 rounded-full overflow-hidden">
+              <div class="relative bg-gray-200 dark:bg-dark-mint-700 rounded-lg overflow-hidden space-y-2 p-2">
                 <div 
                   v-for="(model, index) in selectedModels" 
                   :key="`${model.id}-${category.id}-bar`"
-                  class="absolute top-0 h-full rounded-full transition-all duration-500"
+                  class="h-6 rounded-full transition-all duration-500 flex items-center"
                   :style="{ 
-                    width: `${calculatePercentage(model.ratings[category.id])}%`, 
+                    width: `${getModelPercentile(model.id, category.id)}%`, 
                     backgroundColor: getModelColor(index),
-                    opacity: 0.8,
-                    left: 0
+                    opacity: 0.9
                   }"
                 ></div>
               </div>
