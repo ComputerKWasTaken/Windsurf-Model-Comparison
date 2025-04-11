@@ -20,6 +20,21 @@
       </section>
       
       <section class="mb-8">
+        <h2 class="text-heading-2 mb-4">Creator's Note</h2>
+        <p class="text-body mb-4">
+          I'm computerK, a web and game developer currently studying in Texas. As a Community Moderator for Windsurf, 
+          I recognized the need for a tool that helps users categorize and evaluate the various models available within 
+          the Windsurf IDE. With the introduction of the Deploy feature, I saw the perfect opportunity to create this 
+          web-based application that enables the Windsurf community to rank, benchmark, and identify the most effective 
+          models for specific tasks.
+        </p>
+        <div class="bg-mint-100 dark:bg-dark-mint-700 p-4 rounded-md mt-4">
+          <p class="text-sm font-medium">Disclaimer:</p>
+          <p class="text-sm">This is not an official tool or web app provided by the Windsurf team. This is a fan-made project by computerK.</p>
+        </div>
+      </section>
+      
+      <section class="mb-8">
         <h2 class="text-heading-2 mb-4">Key Features</h2>
         <ul class="list-disc pl-6 space-y-2">
           <li class="text-body">
