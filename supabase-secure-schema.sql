@@ -74,7 +74,10 @@ CREATE POLICY "Allow public access to rate_limits"
 
 -- Create function to enforce rate limiting
 CREATE OR REPLACE FUNCTION check_rate_limit()
-RETURNS TRIGGER AS $$
+RETURNS TRIGGER
+SECURITY DEFINER
+SET search_path = public
+AS $$
 DECLARE
   last_vote BIGINT;
   current_timestamp_ms BIGINT;
