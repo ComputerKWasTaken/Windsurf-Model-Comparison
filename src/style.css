@@ -103,6 +103,10 @@
 
 /* Custom styles that extend Tailwind */
 @layer base {
+  html {
+    overflow-y: scroll; /* Force scrollbar to always show */
+  }
+  
   body {
     @apply bg-mint-50 dark:bg-dark-mint-900 text-evergreen-800 dark:text-mint-200 font-body;
     @apply min-h-screen transition-colors duration-300;
