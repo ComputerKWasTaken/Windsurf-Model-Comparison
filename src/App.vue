@@ -47,31 +47,37 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900">
+  <div class="min-h-screen flex flex-col bg-mint-100 dark:bg-dark-mint-900 transition-colors duration-300">
     <!-- Header -->
     <AppHeader />
     
     <!-- Main Content -->
     <main class="flex-grow container mx-auto px-3 sm:px-4 py-4 sm:py-8">
-      <h1 class="text-2xl sm:text-3xl font-bold text-center mb-4 sm:mb-8 text-gray-900 dark:text-white">
+      <h1 class="text-heading-1 text-center mb-4 sm:mb-8">
         Windsurf Model Comparison
       </h1>
       
       <!-- Loading state -->
-      <div v-if="loading" class="flex justify-center items-center py-12">
-        <div class="animate-spin rounded-full h-10 w-10 sm:h-12 sm:w-12 border-t-2 border-b-2 border-blue-500"></div>
-        <p class="ml-3 text-sm sm:text-base text-gray-700 dark:text-gray-300">Connecting to database...</p>
+      <div v-if="loading" class="flex flex-col justify-center items-center py-12 space-y-6">
+        <div class="relative">
+          <div class="animate-spin rounded-full h-16 w-16 sm:h-20 sm:w-20 border-4 border-mint-200 dark:border-dark-mint-700"></div>
+          <div class="animate-spin rounded-full h-16 w-16 sm:h-20 sm:w-20 border-t-4 border-mint-600 dark:border-mint-400 absolute top-0 left-0"></div>
+        </div>
+        <div class="text-center">
+          <p class="text-subtitle animate-pulse-subtle">Loading models...</p>
+          <p class="text-caption mt-2">Please wait while we fetch the latest data</p>
+        </div>
       </div>
       
       <!-- Error state -->
-      <div v-else-if="error" class="bg-red-100 border-l-4 border-red-500 text-red-700 p-3 sm:p-4 mb-4 sm:mb-8 rounded text-sm sm:text-base">
-        <p class="font-bold">Error</p>
-        <p>{{ error }}</p>
-        <p class="text-xs sm:text-sm mt-2">Using local data as fallback.</p>
+      <div v-else-if="error" class="bg-red-100 border-l-4 border-red-500 text-red-700 p-3 sm:p-4 mb-4 sm:mb-8 rounded text-sm sm:text-base animate-fade-in">
+        <p class="text-heading-4">Error</p>
+        <p class="text-body">{{ error }}</p>
+        <p class="text-caption mt-2">Using local data as fallback.</p>
       </div>
       
       <!-- Main content -->
-      <div v-else class="max-w-6xl mx-auto space-y-4 sm:space-y-8">
+      <div v-else class="max-w-6xl mx-auto space-y-4 sm:space-y-8 animate-slide-up">
         <MainLeaderboard />
         <ModelComparer />
       </div>

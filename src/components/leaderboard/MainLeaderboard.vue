@@ -62,28 +62,28 @@ const formatNumber = (num: number): string => {
 </script>
 
 <template>
-  <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
+  <div class="bg-white dark:bg-dark-mint-800 rounded-lg shadow-md overflow-hidden border border-mint-200 dark:border-dark-mint-700 transition-colors duration-300">
     <!-- Leaderboard Header -->
-    <div class="p-6 bg-blue-50 dark:bg-blue-900">
-      <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+    <div class="p-6 bg-mint-100 dark:bg-dark-mint-700 transition-colors duration-300">
+      <h2 class="text-heading-2">
         {{ categories.find(c => c.id === selectedCategory)?.name }} Leaderboard
       </h2>
-      <p class="text-gray-600 dark:text-gray-400 mt-1">
+      <p class="text-subtitle mt-1">
         Rankings based on community evaluations of LLM capabilities
       </p>
     </div>
 
     <!-- Category Tabs -->
-    <div class="bg-gray-100 dark:bg-gray-700 px-4 sm:px-6 py-2 border-b border-gray-200 dark:border-gray-600 flex overflow-x-auto scrollbar-hide">
+    <div class="bg-mint-50 dark:bg-dark-mint-600 px-4 sm:px-6 py-2 border-b border-mint-200 dark:border-dark-mint-600 flex overflow-x-auto scrollbar-hide transition-colors duration-300">
       <button 
         v-for="category in categories" 
         :key="category.id"
         @click="changeCategory(category.id as Category | 'overall')"
         :class="[
-          'px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium rounded-md whitespace-nowrap mr-1 sm:mr-2',
+          'px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium rounded-md whitespace-nowrap mr-1 sm:mr-2 transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-mint-500 focus:ring-opacity-50',
           selectedCategory === category.id 
-            ? 'bg-blue-600 text-white' 
-            : 'text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+            ? 'bg-mint-600 text-white shadow-md' 
+            : 'text-evergreen-700 dark:text-mint-300 hover:bg-mint-200 dark:hover:bg-dark-mint-600'
         ]"
       >
         {{ category.name }}
@@ -91,13 +91,13 @@ const formatNumber = (num: number): string => {
     </div>
     
     <!-- Sort Controls -->
-    <div class="px-6 py-3 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-3 sm:space-y-0">
+    <div class="px-6 py-3 bg-white dark:bg-dark-mint-800 border-b border-mint-200 dark:border-dark-mint-700 flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-3 sm:space-y-0 transition-colors duration-300">
       <div class="flex items-center">
-        <span class="text-sm text-gray-600 dark:text-gray-400 mr-2">Sort by:</span>
+        <span class="text-sm text-evergreen-600 dark:text-mint-400 mr-2 transition-colors duration-300">Sort by:</span>
         <select 
           v-model="sortBy" 
           @change="changeSortField(sortBy)"
-          class="bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2"
+          class="bg-white dark:bg-dark-mint-700 border border-mint-300 dark:border-dark-mint-600 text-evergreen-800 dark:text-mint-200 text-sm rounded-lg focus:ring-mint-500 focus:border-mint-500 p-2 transition-all duration-300 cursor-pointer hover:border-mint-500 dark:hover:border-mint-400 focus:shadow-md"
         >
           <option v-for="option in sortOptions" :key="option.id" :value="option.id">
             {{ option.name }}
@@ -106,14 +106,14 @@ const formatNumber = (num: number): string => {
         
         <button 
           @click="toggleSortDirection" 
-          class="ml-2 p-2 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md"
+          class="ml-2 p-2 text-evergreen-600 dark:text-mint-400 hover:bg-mint-100 dark:hover:bg-dark-mint-700 rounded-md transition-all duration-300 transform hover:scale-110 active:scale-95 focus:outline-none focus:ring-2 focus:ring-mint-500 focus:ring-opacity-50"
         >
-          <span v-if="sortDirection === 'desc'">↓</span>
-          <span v-else>↑</span>
+          <span v-if="sortDirection === 'desc'" class="inline-block transition-transform duration-300 hover:translate-y-1">↓</span>
+          <span v-else class="inline-block transition-transform duration-300 hover:-translate-y-1">↑</span>
         </button>
       </div>
       
-      <div class="text-sm text-gray-600 dark:text-gray-400">
+      <div class="text-body-small">
         {{ displayedModels.length }} models
       </div>
     </div>
@@ -121,63 +121,63 @@ const formatNumber = (num: number): string => {
     <!-- Leaderboard Table -->
     <div class="overflow-x-auto">
       <!-- Desktop Table (hidden on small screens) -->
-      <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700 hidden md:table">
-        <thead class="bg-gray-50 dark:bg-gray-900">
+      <table class="min-w-full divide-y divide-mint-200 dark:divide-dark-mint-700 hidden md:table transition-colors duration-300">
+        <thead class="bg-mint-50 dark:bg-dark-mint-900 transition-colors duration-300">
           <tr>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Rank</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Model</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Company</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Rating</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Cost</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Context</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Speed</th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Votes</th>
+            <th class="px-6 py-3 text-left text-caption uppercase tracking-wider">Rank</th>
+            <th class="px-6 py-3 text-left text-caption uppercase tracking-wider">Model</th>
+            <th class="px-6 py-3 text-left text-caption uppercase tracking-wider">Company</th>
+            <th class="px-6 py-3 text-left text-caption uppercase tracking-wider">Rating</th>
+            <th class="px-6 py-3 text-left text-caption uppercase tracking-wider">Cost</th>
+            <th class="px-6 py-3 text-left text-caption uppercase tracking-wider">Context</th>
+            <th class="px-6 py-3 text-left text-caption uppercase tracking-wider">Speed</th>
+            <th class="px-6 py-3 text-left text-caption uppercase tracking-wider">Votes</th>
           </tr>
         </thead>
-        <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
-          <tr v-for="(model, index) in displayedModels" :key="model.id" class="hover:bg-gray-50 dark:hover:bg-gray-900">
+        <tbody class="divide-y divide-mint-200 dark:divide-dark-mint-700 transition-colors duration-300">
+          <tr v-for="(model, index) in displayedModels" :key="model.id" class="hover:bg-mint-50 dark:hover:bg-dark-mint-900 transition-all duration-300 cursor-pointer hover:shadow-sm group" @click="(e) => { const el = e.currentTarget as HTMLElement; el.classList.toggle('bg-mint-50'); el.classList.toggle('dark:bg-dark-mint-900'); }">
             <td class="px-6 py-4 whitespace-nowrap">
-              <div class="text-lg font-semibold text-gray-900 dark:text-white">{{ index + 1 }}</div>
+              <div class="text-heading-4">{{ index + 1 }}</div>
             </td>
             <td class="px-6 py-4 whitespace-nowrap">
               <div class="flex items-center">
-                <div class="flex-shrink-0 h-10 w-10 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center">
-                  <span v-if="!model.logoUrl" class="text-xl font-bold text-gray-500 dark:text-gray-400">
+                <div class="flex-shrink-0 h-10 w-10 bg-mint-200 dark:bg-dark-mint-700 rounded-full flex items-center justify-center transition-colors duration-300">
+                  <span v-if="!model.logoUrl" class="text-xl font-bold text-evergreen-500 dark:text-mint-400 transition-colors duration-300">
                     {{ model.name.substring(0, 1) }}
                   </span>
                   <img v-else :src="model.logoUrl" alt="" class="h-10 w-10 rounded-full">
                 </div>
                 <div class="ml-4">
-                  <div class="text-sm font-medium text-gray-900 dark:text-white">{{ model.name }}</div>
+                  <div class="text-sm font-medium text-evergreen-800 dark:text-mint-200 transition-colors duration-300">{{ model.name }}</div>
                 </div>
               </div>
             </td>
             <td class="px-6 py-4 whitespace-nowrap">
-              <div class="text-sm text-gray-900 dark:text-white">{{ model.company }}</div>
+              <div class="text-body">{{ model.company }}</div>
             </td>
             <td class="px-6 py-4 whitespace-nowrap">
-              <div class="text-sm font-semibold" :class="index < 3 ? 'text-blue-600 dark:text-blue-400' : 'text-gray-900 dark:text-white'">
+              <div class="text-sm font-semibold" :class="index < 3 ? 'text-mint-600 dark:text-mint-400' : 'text-evergreen-800 dark:text-mint-200'">
                 {{ model.ratings[selectedCategory] }}
               </div>
             </td>
             <td class="px-6 py-4 whitespace-nowrap">
-              <div class="text-sm text-gray-900 dark:text-white">{{ model.costCredits }}</div>
+              <div class="text-sm text-evergreen-800 dark:text-mint-200 transition-colors duration-300">{{ model.costCredits }}</div>
             </td>
             <td class="px-6 py-4 whitespace-nowrap">
-              <div class="text-sm text-gray-900 dark:text-white">{{ formatNumber(model.contextWindow) }}</div>
+              <div class="text-sm text-evergreen-800 dark:text-mint-200 transition-colors duration-300">{{ formatNumber(model.contextWindow) }}</div>
             </td>
             <td class="px-6 py-4 whitespace-nowrap">
-              <div class="text-sm text-gray-900 dark:text-white">{{ model.speed }} t/s</div>
+              <div class="text-sm text-evergreen-800 dark:text-mint-200 transition-colors duration-300">{{ model.speed }} t/s</div>
             </td>
             <td class="px-6 py-4 whitespace-nowrap">
-              <div class="text-sm text-gray-900 dark:text-white">{{ model.votes }}</div>
+              <div class="text-sm text-evergreen-800 dark:text-mint-200 transition-colors duration-300">{{ model.votes }}</div>
             </td>
           </tr>
           
           <!-- Empty state when no models -->
           <tr v-if="displayedModels.length === 0">
             <td colspan="8" class="px-6 py-12 text-center">
-              <div class="text-gray-500 dark:text-gray-400">
+              <div class="text-evergreen-500 dark:text-mint-400 transition-colors duration-300">
                 No models available
               </div>
             </td>
@@ -187,7 +187,7 @@ const formatNumber = (num: number): string => {
 
       <!-- Mobile Card View (visible only on small screens) -->
       <div class="md:hidden">
-        <div v-for="(model, index) in displayedModels" :key="model.id" class="border-b border-gray-200 dark:border-gray-700 p-4">
+        <div v-for="(model, index) in displayedModels" :key="model.id" class="border-b border-gray-200 dark:border-gray-700 p-4 hover:bg-mint-50 dark:hover:bg-dark-mint-900 transition-all duration-300 cursor-pointer transform hover:scale-[1.01] hover:shadow-sm active:scale-[0.99]">
           <div class="flex items-center mb-3">
             <div class="flex-shrink-0 h-10 w-10 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center mr-3">
               <span v-if="!model.logoUrl" class="text-xl font-bold text-gray-500 dark:text-gray-400">
@@ -240,11 +240,11 @@ const formatNumber = (num: number): string => {
     </div>
     
     <!-- Call-to-action for voting -->
-    <div class="p-6 bg-gray-50 dark:bg-gray-900 text-center">
-      <p class="text-gray-700 dark:text-gray-300 mb-4">
+    <div class="p-6 bg-mint-50 dark:bg-dark-mint-900 text-center transition-colors duration-300">
+      <p class="text-body mb-4">
         Help improve the rankings by voting on model comparisons
       </p>
-      <button class="btn-primary">
+      <button class="btn-primary transform transition-all duration-300 hover:scale-105 hover:shadow-lg active:scale-95 focus:outline-none focus:ring-4 focus:ring-mint-500 focus:ring-opacity-50">
         Vote Now
       </button>
     </div>

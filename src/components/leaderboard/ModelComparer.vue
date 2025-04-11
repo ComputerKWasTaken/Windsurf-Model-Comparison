@@ -72,20 +72,20 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
+  <div class="bg-white dark:bg-dark-mint-800 rounded-lg shadow-md overflow-hidden border border-mint-200 dark:border-dark-mint-700 transition-colors duration-300">
     <!-- Comparison Header -->
-    <div class="p-6 bg-blue-50 dark:bg-blue-900">
-      <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+    <div class="p-6 bg-mint-100 dark:bg-dark-mint-700 transition-colors duration-300">
+      <h2 class="text-heading-2">
         Compare & Vote
       </h2>
-      <p class="text-gray-600 dark:text-gray-400 mt-1">
+      <p class="text-subtitle mt-1">
         Which model performs better in the selected category?
       </p>
     </div>
 
     <!-- Category Selection -->
-    <div class="px-4 sm:px-6 py-4 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+    <div class="px-4 sm:px-6 py-4 bg-white dark:bg-dark-mint-800 border-b border-mint-200 dark:border-dark-mint-700 transition-colors duration-300">
+      <label class="block text-body-small font-medium mb-2">
         Select Category:
       </label>
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 sm:gap-3">
@@ -94,14 +94,14 @@ onMounted(() => {
           :key="category.id"
           @click="changeCategory(category.id as Category)"
           :class="[
-            'px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium rounded-md text-left',
+            'px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium rounded-md text-left transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-mint-500 focus:ring-opacity-50',
             selectedCategory === category.id 
-              ? 'bg-blue-600 text-white' 
-              : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+              ? 'bg-mint-600 text-white shadow-md' 
+              : 'bg-mint-100 dark:bg-dark-mint-700 text-evergreen-700 dark:text-mint-300 hover:bg-mint-200 dark:hover:bg-dark-mint-600'
           ]"
         >
           <div class="font-semibold">{{ category.name }}</div>
-          <div class="text-xs mt-1" :class="selectedCategory === category.id ? 'text-blue-100' : 'text-gray-500 dark:text-gray-400'">
+          <div class="text-xs mt-1" :class="selectedCategory === category.id ? 'text-mint-100' : 'text-evergreen-500 dark:text-mint-400'">
             {{ category.description }}
           </div>
         </button>
@@ -113,91 +113,91 @@ onMounted(() => {
       <!-- Has models to compare -->
       <div v-if="modelA && modelB" class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
         <!-- Model A -->
-        <div class="card hover:shadow-lg transition-shadow cursor-pointer" @click="handleVote(modelA.id, modelB.id)">
+        <div class="card hover:shadow-lg transition-all duration-300 cursor-pointer transform hover:-translate-y-1 hover:bg-mint-50 dark:hover:bg-dark-mint-900 active:scale-[0.98]" @click="handleVote(modelA.id, modelB.id)">
           <div class="flex items-center mb-4">
-            <div class="flex-shrink-0 h-12 w-12 md:h-16 md:w-16 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center mr-3">
-              <span v-if="!modelA.logoUrl" class="text-xl md:text-2xl font-bold text-gray-500 dark:text-gray-400">
+            <div class="flex-shrink-0 h-12 w-12 md:h-16 md:w-16 bg-mint-200 dark:bg-dark-mint-700 rounded-full flex items-center justify-center mr-3 transition-colors duration-300">
+              <span v-if="!modelA.logoUrl" class="text-xl md:text-2xl font-bold text-evergreen-500 dark:text-mint-400 transition-colors duration-300">
                 {{ modelA.name.substring(0, 1) }}
               </span>
               <img v-else :src="modelA.logoUrl" alt="" class="h-12 w-12 md:h-16 md:w-16 rounded-full">
             </div>
             <div>
-              <h3 class="text-lg md:text-xl font-bold text-gray-900 dark:text-white">{{ modelA.name }}</h3>
-              <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">{{ modelA.company }}</p>
+              <h3 class="text-heading-4">{{ modelA.name }}</h3>
+              <p class="text-caption">{{ modelA.company }}</p>
             </div>
           </div>
           
           <div class="space-y-2 sm:space-y-3">
             <div class="flex justify-between text-xs sm:text-sm">
-              <span class="text-gray-500 dark:text-gray-400">Cost:</span>
-              <span class="font-medium text-gray-900 dark:text-white">{{ modelA.costCredits }} credits</span>
+              <span class="text-caption">Cost:</span>
+              <span class="text-body-small font-medium">{{ modelA.costCredits }} credits</span>
             </div>
             <div class="flex justify-between text-xs sm:text-sm">
-              <span class="text-gray-500 dark:text-gray-400">Context Window:</span>
-              <span class="font-medium text-gray-900 dark:text-white">{{ modelA.contextWindow.toLocaleString() }} tokens</span>
+              <span class="text-caption">Context Window:</span>
+              <span class="text-body-small font-medium">{{ modelA.contextWindow.toLocaleString() }} tokens</span>
             </div>
             <div class="flex justify-between text-xs sm:text-sm">
-              <span class="text-gray-500 dark:text-gray-400">Speed:</span>
-              <span class="font-medium text-gray-900 dark:text-white">{{ modelA.speed }} tokens/sec</span>
+              <span class="text-caption">Speed:</span>
+              <span class="text-body-small font-medium">{{ modelA.speed }} tokens/sec</span>
             </div>
             <div class="flex justify-between text-xs sm:text-sm">
-              <span class="text-gray-500 dark:text-gray-400">Current Rating:</span>
-              <span class="font-semibold text-blue-600 dark:text-blue-400">{{ modelA.ratings[selectedCategory] }}</span>
+              <span class="text-caption">Current Rating:</span>
+              <span class="text-body-small font-semibold text-mint-600 dark:text-mint-400">{{ modelA.ratings[selectedCategory] }}</span>
             </div>
           </div>
           
-          <button class="w-full mt-6 btn-primary">
+          <button class="w-full mt-6 btn-primary transform transition-all duration-300 hover:scale-105 hover:shadow-md active:scale-95 focus:outline-none focus:ring-2 focus:ring-mint-500 focus:ring-opacity-50">
             Vote for {{ modelA.name }}
           </button>
         </div>
 
         <!-- Model B -->
-        <div class="card hover:shadow-lg transition-shadow cursor-pointer" @click="handleVote(modelB.id, modelA.id)">
+        <div class="card hover:shadow-lg transition-all duration-300 cursor-pointer transform hover:-translate-y-1 hover:bg-mint-50 dark:hover:bg-dark-mint-900 active:scale-[0.98]" @click="handleVote(modelB.id, modelA.id)">
           <div class="flex items-center mb-4">
-            <div class="flex-shrink-0 h-12 w-12 md:h-16 md:w-16 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center mr-3">
-              <span v-if="!modelB.logoUrl" class="text-xl md:text-2xl font-bold text-gray-500 dark:text-gray-400">
+            <div class="flex-shrink-0 h-12 w-12 md:h-16 md:w-16 bg-mint-200 dark:bg-dark-mint-700 rounded-full flex items-center justify-center mr-3 transition-colors duration-300">
+              <span v-if="!modelB.logoUrl" class="text-xl md:text-2xl font-bold text-evergreen-500 dark:text-mint-400 transition-colors duration-300">
                 {{ modelB.name.substring(0, 1) }}
               </span>
               <img v-else :src="modelB.logoUrl" alt="" class="h-12 w-12 md:h-16 md:w-16 rounded-full">
             </div>
             <div>
-              <h3 class="text-lg md:text-xl font-bold text-gray-900 dark:text-white">{{ modelB.name }}</h3>
-              <p class="text-xs md:text-sm text-gray-600 dark:text-gray-400">{{ modelB.company }}</p>
+              <h3 class="text-heading-4">{{ modelB.name }}</h3>
+              <p class="text-caption">{{ modelB.company }}</p>
             </div>
           </div>
           
           <div class="space-y-2 sm:space-y-3">
             <div class="flex justify-between text-xs sm:text-sm">
-              <span class="text-gray-500 dark:text-gray-400">Cost:</span>
-              <span class="font-medium text-gray-900 dark:text-white">{{ modelB.costCredits }} credits</span>
+              <span class="text-caption">Cost:</span>
+              <span class="text-body-small font-medium">{{ modelB.costCredits }} credits</span>
             </div>
             <div class="flex justify-between text-xs sm:text-sm">
-              <span class="text-gray-500 dark:text-gray-400">Context Window:</span>
-              <span class="font-medium text-gray-900 dark:text-white">{{ modelB.contextWindow.toLocaleString() }} tokens</span>
+              <span class="text-caption">Context Window:</span>
+              <span class="text-body-small font-medium">{{ modelB.contextWindow.toLocaleString() }} tokens</span>
             </div>
             <div class="flex justify-between text-xs sm:text-sm">
-              <span class="text-gray-500 dark:text-gray-400">Speed:</span>
-              <span class="font-medium text-gray-900 dark:text-white">{{ modelB.speed }} tokens/sec</span>
+              <span class="text-caption">Speed:</span>
+              <span class="text-body-small font-medium">{{ modelB.speed }} tokens/sec</span>
             </div>
             <div class="flex justify-between text-xs sm:text-sm">
-              <span class="text-gray-500 dark:text-gray-400">Current Rating:</span>
-              <span class="font-semibold text-blue-600 dark:text-blue-400">{{ modelB.ratings[selectedCategory] }}</span>
+              <span class="text-caption">Current Rating:</span>
+              <span class="text-body-small font-semibold text-mint-600 dark:text-mint-400">{{ modelB.ratings[selectedCategory] }}</span>
             </div>
           </div>
           
-          <button class="w-full mt-6 btn-primary">
+          <button class="w-full mt-6 btn-primary transform transition-all duration-300 hover:scale-105 hover:shadow-md active:scale-95 focus:outline-none focus:ring-2 focus:ring-mint-500 focus:ring-opacity-50">
             Vote for {{ modelB.name }}
           </button>
         </div>
       </div>
       
       <!-- No more models to compare in this category -->
-      <div v-else class="text-center py-8">
-        <div class="text-gray-500 dark:text-gray-400 mb-4">
+      <div v-else class="text-center py-8 animate-fade-in transition-opacity duration-500">
+        <div class="text-subtitle mb-4">
           You've voted on all available models in this category.
         </div>
-        <p class="mb-4">Try selecting a different category.</p>
-        <button @click="voteStore.resetVotes()" class="btn-secondary">
+        <p class="text-body mb-4">Try selecting a different category.</p>
+        <button @click="voteStore.resetVotes()" class="btn-secondary transform transition-all duration-300 hover:scale-105 hover:shadow-md active:scale-95 focus:outline-none focus:ring-2 focus:ring-mint-500 focus:ring-opacity-50">
           Reset Votes (For Testing)
         </button>
       </div>
