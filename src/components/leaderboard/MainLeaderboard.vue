@@ -173,11 +173,11 @@ const formatNumber = (num: number): string => {
             </td>
             <td class="px-6 py-4 whitespace-nowrap">
               <div class="flex items-center">
-                <div class="flex-shrink-0 h-10 w-10 bg-mint-200 dark:bg-dark-mint-700 rounded-full flex items-center justify-center transition-colors duration-300">
+                <div class="flex-shrink-0 h-10 w-10 flex items-center justify-center transition-colors duration-300">
                   <span v-if="!model.logoUrl" class="text-xl font-bold text-evergreen-500 dark:text-mint-400 transition-colors duration-300">
                     {{ model.name.substring(0, 1) }}
                   </span>
-                  <img v-else :src="model.logoUrl" alt="" class="h-10 w-10 rounded-full">
+                  <img v-else :src="model.logoUrl" alt="" class="h-10 w-10">
                 </div>
                 <div class="ml-4">
                   <div class="text-sm font-medium text-evergreen-800 dark:text-mint-200 transition-colors duration-300">{{ model.name }}</div>
@@ -221,11 +221,11 @@ const formatNumber = (num: number): string => {
       <div class="md:hidden">
         <div v-for="(model, index) in displayedModels" :key="model.id" class="border-b border-gray-200 dark:border-gray-700 p-4 hover:bg-mint-50 dark:hover:bg-dark-mint-900 transition-all duration-300 cursor-pointer transform hover:scale-[1.01] hover:shadow-sm active:scale-[0.99]">
           <div class="flex items-center mb-3">
-            <div class="flex-shrink-0 h-10 w-10 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center mr-3">
+            <div class="flex-shrink-0 h-10 w-10 flex items-center justify-center mr-3">
               <span v-if="!model.logoUrl" class="text-xl font-bold text-gray-500 dark:text-gray-400">
                 {{ model.name.substring(0, 1) }}
               </span>
-              <img v-else :src="model.logoUrl" alt="" class="h-10 w-10 rounded-full">
+              <img v-else :src="model.logoUrl" alt="" class="h-10 w-10">
             </div>
             <div>
               <div class="flex items-baseline">

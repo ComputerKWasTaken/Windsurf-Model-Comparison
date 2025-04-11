@@ -123,11 +123,11 @@ onMounted(() => {
             <!-- Model A -->
             <div class="card hover:shadow-lg transition-all duration-300 cursor-pointer transform hover:-translate-y-1 hover:bg-mint-50 dark:hover:bg-dark-mint-900 active:scale-[0.98]" @click="handleVote(modelA.id, modelB.id)">
               <div class="flex items-center mb-4">
-                <div class="flex-shrink-0 h-12 w-12 md:h-16 md:w-16 bg-mint-200 dark:bg-dark-mint-700 rounded-full flex items-center justify-center mr-3 transition-colors duration-300">
+                <div class="flex-shrink-0 h-12 w-12 md:h-16 md:w-16 flex items-center justify-center mr-3 transition-colors duration-300">
                   <span v-if="!modelA.logoUrl" class="text-xl md:text-2xl font-bold text-evergreen-500 dark:text-mint-400 transition-colors duration-300">
                     {{ modelA.name.substring(0, 1) }}
                   </span>
-                  <img v-else :src="modelA.logoUrl" alt="" class="h-12 w-12 md:h-16 md:w-16 rounded-full">
+                  <img v-else :src="modelA.logoUrl" alt="" class="h-12 w-12 md:h-16 md:w-16">
                 </div>
                 <div>
                   <h3 class="text-heading-4">{{ modelA.name }}</h3>
@@ -162,11 +162,11 @@ onMounted(() => {
             <!-- Model B -->
             <div class="card hover:shadow-lg transition-all duration-300 cursor-pointer transform hover:-translate-y-1 hover:bg-mint-50 dark:hover:bg-dark-mint-900 active:scale-[0.98]" @click="handleVote(modelB.id, modelA.id)">
               <div class="flex items-center mb-4">
-                <div class="flex-shrink-0 h-12 w-12 md:h-16 md:w-16 bg-mint-200 dark:bg-dark-mint-700 rounded-full flex items-center justify-center mr-3 transition-colors duration-300">
+                <div class="flex-shrink-0 h-12 w-12 md:h-16 md:w-16 flex items-center justify-center mr-3 transition-colors duration-300">
                   <span v-if="!modelB.logoUrl" class="text-xl md:text-2xl font-bold text-evergreen-500 dark:text-mint-400 transition-colors duration-300">
                     {{ modelB.name.substring(0, 1) }}
                   </span>
-                  <img v-else :src="modelB.logoUrl" alt="" class="h-12 w-12 md:h-16 md:w-16 rounded-full">
+                  <img v-else :src="modelB.logoUrl" alt="" class="h-12 w-12 md:h-16 md:w-16">
                 </div>
                 <div>
                   <h3 class="text-heading-4">{{ modelB.name }}</h3>

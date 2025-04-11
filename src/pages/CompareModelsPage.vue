@@ -107,11 +107,11 @@ const calculatePercentage = (rating: number) => {
               }"
             >
               <div class="flex items-center">
-                <div class="flex-shrink-0 h-10 w-10 bg-mint-200 dark:bg-dark-mint-700 rounded-full flex items-center justify-center mr-3 transition-colors duration-300">
+                <div class="flex-shrink-0 h-10 w-10 flex items-center justify-center mr-3 transition-colors duration-300">
                   <span v-if="!model.logoUrl" class="text-lg font-bold text-evergreen-500 dark:text-mint-400 transition-colors duration-300">
                     {{ model.name.substring(0, 1) }}
                   </span>
-                  <img v-else :src="model.logoUrl" alt="" class="h-10 w-10 rounded-full">
+                  <img v-else :src="model.logoUrl" alt="" class="h-10 w-10">
                 </div>
                 <div>
                   <h3 class="text-heading-4">{{ model.name }}</h3>
