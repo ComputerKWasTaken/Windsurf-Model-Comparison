@@ -210,8 +210,9 @@ export const useVoteStore = defineStore('votes', {
           this.userVotes[losingModelId] = {} as Record<Category, boolean>;
         }
         
+        // Only mark the winning model as voted on
         this.userVotes[winningModelId][category] = true;
-        this.userVotes[losingModelId][category] = true;
+        // We don't mark the losing model as voted on, so it can appear in future voting pairs
         
         // Save to cookie
         this.saveToCookie();
