@@ -112,7 +112,7 @@
       "id": "deepseek-r1",
       "name": "DeepSeek R1",
       "company": "DeepSeek",
-      "costCredits": 0.5,
+      "costCredits": 0,
       "contextWindow": 128000,
       "speed": 23,
       "logoUrl": "/images/logos/deepseek.png",
