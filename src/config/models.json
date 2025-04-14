@@ -1,6 +1,24 @@
 {
   "models": [
     {
+      "id": "gpt-4.1",
+      "name": "GPT-4.1",
+      "company": "OpenAI",
+      "costCredits": 0,
+      "contextWindow": 1000000,
+      "speed": 175,
+      "logoUrl": "/images/logos/openai.png",
+      "ratings": {
+        "overall": 1200,
+        "agentic": 1200,
+        "planning": 1200,
+        "debugging": 1200,
+        "refactoring": 1200,
+        "explaining": 1200
+      },
+      "votes": 0
+    },
+    {
       "id": "3.5-sonnet",
       "name": "Claude 3.5 Sonnet",
       "company": "Anthropic",
