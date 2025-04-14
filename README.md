@@ -75,6 +75,7 @@ windsurf-model-comparison/
 │   ├── stores/                 # Pinia stores for state management
 │   │   ├── modelStore.ts       # Store for model data and sorting
 │   │   └── voteStore.ts        # Store for user voting and preferences
+│   │   └── errorStore.ts       # Store for managing application errors
 │   ├── types/                  # TypeScript type definitions
 │   │   └── model.ts            # Type definitions for models and votes
 │   ├── utils/                  # Utility functions

@@ -2,18 +2,21 @@
 import { onMounted, ref } from 'vue';
 import { useModelStore } from './stores/modelStore';
 import { useVoteStore } from './stores/voteStore';
+import { useErrorStore } from './stores/errorStore';
 // @ts-ignore - Vue SFC imports
 import AppHeader from './components/layout/AppHeader.vue';
 // @ts-ignore - Vue SFC imports
 import AppFooter from './components/layout/AppFooter.vue';
+// @ts-ignore - Vue SFC imports
+import ErrorNotification from './components/common/ErrorNotification.vue';
 
 // Initialize stores
 const modelStore = useModelStore();
 const voteStore = useVoteStore();
+const errorStore = useErrorStore();
 
 // Application state
 const loading = ref(true);
-const error = ref<string | null>(null);
 
 // Initialize Supabase connection and load data
 async function initializeApplication() {
@@ -27,7 +30,7 @@ async function initializeApplication() {
     loading.value = false;
   } catch (err: any) {
     console.error('Failed to initialize application:', err);
-    error.value = err.message || 'Failed to connect to database';
+    errorStore.addError('Application Initialization Failed', err.message || 'Could not connect to the database.');
     loading.value = false;
     
     // Fallback to local data if Supabase connection fails
@@ -61,18 +64,14 @@ onMounted(() => {
         </div>
       </div>
       
-      <!-- Error state -->
-      <div v-else-if="error" class="bg-red-100 border-l-4 border-red-500 text-red-700 p-3 sm:p-4 mb-4 sm:mb-8 rounded text-sm sm:text-base animate-fade-in">
-        <p class="text-heading-4">Error</p>
-        <p class="text-body">{{ error }}</p>
-        <p class="text-caption mt-2">Using local data as fallback.</p>
-      </div>
-      
       <!-- Main content - Router View -->
       <router-view v-else />
     </main>
     
     <!-- Footer -->
     <AppFooter />
+
+    <!-- Error Notifications -->
+    <ErrorNotification />
   </div>
 </template>

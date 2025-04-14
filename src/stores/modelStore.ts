@@ -2,12 +2,12 @@ import { defineStore } from 'pinia';
 import type { Model, Category } from '../types/model';
 import modelsData from '../config/models.json';
 import supabaseService from '../services/supabaseService';
+import { useErrorStore } from './errorStore';
 
 export const useModelStore = defineStore('models', {
   state: () => ({
     models: [] as Model[],
     loading: false,
-    error: null as string | null,
     sortBy: 'overall',
     sortDir: 'desc',
     selectedCategory: 'overall' as Category | 'overall',
@@ -150,7 +150,8 @@ export const useModelStore = defineStore('models', {
      */
     async initialize() {
       if (this.initialized) return;
-      
+      const errorStore = useErrorStore();
+
       try {
         // Initialize Supabase first
         await this.initializeSupabase();
@@ -164,6 +165,7 @@ export const useModelStore = defineStore('models', {
         this.initialized = true;
       } catch (err: any) {
         console.error('Store initialization failed, using fallback data:', err);
+        errorStore.addError('Model Store Initialization Failed', `Using fallback data due to: ${err.message || err}`);
         // Ensure we have at least the local data
         this.loadModels();
       }
@@ -173,6 +175,8 @@ export const useModelStore = defineStore('models', {
      * Initialize Supabase tables and seed data if needed
      */
     async initializeSupabase() {
+      const errorStore = useErrorStore();
+
       try {
         // Check if tables exist, create them if not
         await supabaseService.initializeTables();
@@ -185,7 +189,9 @@ export const useModelStore = defineStore('models', {
         await supabaseService.seedInitialData(initialModels);
       } catch (err: any) {
         console.error('Failed to initialize Supabase:', err);
-        this.error = `Failed to initialize database: ${err.message || err}`;
+        errorStore.addError('Database Initialization Failed', err.message || 'Could not initialize Supabase tables.');
+        // Re-throw the error to be caught by the main initialize method for fallback logic
+        throw err;
       }
     },
 
@@ -205,6 +211,8 @@ export const useModelStore = defineStore('models', {
      */
     loadModels() {
       this.loading = true;
+      const errorStore = useErrorStore();
+
       try {
         // Handle both formats of models.json (with 'models' property or direct array)
         // Using type assertion to handle the different formats safely
@@ -217,13 +225,14 @@ export const useModelStore = defineStore('models', {
         
         if (!Array.isArray(this.models) || this.models.length === 0) {
           console.warn('Failed to load models from config, using empty array');
+          errorStore.addError('Local Model Load Warning', 'Could not load models from local JSON file.', 10000);
           this.models = [];
         }
         
         this.loading = false;
       } catch (err: any) {
         console.error('Failed to load models from config:', err);
-        this.error = `Failed to load models: ${err.message || err}`;
+        errorStore.addError('Local Model Load Failed', err.message || 'Could not parse local models.json.');
         this.models = []; // Always ensure models is an array
         this.loading = false;
       }
@@ -234,6 +243,8 @@ export const useModelStore = defineStore('models', {
      */
     async fetchModelsFromAPI() {
       this.loading = true;
+      const errorStore = useErrorStore();
+
       try {
         // Try to get models from Supabase
         const models = await supabaseService.getModels();
@@ -242,16 +253,17 @@ export const useModelStore = defineStore('models', {
         } else {
           // Fallback to local JSON if Supabase returned no models
           console.log('No models found in Supabase, using local data');
-          this.loadModels(); // Use the safe loadModels method instead
+          errorStore.addError('API Data Missing', 'No models found in the database. Using local fallback data.', 10000);
+          this.loadModels();
         }
         this.loading = false;
       } catch (err: any) {
         console.error('Failed to fetch models from API:', err);
-        this.error = `Failed to fetch models: ${err.message || err}`;
-        
+        errorStore.addError('API Fetch Failed', err.message || 'Could not retrieve models from the database.');
+
         // Fallback to local data if Supabase fails
         console.log('Using local model data as fallback');
-        this.loadModels(); // Use the safe loadModels method instead
+        this.loadModels();
         this.loading = false;
       }
     },
@@ -280,8 +292,12 @@ export const useModelStore = defineStore('models', {
     async calculateEloRating(modelIdA: string, modelIdB: string, outcome: number, category: Category) {
       const modelA = this.getModelById(modelIdA);
       const modelB = this.getModelById(modelIdB);
-      
-      if (!modelA || !modelB) return;
+      const errorStore = useErrorStore();
+
+      if (!modelA || !modelB) {
+        errorStore.addError('Rating Calculation Failed', 'Invalid model ID provided for ELO calculation.');
+        return;
+      }
       
       const K = 32; // K-factor, determines maximum change
       
@@ -324,7 +340,9 @@ export const useModelStore = defineStore('models', {
         ]);
       } catch (err: any) {
         console.error('Failed to update model ratings in database:', err);
-        this.error = `Failed to save rating changes: ${err.message || err}`;
+        errorStore.addError('Rating Save Failed', err.message || 'Could not save updated model ratings to the database.');
+        // Note: Consider if we need to revert local changes if the save fails.
+        // For now, local state might be out of sync if this fails.
       }
     }
   }

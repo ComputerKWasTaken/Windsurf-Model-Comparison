@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import type { Category, Vote } from '../types/model';
 import { useModelStore } from './modelStore';
 import supabaseService from '../services/supabaseService';
+import { useErrorStore } from './errorStore';
 
 export const useVoteStore = defineStore('votes', {
   state: () => ({
@@ -13,8 +14,6 @@ export const useVoteStore = defineStore('votes', {
     userBrowserId: '',
     // Loading state
     loading: false,
-    // Error state
-    error: null as string | null,
     // Rate limiting
     lastVoteTime: 0,
     hourlyVoteCount: 0,
@@ -82,6 +81,8 @@ export const useVoteStore = defineStore('votes', {
         this.generateBrowserId();
       }
       
+      const errorStore = useErrorStore();
+      
       try {
         this.loading = true;
         // Fetch this user's votes from Supabase
@@ -102,7 +103,7 @@ export const useVoteStore = defineStore('votes', {
         this.loading = false;
       } catch (err: any) {
         console.error('Failed to sync votes with Supabase:', err);
-        this.error = `Failed to sync votes: ${err.message || err}`;
+        errorStore.addError('Vote Sync Failed', err.message || 'Could not synchronize vote data with the server.');
         this.loading = false;
       }
     },
@@ -112,11 +113,14 @@ export const useVoteStore = defineStore('votes', {
      */
     initializeFromCookies() {
       const voteCookie = this.getCookie(this.COOKIE_NAME);
+      const errorStore = useErrorStore();
+      
       if (voteCookie) {
         try {
           this.userVotes = JSON.parse(voteCookie);
-        } catch (e) {
+        } catch (e: any) {
           console.error('Failed to parse vote cookie', e);
+          errorStore.addError('Cookie Error', 'Failed to read vote data from cookie. Resetting votes.');
           // If cookie is corrupted, reset it
           this.userVotes = {};
           this.saveToCookie();
@@ -149,6 +153,8 @@ export const useVoteStore = defineStore('votes', {
      * Record a vote both locally and in Supabase
      */
     async recordVote(winningModelId: string, losingModelId: string, category: Category) {
+      const errorStore = useErrorStore();
+      
       // Make sure we have a browser ID
       if (!this.userBrowserId) {
         this.generateBrowserId();
@@ -218,7 +224,7 @@ export const useVoteStore = defineStore('votes', {
         this.saveToCookie();
       } catch (err: any) {
         console.error('Failed to record vote:', err);
-        this.error = `Failed to record vote: ${err.message || err}`;
+        errorStore.addError('Vote Recording Failed', err.message || 'Could not save your vote to the database.');
       }
     },
 
@@ -258,27 +264,27 @@ export const useVoteStore = defineStore('votes', {
      * Validate vote data before submission
      */
     validateVoteData(winningModelId: string, losingModelId: string, category: Category): boolean {
-      // Get the model store to check if models exist
       const modelStore = useModelStore();
+      const errorStore = useErrorStore();
       
       // Check if models exist
       const winningModel = modelStore.getModelById(winningModelId);
       const losingModel = modelStore.getModelById(losingModelId);
       
       if (!winningModel) {
-        this.error = `Invalid winning model ID: ${winningModelId}`;
+        errorStore.addError('Invalid Vote', `Winning model ID not found: ${winningModelId}`);
         return false;
       }
       
       if (!losingModel) {
-        this.error = `Invalid losing model ID: ${losingModelId}`;
+        errorStore.addError('Invalid Vote', `Losing model ID not found: ${losingModelId}`);
         return false;
       }
       
       // Check if category is valid
-      const validCategories = ['overall', 'agentic', 'planning', 'debugging', 'refactoring', 'explaining'];
+      const validCategories: Category[] = ['agentic', 'planning', 'debugging', 'refactoring', 'explaining'];
       if (!validCategories.includes(category)) {
-        this.error = `Invalid category: ${category}`;
+        errorStore.addError('Invalid Vote', `Invalid category provided: ${category}`);
         return false;
       }
       
@@ -291,10 +297,11 @@ export const useVoteStore = defineStore('votes', {
     checkRateLimit(): boolean {
       const currentTime = Date.now();
       const oneHour = 3600000; // 1 hour in milliseconds
+      const errorStore = useErrorStore();
       
       // Check if at least 1 second has passed since last vote
       if (this.lastVoteTime > 0 && (currentTime - this.lastVoteTime) < 1000) {
-        this.error = 'Please wait at least 1 second between votes';
+        errorStore.addError('Rate Limit Exceeded', 'Please wait at least 1 second between votes.', 3000); // Shorter duration
         return false;
       }
       
@@ -310,7 +317,7 @@ export const useVoteStore = defineStore('votes', {
       
       // Check if hourly limit is reached (50 votes per hour)
       if (this.hourlyVoteCount >= 50) {
-        this.error = 'You have reached the maximum of 50 votes per hour';
+        errorStore.addError('Rate Limit Exceeded', 'You have reached the maximum of 50 votes per hour.', 10000); // Longer duration
         return false;
       }
       
