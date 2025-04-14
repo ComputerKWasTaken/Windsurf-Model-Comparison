@@ -196,6 +196,58 @@ Enables users to:
 - Browser cookies only store anonymous voting information
 - No personal data is collected or stored
 
+---
+
+## 🗂️ Refactoring Plan: Model Pair Voting System
+
+### Objective
+
+Transition the voting logic from single-model voting to model-pair voting,
+allowing users to vote on every possible combination of model pairs for more
+accurate ELO ratings. This is different from the previous system where users
+voted on single models. The reason we are doing this is because the previous
+system could only allow you to vote 13 times (for the 13 models available). This
+isn't correct, because it means we aren't properly able to vote on each and
+every model pair to get an accurate representation of the model's capabilities.
+
+### Tasks
+
+1. **Requirements & Design**
+   - [x] Define the new voting flow: voting on unique model pairs per category.
+   - [x] Specify how “voted pairs” are tracked (e.g., unordered pairs, per
+         category, per user/cookie).
+
+2. **Database & Schema Changes**
+   - [ ] Update the SQL schema:
+     - Add a table for `model_pair_votes` (fields: model_a_id, model_b_id,
+       category, vote, timestamp, cookie_id).
+     - Ensure uniqueness constraint on (model_a_id, model_b_id, category,
+       cookie_id).
+   - [ ] Update Supabase migration scripts (`supabase-init-schema.sql`,
+         `supabase-update-schema.sql`, and `supabase-secure-schema.sql`).
+   - [ ] Migrate any existing vote data to the new schema (if necessary).
+
+3. **Backend & API Updates**
+   - [ ] Refactor Supabase service methods to support model pair voting.
+   - [ ] Update or add endpoints for submitting and retrieving votes on model
+         pairs.
+   - [ ] Update TypeScript types to reflect new vote structure.
+
+4. **Frontend Logic Refactor**
+   - [ ] Refactor voting logic in Pinia stores (`voteStore.ts`) and composables
+         to track voted pairs.
+   - [ ] Update the random model pair selection logic to exclude already-voted
+         pairs.
+   - [ ] Update the voting UI to show model pairs and handle new voting rules.
+   - [ ] Update local storage/cookie logic to track voted pairs by user.
+
+5. **Documentation & Cleanup**
+   - [ ] Update documentation to reflect the new voting system (README,
+         comments, diagrams).
+   - [ ] Remove legacy single-model voting code.
+
+---
+
 ## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
