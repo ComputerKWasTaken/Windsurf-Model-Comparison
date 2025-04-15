@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { v4 as uuidv4 } from 'uuid'; // We'll need to install uuid
+import { v4 as uuidv4 } from 'uuid';
 
 export interface AppError {
   id: string;

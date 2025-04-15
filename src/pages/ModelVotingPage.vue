@@ -24,90 +24,49 @@ const categories = [
   { id: 'explaining' as const, name: 'Explaining', description: 'Ability to clearly explain code and concepts' }
 ];
 
-// Get all available models that haven't been voted on in the current category
+// All models are available for pairing; filtering is handled in selectRandomModels
 const availableModels = computed(() => {
-  return modelStore.models.filter(model => 
-    !voteStore.hasVoted(model.id, selectedCategory.value)
-  );
+  return modelStore.models;
 });
 
-// Choose two random models to compare with weighted probability based on vote count
+// Select a random unordered model pair that hasn't been voted on in the current category
 const selectRandomModels = () => {
-  // If we have less than 2 models available, we can't compare
-  if (availableModels.value.length < 2) {
+  const models = availableModels.value;
+  if (models.length < 2) {
     modelA.value = null;
     modelB.value = null;
     return;
   }
-  
-  // Calculate weights inversely proportional to vote counts
-  // Models with fewer votes will have higher weights (higher chance of being selected)
-  const weights = availableModels.value.map(model => {
-    // Add 1 to avoid division by zero and ensure all models have some chance
-    const voteCount = model.votes + 1;
-    // Use inverse of vote count as weight (fewer votes = higher weight)
-    return 1 / voteCount;
-  });
-  
-  // Calculate the sum of all weights for normalization
-  const totalWeight = weights.reduce((sum, weight) => sum + weight, 0);
-  
-  // Normalize weights to sum to 1
-  const normalizedWeights = weights.map(weight => weight / totalWeight);
-  
-  // Create cumulative distribution for weighted random selection
-  const cumulativeWeights = [];
-  let cumulativeWeight = 0;
-  
-  for (const weight of normalizedWeights) {
-    cumulativeWeight += weight;
-    cumulativeWeights.push(cumulativeWeight);
+
+  // Generate all possible unordered pairs
+  const pairs: [Model, Model][] = [];
+  for (let i = 0; i < models.length; i++) {
+    for (let j = i + 1; j < models.length; j++) {
+      pairs.push([models[i], models[j]]);
+    }
   }
-  
-  // Select first model using weighted random selection
-  const random1 = Math.random();
-  let index1 = 0;
-  
-  while (index1 < cumulativeWeights.length && random1 > cumulativeWeights[index1]) {
-    index1++;
+
+  // Filter out pairs already voted on in this category
+  const unvotedPairs = pairs.filter(([a, b]) =>
+    !voteStore.hasVotedOnPair(a.id, b.id, selectedCategory.value)
+  );
+
+  if (unvotedPairs.length === 0) {
+    modelA.value = null;
+    modelB.value = null;
+    return;
   }
-  
-  // Create new weights excluding the first selected model
-  const weightsWithoutFirst = [...weights];
-  weightsWithoutFirst.splice(index1, 1);
-  
-  // Recalculate normalized and cumulative weights
-  const newTotalWeight = weightsWithoutFirst.reduce((sum, weight) => sum + weight, 0);
-  const newNormalizedWeights = weightsWithoutFirst.map(weight => weight / newTotalWeight);
-  
-  const newCumulativeWeights = [];
-  let newCumulativeWeight = 0;
-  
-  for (const weight of newNormalizedWeights) {
-    newCumulativeWeight += weight;
-    newCumulativeWeights.push(newCumulativeWeight);
-  }
-  
-  // Select second model using weighted random selection
-  const random2 = Math.random();
-  let index2 = 0;
-  
-  while (index2 < newCumulativeWeights.length && random2 > newCumulativeWeights[index2]) {
-    index2++;
-  }
-  
-  // Adjust index2 if it needs to account for the removed first model
-  if (index2 >= index1) index2++;
-  
-  modelA.value = availableModels.value[index1];
-  modelB.value = availableModels.value[index2];
+
+  // Pick a random unvoted pair
+  const randomIndex = Math.floor(Math.random() * unvotedPairs.length);
+  const [a, b] = unvotedPairs[randomIndex];
+  modelA.value = a;
+  modelB.value = b;
 };
 
 // Handle user vote
-const handleVote = (winningModelId: string, losingModelId: string) => {
-  voteStore.recordVote(winningModelId, losingModelId, selectedCategory.value);
-  
-  // Select new models to compare
+const handleVote = (winnerId: string) => {
+  voteStore.recordVote(modelA.value!.id, modelB.value!.id, winnerId, selectedCategory.value);
   selectRandomModels();
 };
 
@@ -179,7 +138,7 @@ onMounted(() => {
           <!-- Has models to compare -->
           <div v-if="modelA && modelB" class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
             <!-- Model A -->
-            <div class="card hover:shadow-lg transition-all duration-300 cursor-pointer transform hover:-translate-y-1 hover:bg-mint-50 dark:hover:bg-dark-mint-900 active:scale-[0.98]" @click="handleVote(modelA.id, modelB.id)">
+            <div class="card hover:shadow-lg transition-all duration-300 cursor-pointer transform hover:-translate-y-1 hover:bg-mint-50 dark:hover:bg-dark-mint-900 active:scale-[0.98]" @click="handleVote(modelA.id)">
               <div class="flex items-center mb-4">
                 <div class="flex-shrink-0 h-12 w-12 md:h-16 md:w-16 flex items-center justify-center mr-3 transition-colors duration-300">
                   <span v-if="!modelA.logoUrl" class="text-xl md:text-2xl font-bold text-evergreen-500 dark:text-mint-400 transition-colors duration-300">
@@ -218,7 +177,7 @@ onMounted(() => {
             </div>
 
             <!-- Model B -->
-            <div class="card hover:shadow-lg transition-all duration-300 cursor-pointer transform hover:-translate-y-1 hover:bg-mint-50 dark:hover:bg-dark-mint-900 active:scale-[0.98]" @click="handleVote(modelB.id, modelA.id)">
+            <div class="card hover:shadow-lg transition-all duration-300 cursor-pointer transform hover:-translate-y-1 hover:bg-mint-50 dark:hover:bg-dark-mint-900 active:scale-[0.98]" @click="handleVote(modelB.id)">
               <div class="flex items-center mb-4">
                 <div class="flex-shrink-0 h-12 w-12 md:h-16 md:w-16 flex items-center justify-center mr-3 transition-colors duration-300">
                   <span v-if="!modelB.logoUrl" class="text-xl md:text-2xl font-bold text-evergreen-500 dark:text-mint-400 transition-colors duration-300">

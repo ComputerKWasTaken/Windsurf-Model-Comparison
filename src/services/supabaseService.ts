@@ -1,5 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
-import type { Model, Vote, Category } from '../types/model';
+import type { Model, ModelPairVote, Category } from '../types/model';
 
 // Use environment variables for Supabase credentials
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
@@ -193,53 +193,49 @@ export const supabaseService = {
   },
   
   /**
-   * Record a new vote in the database
+   * Record a new model pair vote in the database
    */
-  async recordVote(vote: Vote): Promise<void> {
+  async recordModelPairVote(vote: ModelPairVote): Promise<void> {
     const { error } = await supabase
-      .from('votes')
+      .from('model_pair_votes')
       .insert([vote]);
-      
     if (error) {
-      console.error('Error recording vote:', error);
+      console.error('Error recording model pair vote:', error);
       throw error;
     }
   },
-  
+
   /**
-   * Check if a user has already voted for a specific model in a category
+   * Check if a user has already voted on a specific model pair in a category
+   * (unordered: checks both (A,B) and (B,A))
    */
-  async hasUserVoted(userBrowserId: string, modelId: string, category: Category): Promise<boolean> {
+  async hasUserVotedOnPair(userBrowserId: string, modelA: string, modelB: string, category: Category): Promise<boolean> {
     const { data, error } = await supabase
-      .from('votes')
+      .from('model_pair_votes')
       .select('*')
+      .or(`and(model_a_id.eq.${modelA},model_b_id.eq.${modelB}),and(model_a_id.eq.${modelB},model_b_id.eq.${modelA})`)
       .eq('userBrowserId', userBrowserId)
-      .eq('modelId', modelId)
       .eq('category', category);
-      
     if (error) {
-      console.error('Error checking if user voted:', error);
+      console.error('Error checking pair vote:', error);
       throw error;
     }
-    
-    return data && data.length > 0;
+    return !!(data && data.length > 0);
   },
-  
+
   /**
-   * Get all votes for a specific user
+   * Get all model pair votes for a specific user
    */
-  async getVotesByUser(userBrowserId: string): Promise<Vote[]> {
+  async getModelPairVotesByUser(userBrowserId: string): Promise<ModelPairVote[]> {
     const { data, error } = await supabase
-      .from('votes')
+      .from('model_pair_votes')
       .select('*')
       .eq('userBrowserId', userBrowserId);
-      
     if (error) {
-      console.error('Error fetching user votes:', error);
+      console.error('Error fetching user model pair votes:', error);
       throw error;
     }
-    
-    return data as Vote[];
+    return data as ModelPairVote[];
   },
   
   /**
@@ -293,28 +289,6 @@ export const supabaseService = {
     };
   },
 
-  /**
-   * Set up real-time subscription for new votes
-   * @param callback Function to call when new votes are recorded
-   */
-  subscribeToVotes(callback: (payload: any) => void): () => void {
-    const channel = supabase.channel('vote-updates')
-      .on(
-        'postgres_changes',
-        {
-          event: 'INSERT',
-          schema: 'public',
-          table: 'votes'
-        },
-        callback
-      )
-      .subscribe();
-      
-    // Return unsubscribe function
-    return () => {
-      supabase.removeChannel(channel);
-    };
-  }
 };
 
 export default supabaseService;
