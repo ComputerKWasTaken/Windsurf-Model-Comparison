@@ -21,10 +21,16 @@ export interface Model {
   votes: number;
 }
 
-export interface Vote {
-  modelId: string;
+
+/**
+ * Model pair vote: records a user's vote between two models in a given category.
+ * vote: 0 = model_a wins, 1 = model_b wins
+ */
+export interface ModelPairVote {
+  model_a_id: string;
+  model_b_id: string;
   category: Category;
-  rating: number; // ELO adjustment
+  vote: 0 | 1;
   timestamp: number;
-  userBrowserId: string; // Anonymous browser identifier for vote tracking
+  userBrowserId: string;
 }

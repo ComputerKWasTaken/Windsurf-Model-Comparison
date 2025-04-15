@@ -33,8 +33,8 @@ assessment of each model's capabilities.
   - Processing speed (tokens per second)
 - **Sorting Capabilities**: Sort leaderboards by specific categories or model
   characteristics
-- **Voting System**: Cookie-based system allowing users to vote once per
-  model/category with a dedicated voting interface
+- **Voting System**: Cookie-based system allowing users to vote once per model
+  pair and category with a dedicated pairwise voting interface
 
 ## 🛠️ Technology Stack
 
@@ -137,11 +137,13 @@ Allows users to:
 
 Enables users to:
 
-1. Vote between pairs of models in specific performance categories
+1. Vote between pairs of models in specific performance categories (rather than
+   voting for individual models)
 2. Select from five specialized categories to focus voting
 3. View model specifications while making voting decisions
 4. Contribute to the community-driven ELO rating system
-5. Access directly from the main leaderboard via the "Vote Now" button
+5. Access the voting interface directly from the main leaderboard via the "Vote
+   Now" button
 
 ## 🔧 Development Setup
 

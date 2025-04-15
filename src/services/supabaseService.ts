@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
-import type { Model, Vote, Category } from '../types/model';
+import type { Model, ModelPairVote, Category } from '../types/model';
+import { useErrorStore } from '../stores/errorStore';
 
 // Use environment variables for Supabase credentials
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
@@ -16,6 +17,7 @@ export const supabaseService = {
    */
   async initializeTables(): Promise<void> {
     console.log('Checking if Supabase tables exist...');
+    const errorStore = useErrorStore();
     try {
       // Check if models table exists by querying it
       try {
@@ -23,12 +25,14 @@ export const supabaseService = {
         console.log('Models table exists');
       } catch (error: any) {
         console.warn('Models table does not exist or another error occurred');
+        errorStore.addError('Supabase Table Check', 'Models table does not exist or another error occurred. Please contact computerK through Discord or GitHub.');
         console.warn('Please create the required tables using the SQL script in the project root: supabase-schema.sql');
         console.warn('You can run this script in the Supabase Dashboard > SQL Editor');
         // We'll continue execution and rely on the fallback mechanisms
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error checking tables:', error);
+      errorStore.addError('Supabase Table Check', error?.message || String(error));
       // Don't throw, let the application continue with fallbacks
     }
   },
@@ -42,8 +46,10 @@ export const supabaseService = {
       .from('models')
       .select('*');
 
+    const errorStore = useErrorStore();
     if (fetchError) {
       console.error('Error fetching existing models:', fetchError);
+      errorStore.addError('Fetch Existing Models Failed', fetchError.message || String(fetchError));
       throw fetchError;
     }
 
@@ -56,6 +62,7 @@ export const supabaseService = {
       
       if (error) {
         console.error('Error seeding models:', error);
+        errorStore.addError('Seed Models Failed', error.message || String(error));
         throw error;
       }
       console.log('Initial models seeded successfully');
@@ -73,6 +80,7 @@ export const supabaseService = {
    * Also adds new models that exist in models.json but not in the database
    */
   async updateExistingModels(existingModels: Model[], newModels: Model[]): Promise<void> {
+    const errorStore = useErrorStore();
     const existingModelMap = new Map<string, Model>();
     existingModels.forEach(model => existingModelMap.set(model.id, model));
     
@@ -134,6 +142,7 @@ export const supabaseService = {
           
         if (error) {
           console.error(`Error updating model ${model.id}:`, error);
+          errorStore.addError(`Update Model Failed (${model.id})`, error.message || String(error));
           // Continue with other updates even if one fails
         }
       }
@@ -149,6 +158,7 @@ export const supabaseService = {
         
       if (error) {
         console.error('Error adding new models:', error);
+        errorStore.addError('Add New Models Failed', error.message || String(error));
         // Don't throw, as we've already processed updates
       }
     }
@@ -162,12 +172,14 @@ export const supabaseService = {
    * Fetch all models from the database
    */
   async getModels(): Promise<Model[]> {
+    const errorStore = useErrorStore();
     const { data, error } = await supabase
       .from('models')
       .select('*');
       
     if (error) {
       console.error('Error fetching models:', error);
+      errorStore.addError('Fetch Models Failed', error.message || String(error));
       throw error;
     }
     
@@ -186,60 +198,64 @@ export const supabaseService = {
       })
       .eq('id', model.id);
       
+    const errorStore = useErrorStore();
     if (error) {
       console.error('Error updating model ratings:', error);
+      errorStore.addError('Update Model Ratings Failed', error.message || String(error));
       throw error;
     }
   },
   
   /**
-   * Record a new vote in the database
+   * Record a new model pair vote in the database
    */
-  async recordVote(vote: Vote): Promise<void> {
+  async recordModelPairVote(vote: ModelPairVote): Promise<void> {
     const { error } = await supabase
-      .from('votes')
+      .from('model_pair_votes')
       .insert([vote]);
-      
+    const errorStore = useErrorStore();
     if (error) {
-      console.error('Error recording vote:', error);
+      console.error('Error recording model pair vote:', error);
+      errorStore.addError('Record Model Pair Vote Failed', error.message || String(error));
       throw error;
     }
   },
-  
+
   /**
-   * Check if a user has already voted for a specific model in a category
+   * Check if a user has already voted on a specific model pair in a category
+   * (unordered: checks both (A,B) and (B,A))
    */
-  async hasUserVoted(userBrowserId: string, modelId: string, category: Category): Promise<boolean> {
+  async hasUserVotedOnPair(userBrowserId: string, modelA: string, modelB: string, category: Category): Promise<boolean> {
     const { data, error } = await supabase
-      .from('votes')
+      .from('model_pair_votes')
       .select('*')
+      .or(`and(model_a_id.eq.${modelA},model_b_id.eq.${modelB}),and(model_a_id.eq.${modelB},model_b_id.eq.${modelA})`)
       .eq('userBrowserId', userBrowserId)
-      .eq('modelId', modelId)
       .eq('category', category);
-      
+    const errorStore = useErrorStore();
     if (error) {
-      console.error('Error checking if user voted:', error);
+      console.error('Error checking pair vote:', error);
+      errorStore.addError('Check Pair Vote Failed', error.message || String(error));
       throw error;
     }
-    
-    return data && data.length > 0;
+    return !!(data && data.length > 0);
   },
-  
+
   /**
-   * Get all votes for a specific user
+   * Get all model pair votes for a specific user
    */
-  async getVotesByUser(userBrowserId: string): Promise<Vote[]> {
+  async getModelPairVotesByUser(userBrowserId: string): Promise<ModelPairVote[]> {
     const { data, error } = await supabase
-      .from('votes')
+      .from('model_pair_votes')
       .select('*')
       .eq('userBrowserId', userBrowserId);
-      
+    const errorStore = useErrorStore();
     if (error) {
-      console.error('Error fetching user votes:', error);
+      console.error('Error fetching user model pair votes:', error);
+      errorStore.addError('Fetch User Model Pair Votes Failed', error.message || String(error));
       throw error;
     }
-    
-    return data as Vote[];
+    return data as ModelPairVote[];
   },
   
   /**
@@ -252,8 +268,10 @@ export const supabaseService = {
       .from('models')
       .select('*', { count: 'exact', head: true });
       
+    const errorStore = useErrorStore();
     if (countError) {
       console.error('Error checking models count:', countError);
+      errorStore.addError('Check Models Count Failed', countError.message || String(countError));
       throw countError;
     }
     
@@ -265,6 +283,7 @@ export const supabaseService = {
         
       if (error) {
         console.error('Error initializing models:', error);
+        errorStore.addError('Initialize Models Failed', error.message || String(error));
         throw error;
       }
     }
@@ -293,28 +312,6 @@ export const supabaseService = {
     };
   },
 
-  /**
-   * Set up real-time subscription for new votes
-   * @param callback Function to call when new votes are recorded
-   */
-  subscribeToVotes(callback: (payload: any) => void): () => void {
-    const channel = supabase.channel('vote-updates')
-      .on(
-        'postgres_changes',
-        {
-          event: 'INSERT',
-          schema: 'public',
-          table: 'votes'
-        },
-        callback
-      )
-      .subscribe();
-      
-    // Return unsubscribe function
-    return () => {
-      supabase.removeChannel(channel);
-    };
-  }
 };
 
 export default supabaseService;

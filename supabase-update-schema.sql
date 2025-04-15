@@ -24,6 +24,12 @@ CREATE POLICY "Allow model insertion"
 CREATE POLICY "Allow model updates" 
   ON models FOR UPDATE USING (true);
 
+-- Add permissive policies for model_pair_votes
+CREATE POLICY "Model pair votes are viewable by everyone" 
+  ON model_pair_votes FOR SELECT USING (true);
+CREATE POLICY "Allow model pair vote insertion" 
+  ON model_pair_votes FOR INSERT WITH CHECK (true);
+
 -- Note: This schema intentionally has permissive policies for model management
 -- It should only be used temporarily for administrative purposes
 -- After model updates are complete, apply the secure schema with supabase-secure-schema.sql
