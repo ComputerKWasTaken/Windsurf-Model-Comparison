@@ -19,13 +19,13 @@
       "votes": 0
     },
     {
-      "id": "3.5-sonnet",
-      "name": "Claude 3.5 Sonnet",
-      "company": "Anthropic",
-      "costCredits": 1,
+      "id": "o4-mini-medium",
+      "name": "O4-Mini (Medium)",
+      "company": "OpenAI",
+      "costCredits": 0,
       "contextWindow": 200000,
-      "speed": 76,
-      "logoUrl": "/images/logos/anthropic.png",
+      "speed": 121,
+      "logoUrl": "/images/logos/openai.png",
       "ratings": {
         "overall": 1200,
         "agentic": 1200,
@@ -37,12 +37,12 @@
       "votes": 0
     },
     {
-      "id": "gpt-4o",
-      "name": "GPT-4o",
+      "id": "o4-mini-high",
+      "name": "O4-Mini (High)",
       "company": "OpenAI",
-      "costCredits": 1,
-      "contextWindow": 128000,
-      "speed": 188,
+      "costCredits": 0,
+      "contextWindow": 200000,
+      "speed": 98,
       "logoUrl": "/images/logos/openai.png",
       "ratings": {
         "overall": 1200,
@@ -98,6 +98,42 @@
       "contextWindow": 1000000,
       "speed": 198,
       "logoUrl": "/images/logos/google.png",
+      "ratings": {
+        "overall": 1200,
+        "agentic": 1200,
+        "planning": 1200,
+        "debugging": 1200,
+        "refactoring": 1200,
+        "explaining": 1200
+      },
+      "votes": 0
+    },
+    {
+      "id": "3.5-sonnet",
+      "name": "Claude 3.5 Sonnet",
+      "company": "Anthropic",
+      "costCredits": 1,
+      "contextWindow": 200000,
+      "speed": 76,
+      "logoUrl": "/images/logos/anthropic.png",
+      "ratings": {
+        "overall": 1200,
+        "agentic": 1200,
+        "planning": 1200,
+        "debugging": 1200,
+        "refactoring": 1200,
+        "explaining": 1200
+      },
+      "votes": 0
+    },
+    {
+      "id": "gpt-4o",
+      "name": "GPT-4o",
+      "company": "OpenAI",
+      "costCredits": 1,
+      "contextWindow": 128000,
+      "speed": 188,
+      "logoUrl": "/images/logos/openai.png",
       "ratings": {
         "overall": 1200,
         "agentic": 1200,
