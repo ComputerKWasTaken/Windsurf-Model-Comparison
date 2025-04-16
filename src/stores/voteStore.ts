@@ -14,6 +14,14 @@ export const useVoteStore = defineStore('votes', {
       refactoring: {},
       explaining: {}
     } as Record<Category, Record<string, boolean>>,
+    // Track vote counts for unordered pairs: { [category]: { 'modelA|modelB': count } }
+    pairVoteCounts: {
+      agentic: {},
+      planning: {},
+      debugging: {},
+      refactoring: {},
+      explaining: {}
+    } as Record<Category, Record<string, number>>,
     // Cookie name for storing vote data
     COOKIE_NAME: 'windsurf_model_pair_votes',
     // Browser ID for tracking votes
@@ -40,6 +48,14 @@ export const useVoteStore = defineStore('votes', {
      */
     getVotedPairsForCategory: (state) => (category: Category) => {
       return state.votedPairs[category] ? Object.keys(state.votedPairs[category]) : [];
+    },
+
+    /**
+     * Get vote count for an unordered model pair in a category
+     */
+    getPairVoteCount: (state) => (modelA: string, modelB: string, category: Category) => {
+      const key = [modelA, modelB].sort().join('|');
+      return state.pairVoteCounts[category]?.[key] || 0;
     }
   },
 
@@ -194,6 +210,15 @@ export const useVoteStore = defineStore('votes', {
           this.votedPairs[category] = {};
         }
         this.votedPairs[category][key] = true;
+        // Increment vote count for the pair
+        if (!this.pairVoteCounts[category]) {
+          this.pairVoteCounts[category] = {};
+        }
+        if (!this.pairVoteCounts[category][key]) {
+          this.pairVoteCounts[category][key] = 1;
+        } else {
+          this.pairVoteCounts[category][key] += 1;
+        }
         this.saveToCookie();
       } catch (err: any) {
         console.error('Failed to record model pair vote:', err);

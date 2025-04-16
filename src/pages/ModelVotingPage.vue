@@ -57,9 +57,30 @@ const selectRandomModels = () => {
     return;
   }
 
-  // Pick a random unvoted pair
-  const randomIndex = Math.floor(Math.random() * unvotedPairs.length);
-  const [a, b] = unvotedPairs[randomIndex];
+  // Weighted random selection: pairs with fewer votes are more likely to be picked
+  // Weight = 1 / (voteCount + 1)
+  const weights = unvotedPairs.map(([a, b]) => {
+    const count = voteStore.getPairVoteCount(a.id, b.id, selectedCategory.value);
+    return 1 / (count + 1);
+  });
+  const totalWeight = weights.reduce((sum, w) => sum + w, 0);
+
+  // If all weights are equal (e.g., all pairs have 0 votes), fallback to uniform random
+  let selectedIdx = 0;
+  if (totalWeight > 0 && new Set(weights).size > 1) {
+    let r = Math.random() * totalWeight;
+    for (let i = 0; i < unvotedPairs.length; i++) {
+      r -= weights[i];
+      if (r <= 0) {
+        selectedIdx = i;
+        break;
+      }
+    }
+  } else {
+    selectedIdx = Math.floor(Math.random() * unvotedPairs.length);
+  }
+
+  const [a, b] = unvotedPairs[selectedIdx];
   modelA.value = a;
   modelB.value = b;
 };
