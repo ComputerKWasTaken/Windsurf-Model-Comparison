@@ -271,12 +271,12 @@
       "votes": 0
     },
     {
-      "id": "gemini-2.0-flash",
-      "name": "Gemini 2.0 Flash",
+      "id": "gemini-2.5-flash",
+      "name": "Gemini 2.5 Flash",
       "company": "Google",
-      "costCredits": 0.25,
+      "costCredits": 0.125,
       "contextWindow": 1000000,
-      "speed": 244,
+      "speed": 329,
       "logoUrl": "/images/logos/google.png",
       "ratings": {
         "overall": 1200,
