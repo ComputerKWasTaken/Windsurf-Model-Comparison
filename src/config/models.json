@@ -289,6 +289,24 @@
       "votes": 0
     },
     {
+      "id": "gemini-2.0-flash",
+      "name": "Gemini 2.0 Flash",
+      "company": "Google",
+      "costCredits": 0.125,
+      "contextWindow": 1000000,
+      "speed": 250,
+      "logoUrl": "/images/logos/google.png",
+      "ratings": {
+        "overall": 1200,
+        "agentic": 1200,
+        "planning": 1200,
+        "debugging": 1200,
+        "refactoring": 1200,
+        "explaining": 1200
+      },
+      "votes": 0
+    },
+    {
       "id": "cascade-base",
       "name": "Cascade Base",
       "company": "Windsurf",
