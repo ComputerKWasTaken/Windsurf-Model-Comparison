@@ -32,7 +32,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, nextTick } from 'vue';
+import { ref, nextTick, onMounted, onBeforeUnmount } from 'vue';
 
 defineProps<{ take: string }>();
 
@@ -44,9 +44,13 @@ function updatePopoverPosition() {
   nextTick(() => {
     if (!iconRef.value) return;
     const rect = iconRef.value.getBoundingClientRect();
-    // If the icon's center is below the halfway point of the viewport, show popover above
+    // If the icon's center is below the halfway point of the viewport, show popover below, else above
     const iconCenterY = rect.top + rect.height / 2;
-    positionAbove.value = iconCenterY > window.innerHeight / 2;
+    // Check available space above and below
+    const spaceAbove = rect.top;
+    const spaceBelow = window.innerHeight - rect.bottom;
+    // Prefer below unless there's more space above
+    positionAbove.value = spaceBelow < 180 && spaceAbove > spaceBelow;
   });
 }
 
@@ -57,6 +61,19 @@ function handleShow() {
 function handleHide() {
   show.value = false;
 }
+
+function handleWindowEvents() {
+  if (show.value) updatePopoverPosition();
+}
+
+onMounted(() => {
+  window.addEventListener('resize', handleWindowEvents);
+  window.addEventListener('scroll', handleWindowEvents, true);
+});
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', handleWindowEvents);
+  window.removeEventListener('scroll', handleWindowEvents, true);
+});
 </script>
 
 <style scoped>
@@ -100,9 +117,11 @@ function handleHide() {
 }
 .take-popover--below {
   top: 120%;
+  bottom: auto;
 }
 .take-popover--above {
   bottom: 120%;
+  top: auto;
 }
 .take-popover,
 .take-popover * {
