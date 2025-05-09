@@ -2,6 +2,9 @@
 import { ref, computed, onMounted, watch } from 'vue';
 import { useModelStore } from '../../stores/modelStore';
 import { useRoute, useRouter } from 'vue-router';
+import TakeIcon from '../common/TakeIcon.vue';
+import takesRaw from '../../config/takes.json';
+const takes: { [key: string]: string } = takesRaw as Record<string, string>;
 import type { Category } from '../../types/model';
 
 // Initialize store and router
@@ -96,11 +99,11 @@ const formatNumber = (num: number): string => {
 const modelSlug = (name: string): string => {
   return name
     .toLowerCase()
-    .replace(/\s+/g, '-')
-    .replace(/\./g, '-')
-    .replace(/[^a-z0-9\-]/g, '')
-    .replace(/-+/g, '-')
-    .replace(/^-+|-+$/g, '');
+    .replace(/\s+/g, '-') // Replace spaces with hyphens
+    .replace(/\./g, '-') // Replace periods with hyphens
+    .replace(/[^a-z0-9\-]/g, '') // Remove non-alphanumeric characters
+    .replace(/-+/g, '-') // Replace multiple hyphens with a single hyphen
+    .replace(/^-+|-+$/g, ''); // Remove leading and trailing hyphens
 };
 
 const artificialAnalysisUrl = (name: string): string => {
@@ -232,7 +235,7 @@ const openModelExternal = (modelName: string) => {
                   </span>
                   <img v-else :src="model.logoUrl" alt="" class="h-10 w-10">
                 </div>
-                <div class="ml-4">
+                <div class="ml-4 flex items-center gap-1">
                   <div class="text-sm font-medium transition-colors duration-300"
                        :class="{
                          'text-yellow-600 dark:text-yellow-400 font-semibold': index === 0,
@@ -242,6 +245,7 @@ const openModelExternal = (modelName: string) => {
                        }">
                     {{ model.name }}
                   </div>
+                  <TakeIcon v-if="takes[model.id]" :take="takes[model.id]" class="ml-1 align-middle" />
                 </div>
               </div>
             </td>
@@ -321,6 +325,7 @@ const openModelExternal = (modelName: string) => {
                         'text-amber-700 dark:text-amber-500 font-semibold': index === 2,
                         'text-gray-900 dark:text-white': index > 2
                       }">{{ model.name }}</span>
+                <TakeIcon v-if="takes[model.id]" :take="takes[model.id]" class="ml-1 align-middle" />
               </div>
               <div class="text-xs text-gray-600 dark:text-gray-400">{{ model.company }}</div>
             </div>

@@ -49,6 +49,9 @@
             <strong>Model Details:</strong> Comprehensive information about each model
           </li>
           <li class="text-body">
+            <strong>computerK's Take:</strong> My personal opinions and commentary on select models, shown as a special icon next to the model name. Hover to see insights and subjective notes about a model's real-world strengths, quirks, or caveats.
+          </li>
+          <li class="text-body">
             <strong>Sorting Capabilities:</strong> Sort leaderboards by specific categories or model
             characteristics
           </li>

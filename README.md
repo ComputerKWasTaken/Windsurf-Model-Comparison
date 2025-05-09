@@ -31,6 +31,7 @@ assessment of each model's capabilities.
   - Cost (in credits)
   - Context window size
   - Processing speed (tokens per second)
+- **computerK's Take**: My personal opinions and commentary on select models, shown as a special icon next to the model name. Hover to see insights and subjective notes about the model's real-world strengths, quirks, or caveats.
 - **Sorting Capabilities**: Sort leaderboards by specific categories or model
   characteristics
 - **Voting System**: Cookie-based system allowing users to vote once per model
@@ -57,17 +58,23 @@ windsurf-model-comparison/
 │   ├── assets/                 # Project assets (images, fonts)
 │   ├── components/             # Vue components
 │   │   ├── common/             # Shared/reusable components
+│   │   │   ├── ErrorNotification.vue
+│   │   │   └── TakeIcon.vue
 │   │   ├── layout/             # Layout components (includes AppHeader with navigation)
+│   │   │   ├── AppFooter.vue
+│   │   │   └── AppHeader.vue
 │   │   └── leaderboard/        # Leaderboard-specific components
+│   │       └── MainLeaderboard.vue
 │   ├── composables/            # Vue composables for reusable logic
 │   ├── config/                 # Configuration files
-│   │   └── models.json         # Model information data
+│   │   ├── models.json         # Model information data
+│   │   └── takes.json          # computerK's takes on models
 │   ├── pages/                  # Page components
 │   │   ├── AboutPage.vue       # Information about the application
 │   │   ├── CategoriesPage.vue  # List of category leaderboards
 │   │   ├── CompareModelsPage.vue # Side-by-side model comparison
-│   │   ├── ModelVotingPage.vue # Interface for voting on model pairs
-│   │   └── MainLeaderboardPage.vue # Overall model rankings
+│   │   ├── MainLeaderboardPage.vue # Overall model rankings
+│   │   └── ModelVotingPage.vue # Interface for voting on model pairs
 │   ├── router/                 # Vue Router configuration
 │   │   └── index.ts            # Route definitions and navigation setup
 │   ├── services/               # Service layer for API interactions
@@ -96,10 +103,8 @@ windsurf-model-comparison/
 ├── supabase-update-schema.sql  # SQL schema for temporary model updates
 ├── supabase-secure-schema.sql  # Security-focused SQL schema with rate limiting
 ├── tailwind.config.js          # Tailwind CSS configuration
-├── vite.config.ts            # Vite configuration
-├── tailwind.config.js          # Tailwind CSS configuration
+├── vite.config.ts              # Vite configuration
 ├── tsconfig.json               # TypeScript configuration
-└── vite.config.ts              # Vite configuration
 ```
 
 ## 🧮 ELO Rating System
