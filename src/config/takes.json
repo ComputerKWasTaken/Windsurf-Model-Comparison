@@ -1,6 +1,8 @@
 {
-  "gpt-4.1": "Extremely reliable and consistent. Handles complex code and reasoning tasks with ease. My go-to for most serious work.",
-  "gpt-4o": "Blazing fast and much cheaper than GPT-4.1, but sometimes makes odd mistakes. Great for rapid prototyping.",
-  "cascade-base": "Early days, but promising! Excited to see how this one evolves."
+  "gpt-4.1": "Extremely reliable and consistent. Handles complex code and reasoning tasks with ease, albeit with the unique quirk of being a bit too hesitant to make bold decisions. It oftentimes seems to get stuck on asking for clarification, and not actually getting things done. Despite that, it's still my go-to for most serious work.",
+  "o4-mini-medium": "O4-Mini (Medium) is quite possibly the best value model in the entirety of Windsurf. It's cheap, decent with toolcalling, highly intelligent, and is a good balance between speed, response delay, output intelligence, and price. Would highly recommend for medium difficulty problems. I wouldn't put it over GPT-4.1 though, because GPT-4.1 has no response delay (no thinking time), is better with instruction following, and has a much larger context window. Still decent, but not as good as GPT-4.1 for most tasks.",
+  "o4-mini-high": "O4-Mini (High) is a step above O4-Mini (Medium) in intelligence, but I'd honestly say it's not a worthy upgrade. The output delay is even longer, it's more expensive, and I've seen no meaningful performance improvement. If you need that little extra boost, it's for you. But for me... yeah, no. I'd just stick with O4-Mini (Medium).",
+  "gpt-4o": "Shockingly poor in Windsurf. Despite being a solid model according to the benchmarks, it appears that 4o is just not as capable in the agentic framework as it should reasonably be. Recent updates have improved it, but I still wouldn't recommend it considering that Claude 3.7/3.5 are far better options for the same price.",
+  "cascade-base": "Cascade Base is simply Claude Haiku, but under a different moniker. It's nothing special, but it's free, which is always a plus. Although considered less intelligent than Deepseek V3 (0324), it's still a solid choice for most tasks, and it's actually far more consistent with toolcalling than Deepseek V3 (0324)."
 
 }
