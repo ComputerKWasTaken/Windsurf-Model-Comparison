@@ -44,11 +44,9 @@ function updatePopoverPosition() {
   nextTick(() => {
     if (!iconRef.value) return;
     const rect = iconRef.value.getBoundingClientRect();
-    const popoverHeight = 110; // estimate, will be improved
-    const spaceBelow = window.innerHeight - rect.bottom;
-    const spaceAbove = rect.top;
-    // If less than 130px below, and more above, show above
-    positionAbove.value = spaceBelow < popoverHeight && spaceAbove > popoverHeight;
+    // If the icon's center is below the halfway point of the viewport, show popover above
+    const iconCenterY = rect.top + rect.height / 2;
+    positionAbove.value = iconCenterY > window.innerHeight / 2;
   });
 }
 
