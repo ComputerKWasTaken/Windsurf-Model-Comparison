@@ -16,18 +16,22 @@
         <path d="M3 15.5V4.5C3 3.67157 3.67157 3 4.5 3H15.5C16.3284 3 17 3.67157 17 4.5V11.5C17 12.3284 16.3284 13 15.5 13H6L3 16.5Z" stroke="#10b981" stroke-width="1.5" fill="#fff"/>
       </svg>
     </button>
-    <transition name="fade">
-      <div
-        v-if="show"
-        :class="['take-popover', positionAbove ? 'take-popover--above' : 'take-popover--below', 'z-50']"
-        role="tooltip"
-      >
-        <span class="font-semibold text-mint-700 dark:text-mint-200">computerK's Take:</span>
-        <div class="mt-1 text-sm text-gray-900 dark:text-mint-100 whitespace-pre-line max-w-xs">
-          {{ take }}
+    <teleport to="body">
+      <transition name="fade">
+        <div
+          v-if="show"
+          ref="popoverRef"
+          :class="['take-popover','z-50']"
+          :style="popoverStyles"
+          role="tooltip"
+        >
+          <span class="font-semibold text-mint-700 dark:text-mint-200">computerK's Take:</span>
+          <div class="mt-1 text-sm text-gray-900 dark:text-mint-100 whitespace-pre-line max-w-xs">
+            {{ take }}
+          </div>
         </div>
-      </div>
-    </transition>
+      </transition>
+    </teleport>
   </div>
 </template>
 
@@ -39,18 +43,28 @@ defineProps<{ take: string }>();
 const show = ref(false);
 const positionAbove = ref(false);
 const iconRef = ref<HTMLElement | null>(null);
+const popoverRef = ref<HTMLElement | null>(null);
+const popoverStyles = ref<Record<string,string>>({});
 
 function updatePopoverPosition() {
   nextTick(() => {
-    if (!iconRef.value) return;
-    const rect = iconRef.value.getBoundingClientRect();
-    // If the icon's center is below the halfway point of the viewport, show popover below, else above
-    const iconCenterY = rect.top + rect.height / 2;
-    // Check available space above and below
-    const spaceAbove = rect.top;
-    const spaceBelow = window.innerHeight - rect.bottom;
-    // Prefer below unless there's more space above
-    positionAbove.value = spaceBelow < 180 && spaceAbove > spaceBelow;
+    if (!iconRef.value || !popoverRef.value) return;
+    const iconRect = iconRef.value.getBoundingClientRect();
+    const popoverEl = popoverRef.value as HTMLElement;
+    const popRect = popoverEl.getBoundingClientRect();
+    const spaceAbove = iconRect.top;
+    const spaceBelow = window.innerHeight - iconRect.bottom;
+    positionAbove.value = spaceBelow < popRect.height + 8 && spaceAbove > spaceBelow;
+    const top = positionAbove.value
+      ? iconRect.top - popRect.height - 8
+      : iconRect.bottom + 8;
+    const left = iconRect.left + iconRect.width / 2 - popRect.width / 2;
+    popoverStyles.value = {
+      position: 'fixed',
+      top: `${top}px`,
+      left: `${left}px`,
+      transform: 'none'
+    };
   });
 }
 
