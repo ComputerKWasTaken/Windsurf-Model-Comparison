@@ -50,6 +50,12 @@ const availableModels = computed(() => {
 
 // Select a random unordered model pair that hasn't been voted on in the current category
 const selectRandomModels = () => {
+  if (!selectedCategory.value) {
+    modelA.value = null;
+    modelB.value = null;
+    return;
+  }
+
   const models = availableModels.value;
   if (models.length < 2) {
     modelA.value = null;
@@ -67,7 +73,7 @@ const selectRandomModels = () => {
 
   // Filter out pairs already voted on in this category
   const unvotedPairs = pairs.filter(([a, b]) =>
-    !voteStore.hasVotedOnPair(a.id, b.id, selectedCategory.value)
+    !voteStore.hasVotedOnPair(a.id, b.id, selectedCategory.value!)
   );
 
   if (unvotedPairs.length === 0) {
@@ -79,7 +85,7 @@ const selectRandomModels = () => {
   // Weighted random selection: pairs with fewer votes are more likely to be picked
   // Weight = 1 / (voteCount + 1)
   const weights = unvotedPairs.map(([a, b]) => {
-    const count = voteStore.getPairVoteCount(a.id, b.id, selectedCategory.value);
+    const count = voteStore.getPairVoteCount(a.id, b.id, selectedCategory.value!);
     return 1 / (count + 1);
   });
   const totalWeight = weights.reduce((sum, w) => sum + w, 0);
@@ -106,7 +112,7 @@ const selectRandomModels = () => {
 
 // Handle user vote
 const handleVote = (winnerId: string) => {
-  voteStore.recordVote(modelA.value!.id, modelB.value!.id, winnerId, selectedCategory.value);
+  voteStore.recordVote(modelA.value!.id, modelB.value!.id, winnerId, selectedCategory.value!);
   selectRandomModels();
 };
 
@@ -299,4 +305,3 @@ onMounted(() => {
     </div>
   </div>
 </template>
-
