@@ -95,30 +95,7 @@ const displayedModels = computed(() => {
 const formatNumber = (num: number): string => {
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
-// Helper to create Artificial Analysis slug from model name
-const modelSlug = (name: string): string => {
-  return name
-    .toLowerCase()
-    .replace(/\s+/g, '-') // Replace spaces with hyphens
-    .replace(/\./g, '-') // Replace periods with hyphens
-    .replace(/[^a-z0-9\-]/g, '') // Remove non-alphanumeric characters
-    .replace(/-+/g, '-') // Replace multiple hyphens with a single hyphen
-    .replace(/^-+|-+$/g, ''); // Remove leading and trailing hyphens
-};
-
-const artificialAnalysisUrl = (name: string): string => {
-  return `https://artificialanalysis.ai/models/${modelSlug(name)}`;
-};
-
-const openModelExternal = (modelName: string) => {
-  // Skip opening for Cascade Base model as it doesn't exist on Artificial Analysis
-  if (modelName === 'Cascade Base') {
-    return;
-  }
-  
-  const url = artificialAnalysisUrl(modelName);
-  window.open(url, '_blank', 'noopener');
-};
+// Format large numbers with commas - moved function here
 </script>
 
 <template>
@@ -202,11 +179,7 @@ const openModelExternal = (modelName: string) => {
                 'hover:bg-amber-50 dark:hover:bg-amber-900/20 border-l-4 border-amber-500': index === 2,
                 'hover:bg-mint-50 dark:hover:bg-dark-mint-900': index > 2
               }"
-              class="transition-all duration-300 cursor-pointer hover:shadow-sm group"
-              @click="() => openModelExternal(model.name)"
-              tabindex="0"
-              @keydown.enter="() => openModelExternal(model.name)"
-              :aria-label="`View ${model.name} on Artificial Analysis`"
+              class="transition-all duration-300 hover:shadow-sm group"
           >
             <td class="px-6 py-4 whitespace-nowrap">
               <div class="text-heading-4" :class="{
@@ -296,11 +269,7 @@ const openModelExternal = (modelName: string) => {
                'border-l-4 border-amber-500 hover:bg-amber-50 dark:hover:bg-amber-900/20': index === 2,
                'hover:bg-mint-50 dark:hover:bg-dark-mint-900': index > 2
              }"
-             class="border-b border-gray-200 dark:border-gray-700 p-4 transition-all duration-300 cursor-pointer transform hover:scale-[1.01] hover:shadow-sm active:scale-[0.99]"
-             @click="() => openModelExternal(model.name)"
-             tabindex="0"
-             @keydown.enter="() => openModelExternal(model.name)"
-             :aria-label="`View ${model.name} on Artificial Analysis`"
+             class="border-b border-gray-200 dark:border-gray-700 p-4 transition-all duration-300 transform hover:scale-[1.01] hover:shadow-sm active:scale-[0.99]"
         >
           <div class="flex items-center mb-3">
             <div class="flex-shrink-0 h-10 w-10 flex items-center justify-center mr-3">
