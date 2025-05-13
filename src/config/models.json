@@ -310,7 +310,7 @@
       "id": "vista",
       "name": "[Preview] Vista",
       "company": "Windsurf",
-      "costCredits": 0.25,
+      "costCredits": 0,
       "contextWindow": 128000,
       "speed": 121,
       "logoUrl": "/images/logos/windsurf.png",
