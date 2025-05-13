@@ -22,6 +22,16 @@ export const useVoteStore = defineStore('votes', {
       refactoring: {},
       explaining: {}
     } as Record<Category, Record<string, number>>,
+    // Global vote counts per category (all users, from Supabase)
+    globalCategoryVoteCounts: {
+      agentic: 0,
+      planning: 0,
+      debugging: 0,
+      refactoring: 0,
+      explaining: 0
+    } as Record<Category, number>,
+    // Whether global vote counts have been loaded
+    globalCategoryVoteCountsLoaded: false,
     // Cookie name for storing vote data
     COOKIE_NAME: 'windsurf_model_pair_votes',
     // Browser ID for tracking votes
@@ -56,10 +66,66 @@ export const useVoteStore = defineStore('votes', {
     getPairVoteCount: (state) => (modelA: string, modelB: string, category: Category) => {
       const key = [modelA, modelB].sort().join('|');
       return state.pairVoteCounts[category]?.[key] || 0;
+    },
+
+    /**
+     * Get total number of votes for a category
+     * (local/session only)
+     */
+    getTotalVotesForCategory: (state) => (category: Category) => {
+      const counts = state.pairVoteCounts[category];
+      return counts ? Object.values(counts).reduce((sum, v) => sum + (v || 0), 0) : 0;
+    },
+
+    /**
+     * Get a map of total votes for all categories (local/session only)
+     */
+    getTotalVotesAllCategories: (state) => {
+      const categories: Category[] = ['agentic', 'planning', 'debugging', 'refactoring', 'explaining'];
+      const result: Record<Category, number> = {
+        agentic: 0,
+        planning: 0,
+        debugging: 0,
+        refactoring: 0,
+        explaining: 0
+      };
+      for (const cat of categories) {
+        const counts = state.pairVoteCounts[cat];
+        result[cat] = counts ? Object.values(counts).reduce((sum, v) => sum + (v || 0), 0) : 0;
+      }
+      return result;
+    },
+
+    /**
+     * Get a map of global vote counts for all categories (from Supabase)
+     */
+    getGlobalCategoryVoteCounts: (state) => {
+      return state.globalCategoryVoteCounts;
+    },
+    getGlobalCategoryVoteCountsLoaded: (state) => {
+      return state.globalCategoryVoteCountsLoaded;
     }
   },
 
   actions: {
+    /**
+     * Fetch global vote counts per category from Supabase
+     */
+    async fetchGlobalCategoryVoteCounts() {
+      const errorStore = useErrorStore();
+      try {
+        this.loading = true;
+        const counts = await supabaseService.getGlobalVoteCountsByCategory();
+        this.globalCategoryVoteCounts = counts;
+        this.globalCategoryVoteCountsLoaded = true;
+        this.loading = false;
+      } catch (err: any) {
+        console.error('Failed to fetch global category vote counts:', err);
+        errorStore.addError('Vote Count Fetch Failed', err.message || 'Could not fetch global vote counts.');
+        this.globalCategoryVoteCountsLoaded = false;
+        this.loading = false;
+      }
+    },
     /**
      * Initialize the vote store
      */

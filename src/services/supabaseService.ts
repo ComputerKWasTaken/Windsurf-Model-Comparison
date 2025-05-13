@@ -11,6 +11,39 @@ const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export const supabaseService = {
   /**
+   * Fetch the total number of votes per category (across all users)
+   * Returns: Record<Category, number>
+   */
+  async getGlobalVoteCountsByCategory(): Promise<Record<Category, number>> {
+    // Supabase does not support group/count in a single call in all clients, so we fetch all categories and count manually
+    const { data, error } = await supabase
+      .from('model_pair_votes')
+      .select('category');
+    const errorStore = useErrorStore();
+    if (error) {
+      console.error('Error fetching global vote counts:', error);
+      errorStore.addError('Fetch Global Vote Counts Failed', error.message || String(error));
+      throw error;
+    }
+    // Initialize all categories to 0
+    const result: Record<Category, number> = {
+      agentic: 0,
+      planning: 0,
+      debugging: 0,
+      refactoring: 0,
+      explaining: 0
+    };
+    if (data && Array.isArray(data)) {
+      for (const row of data) {
+        if (row.category && result.hasOwnProperty(row.category)) {
+          result[row.category as Category] += 1;
+        }
+      }
+    }
+    return result;
+  },
+
+  /**
    * Initialize Supabase tables if they don't exist
    * Note: Tables need to be created manually in the Supabase dashboard
    * using the SQL script provided in the project root 'supabase-schema.sql'
