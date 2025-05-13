@@ -16,6 +16,6 @@
   "o3-mini-medium-reasoning": "There's no need to use this model anymore, the O4 Mini series is better in every way. Surprised this isn't a deprecated model, personally.",
   "gemini-2.5-flash": "A unique model, in that it's currently only available to users on Windsurf Next. It's a variation of the Gemini 2.5 lineup that punches far above its weight. It's a lightning fast, cheap model with a million token context window, and solid performance. This is the model that your girl says not to worry about :P",
   "gemini-2.0-flash": "Enjoy Gemini 2.0 Flash while it lasts, because it's going to be deprecated for 2.5 Flash. It's a bit odd how it hasn't already been deprecated, but I'm sure the Windsurf developers will get around to doing that sometime soon.",
+  "cascade-vista": "A mystery model exclusive to Windsurf Next. I do not have any more information than that. Please check it out and provide your feedback!",
   "cascade-base": "Cascade Base is simply Claude Haiku, but under a different moniker. It's nothing special, but it's free, which is always a plus. Although considered less intelligent than Deepseek V3 (0324), it's still a solid choice for most tasks, and it's actually far more consistent with toolcalling than Deepseek V3 (0324)."
-
 }

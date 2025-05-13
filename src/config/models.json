@@ -307,6 +307,24 @@
       "votes": 0
     },
     {
+      "id": "cascade-vista",
+      "name": "Cascade Vista",
+      "company": "Windsurf",
+      "costCredits": 0,
+      "contextWindow": 128000,
+      "speed": 121,
+      "logoUrl": "/images/logos/windsurf.png",
+      "ratings": {
+        "overall": 1200,
+        "agentic": 1200,
+        "planning": 1200,
+        "debugging": 1200,
+        "refactoring": 1200,
+        "explaining": 1200
+      },
+      "votes": 0
+    },
+    {
       "id": "cascade-base",
       "name": "Cascade Base",
       "company": "Windsurf",
