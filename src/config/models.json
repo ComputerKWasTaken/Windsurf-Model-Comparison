@@ -307,10 +307,10 @@
       "votes": 0
     },
     {
-      "id": "cascade-vista",
-      "name": "Cascade Vista",
+      "id": "vista",
+      "name": "[Preview] Vista",
       "company": "Windsurf",
-      "costCredits": 0,
+      "costCredits": 0.25,
       "contextWindow": 128000,
       "speed": 121,
       "logoUrl": "/images/logos/windsurf.png",
