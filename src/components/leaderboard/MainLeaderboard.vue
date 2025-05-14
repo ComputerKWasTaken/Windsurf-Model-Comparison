@@ -23,33 +23,74 @@ const categories = [
   { id: 'explaining', name: 'Explaining' }
 ];
 
-// Sorting options
-const sortOptions = [
-  { id: 'overall', name: 'Overall Rating' },
-  { id: 'costCredits', name: 'Cost (Credits)' },
-  { id: 'contextWindow', name: 'Context Window' },
-  { id: 'speed', name: 'Speed (tokens/sec)' }
+// Define the type for sort fields to ensure type safety
+type SortField = 'overall' | 'costCredits' | 'contextWindow' | 'speed';
+type SortDirection = 'asc' | 'desc';
+
+interface SortOption {
+  id: SortField;
+  name: string;
+  defaultDirection: SortDirection;
+}
+
+/**
+ * Sorting Configuration
+ * Centralizes all sorting options with their metadata in one place
+ */
+const sortOptions: SortOption[] = [
+  { id: 'overall', name: 'Overall Rating', defaultDirection: 'desc' },
+  { id: 'costCredits', name: 'Cost (Credits)', defaultDirection: 'asc' },
+  { id: 'contextWindow', name: 'Context Window', defaultDirection: 'desc' },
+  { id: 'speed', name: 'Speed (tokens/sec)', defaultDirection: 'desc' }
 ];
-const sortBy = ref('overall');
-const sortDirection = ref<'asc' | 'desc'>('desc');
 
-// Toggle sort direction
-const toggleSortDirection = () => {
-  sortDirection.value = sortDirection.value === 'desc' ? 'asc' : 'desc';
-  modelStore.updateSort(sortBy.value, sortDirection.value);
-};
+/**
+ * Sorting State Management
+ */
+const sortBy = ref<SortField>('overall');
+const sortDirection = ref<SortDirection>('desc');
 
-// Change sort field
-const changeSortField = (field: string) => {
-  if (sortBy.value === field) {
-    toggleSortDirection();
-  } else {
-    sortBy.value = field;
-    // Apply default sort direction based on the field
-    sortDirection.value = field === 'costCredits' ? 'asc' : 'desc';
-    modelStore.updateSort(field, sortDirection.value);
+/**
+ * Sorting Logic
+ */
+const sorting = {
+  // Get the default direction for any sort field
+  getDefaultDirection(field: SortField): SortDirection {
+    const option = sortOptions.find(opt => opt.id === field);
+    return option?.defaultDirection || 'desc';
+  },
+  
+  // Toggle the current sort direction
+  toggleDirection(): void {
+    sortDirection.value = sortDirection.value === 'desc' ? 'asc' : 'desc';
+    this.applySort();
+  },
+  
+  // Change the sort field and reset direction to its default
+  changeField(field: SortField): void {
+    // Only toggle direction if it's the same field
+    // Otherwise, set the new field with its default direction
+    if (sortBy.value !== field) {
+      sortBy.value = field;
+      sortDirection.value = this.getDefaultDirection(field);
+      this.applySort();
+    }
+  },
+  
+  // Apply the current sort settings to the store
+  applySort(): void {
+    modelStore.updateSort(sortBy.value, sortDirection.value);
   }
 };
+
+// Convenience methods that interface with the sorting object
+const toggleSortDirection = () => sorting.toggleDirection();
+const changeSortField = (field: string) => sorting.changeField(field as SortField);
+
+// Initialize sorting on component mount
+onMounted(() => {
+  sorting.applySort();
+});
 
 // Change selected category
 const changeCategory = (category: Category | 'overall') => {
@@ -132,8 +173,8 @@ const formatNumber = (num: number): string => {
       <div class="flex items-center">
         <span class="text-sm text-evergreen-600 dark:text-mint-400 mr-2 transition-colors duration-300">Sort by:</span>
         <select 
-          v-model="sortBy" 
-          @change="changeSortField(sortBy)"
+          :value="sortBy"
+          @change="e => changeSortField(e.target.value)"
           class="bg-white dark:bg-dark-mint-700 border border-mint-300 dark:border-dark-mint-600 text-evergreen-800 dark:text-mint-200 text-sm rounded-lg focus:ring-mint-500 focus:border-mint-500 p-2 transition-all duration-300 cursor-pointer hover:border-mint-500 dark:hover:border-mint-400 focus:shadow-md"
         >
           <option v-for="option in sortOptions" :key="option.id" :value="option.id">
