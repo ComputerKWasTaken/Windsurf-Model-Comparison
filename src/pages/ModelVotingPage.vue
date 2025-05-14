@@ -194,6 +194,9 @@ onMounted(() => {
                   <span class="inline-block px-3 py-1 rounded-full bg-mint-600 text-white text-xs font-semibold">{{ categories.find(c => c.id === selectedCategory)?.name }}</span>
                   <span class="text-xs text-gray-700 dark:text-mint-200 opacity-90">{{ categories.find(c => c.id === selectedCategory)?.description }}</span>
                 </div>
+                <p class="mt-3 text-sm text-mint-800 dark:text-mint-100 font-medium">
+                  Choose the model <span class="font-semibold underline">you would actually use</span> for this category—even if it's not just about being "technically better". Consider real-world utility, usability, and your preference.
+                </p>
               </div>
               <button @click="resetCategory" class="ml-4 px-3 py-1 text-xs rounded-md bg-mint-200 dark:bg-dark-mint-600 text-mint-800 dark:text-mint-100 hover:bg-mint-300 dark:hover:bg-dark-mint-500 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-mint-500 focus:ring-opacity-50">
                 ← Change Category
