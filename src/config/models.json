@@ -307,12 +307,12 @@
       "votes": 0
     },
     {
-      "id": "vista",
-      "name": "[Preview] Vista",
+      "id": "swe-1",
+      "name": "SWE-1",
       "company": "Windsurf",
       "costCredits": 0,
       "contextWindow": 128000,
-      "speed": 121,
+      "speed": 153,
       "logoUrl": "/images/logos/windsurf.png",
       "ratings": {
         "overall": 1200,
@@ -325,12 +325,12 @@
       "votes": 0
     },
     {
-      "id": "cascade-base",
-      "name": "Cascade Base",
+      "id": "swe-1-lite",
+      "name": "SWE-1 Lite",
       "company": "Windsurf",
       "costCredits": 0,
       "contextWindow": 128000,
-      "speed": 121,
+      "speed": 188,
       "logoUrl": "/images/logos/windsurf.png",
       "ratings": {
         "overall": 1200,
