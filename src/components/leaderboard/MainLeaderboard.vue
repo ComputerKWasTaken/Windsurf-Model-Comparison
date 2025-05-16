@@ -85,7 +85,10 @@ const sorting = {
 
 // Convenience methods that interface with the sorting object
 const toggleSortDirection = () => sorting.toggleDirection();
-const changeSortField = (field: string) => sorting.changeField(field as SortField);
+const changeSortField = (e: Event) => {
+  const target = e.target as HTMLSelectElement;
+  sorting.changeField(target.value as SortField);
+};
 
 // Initialize sorting on component mount
 onMounted(() => {
@@ -174,7 +177,7 @@ const formatNumber = (num: number): string => {
         <span class="text-sm text-evergreen-600 dark:text-mint-400 mr-2 transition-colors duration-300">Sort by:</span>
         <select 
           :value="sortBy"
-          @change="e => changeSortField(e.target.value)"
+          @change="changeSortField"
           class="bg-white dark:bg-dark-mint-700 border border-mint-300 dark:border-dark-mint-600 text-evergreen-800 dark:text-mint-200 text-sm rounded-lg focus:ring-mint-500 focus:border-mint-500 p-2 transition-all duration-300 cursor-pointer hover:border-mint-500 dark:hover:border-mint-400 focus:shadow-md"
         >
           <option v-for="option in sortOptions" :key="option.id" :value="option.id">
