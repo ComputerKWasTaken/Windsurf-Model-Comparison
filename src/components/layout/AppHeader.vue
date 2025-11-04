@@ -68,8 +68,6 @@ const isActive = (routeName: string) => {
                   :class="isActive('CompareModels') ? 'w-full' : 'w-0 group-hover:w-full'"></span>
           </router-link>
           <router-link 
-<<<<<<< HEAD
-=======
             to="/recommender" 
             class="text-body hover:text-mint-600 dark:hover:text-mint-400 transition-all duration-300 relative group"
             :class="{ 'text-mint-600 dark:text-mint-400 font-medium': isActive('ModelRecommender') }"
@@ -79,7 +77,6 @@ const isActive = (routeName: string) => {
                   :class="isActive('ModelRecommender') ? 'w-full' : 'w-0 group-hover:w-full'"></span>
           </router-link>
           <router-link 
->>>>>>> origin/main
             to="/vote" 
             class="text-body hover:text-mint-600 dark:hover:text-mint-400 transition-all duration-300 relative group"
             :class="{ 'text-mint-600 dark:text-mint-400 font-medium': isActive('ModelVoting') }"
@@ -139,8 +136,6 @@ const isActive = (routeName: string) => {
             Compare Models
           </router-link>
           <router-link 
-<<<<<<< HEAD
-=======
             to="/recommender" 
             class="text-body py-2 hover:text-mint-600 dark:hover:text-mint-400 transition-all duration-300 transform hover:translate-x-1"
             :class="{ 'text-mint-600 dark:text-mint-400 font-medium translate-x-1': isActive('ModelRecommender') }"
@@ -149,7 +144,6 @@ const isActive = (routeName: string) => {
             🎯 Recommender
           </router-link>
           <router-link 
->>>>>>> origin/main
             to="/vote" 
             class="text-body py-2 hover:text-mint-600 dark:hover:text-mint-400 transition-all duration-300 transform hover:translate-x-1"
             :class="{ 'text-mint-600 dark:text-mint-400 font-medium translate-x-1': isActive('ModelVoting') }"
