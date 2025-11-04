@@ -23,6 +23,14 @@ const routes = [
     component: () => import('../pages/ModelVotingPage.vue')
   },
   {
+<<<<<<< HEAD
+=======
+    path: '/recommender',
+    name: 'ModelRecommender',
+    component: () => import('../pages/ModelRecommenderPage.vue')
+  },
+  {
+>>>>>>> origin/main
     path: '/about',
     name: 'About',
     component: () => import('../pages/AboutPage.vue')

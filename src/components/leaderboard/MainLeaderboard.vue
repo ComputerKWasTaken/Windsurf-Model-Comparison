@@ -145,7 +145,11 @@ const formatNumber = (num: number): string => {
 <template>
   <div class="bg-white dark:bg-dark-mint-800 rounded-lg shadow-md overflow-hidden border border-mint-200 dark:border-dark-mint-700 transition-colors duration-300">
     <!-- Leaderboard Header -->
+<<<<<<< HEAD
     <div class="p-6 bg-mint-100 dark:bg-dark-mint-700 transition-colors duration-300">
+=======
+    <div class="px-6 py-6 border-b border-mint-200 dark:border-dark-mint-700 transition-colors duration-300 text-center">
+>>>>>>> origin/main
       <h2 class="text-heading-2">
         {{ categories.find(c => c.id === selectedCategory)?.name }} Leaderboard
       </h2>
@@ -154,6 +158,28 @@ const formatNumber = (num: number): string => {
       </p>
     </div>
 
+<<<<<<< HEAD
+=======
+    <!-- Recommender Banner -->
+    <div class="mx-6 mt-6 mb-4 bg-gradient-to-br from-mint-500 via-mint-600 to-evergreen-700 rounded-lg shadow-xl overflow-hidden border border-mint-400">
+      <div class="p-4 sm:p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="text-white mb-4 sm:mb-0 text-center sm:text-left">
+          <div class="flex items-center justify-center sm:justify-start mb-2">
+            <span class="text-3xl mr-2 animate-pulse">🎯</span>
+            <h3 class="text-xl font-bold drop-shadow-md">Not sure which model to choose?</h3>
+          </div>
+          <p class="text-mint-100">Answer 5 quick questions and get personalized recommendations</p>
+        </div>
+        <router-link 
+          to="/recommender" 
+          class="bg-white text-mint-700 px-6 py-3 rounded-lg font-semibold hover:bg-mint-50 transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-md whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50"
+        >
+          Try Recommender →
+        </router-link>
+      </div>
+    </div>
+
+>>>>>>> origin/main
     <!-- Category Tabs -->
     <div class="bg-mint-50 dark:bg-dark-mint-600 px-4 sm:px-6 py-2 border-b border-mint-200 dark:border-dark-mint-600 flex overflow-x-auto scrollbar-hide transition-colors duration-300">
       <button 

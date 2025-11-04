@@ -1,56 +1,200 @@
 {
   "models": [
     {
+      "id": "swe-1.5",
+      "name": "SWE-1.5",
+      "company": "Windsurf",
+      "costCredits": 1,
+      "contextWindow": 128000,
+      "speed": 200,
+      "logoUrl": "/images/logos/windsurf.png",
+      "ratings": {
+        "overall": 1290,
+        "agentic": 1300,
+        "planning": 1285,
+        "debugging": 1295,
+        "refactoring": 1290,
+        "explaining": 1280
+      },
+      "votes": 0
+    },
+    {
+      "id": "claude-sonnet-4.5",
+      "name": "Claude Sonnet 4.5",
+      "company": "Anthropic",
+      "costCredits": 2,
+      "contextWindow": 200000,
+      "speed": 100,
+      "logoUrl": "/images/logos/anthropic.png",
+      "ratings": {
+        "overall": 1295,
+        "agentic": 1290,
+        "planning": 1295,
+        "debugging": 1300,
+        "refactoring": 1295,
+        "explaining": 1300
+      },
+      "votes": 0
+    },
+    {
+      "id": "claude-sonnet-4.5-thinking",
+      "name": "Claude Sonnet 4.5 (Thinking)",
+      "company": "Anthropic",
+      "costCredits": 3,
+      "contextWindow": 200000,
+      "speed": 80,
+      "logoUrl": "/images/logos/anthropic.png",
+      "ratings": {
+        "overall": 1295,
+        "agentic": 1285,
+        "planning": 1300,
+        "debugging": 1295,
+        "refactoring": 1290,
+        "explaining": 1305
+      },
+      "votes": 0
+    },
+    {
+      "id": "claude-haiku-4.5",
+      "name": "Claude Haiku 4.5",
+      "company": "Anthropic",
+      "costCredits": 1,
+      "contextWindow": 200000,
+      "speed": 150,
+      "logoUrl": "/images/logos/anthropic.png",
+      "ratings": {
+        "overall": 1210,
+        "agentic": 1215,
+        "planning": 1205,
+        "debugging": 1220,
+        "refactoring": 1215,
+        "explaining": 1195
+      },
+      "votes": 0
+    },
+    {
+      "id": "claude-opus-4.1",
+      "name": "Claude Opus 4.1",
+      "company": "Anthropic",
+      "costCredits": 20,
+      "contextWindow": 200000,
+      "speed": 50,
+      "logoUrl": "/images/logos/anthropic.png",
+      "ratings": {
+        "overall": 1300,
+        "agentic": 1295,
+        "planning": 1305,
+        "debugging": 1300,
+        "refactoring": 1300,
+        "explaining": 1300
+      },
+      "votes": 0
+    },
+    {
+      "id": "claude-opus-4.1-thinking",
+      "name": "Claude Opus 4.1 Thinking",
+      "company": "Anthropic",
+      "costCredits": 20,
+      "contextWindow": 200000,
+      "speed": 40,
+      "logoUrl": "/images/logos/anthropic.png",
+      "ratings": {
+        "overall": 1300,
+        "agentic": 1295,
+        "planning": 1305,
+        "debugging": 1300,
+        "refactoring": 1295,
+        "explaining": 1305
+      },
+      "votes": 0
+    },
+    {
+      "id": "gpt-5-low",
+      "name": "GPT-5 (low reasoning)",
+      "company": "OpenAI",
+      "costCredits": 0.5,
+      "contextWindow": 200000,
+      "speed": 250,
+      "logoUrl": "/images/logos/openai.png",
+      "ratings": {
+        "overall": 1210,
+        "agentic": 1205,
+        "planning": 1210,
+        "debugging": 1215,
+        "refactoring": 1210,
+        "explaining": 1210
+      },
+      "votes": 0
+    },
+    {
+      "id": "gpt-5-medium",
+      "name": "GPT-5 (medium reasoning)",
+      "company": "OpenAI",
+      "costCredits": 1,
+      "contextWindow": 200000,
+      "speed": 220,
+      "logoUrl": "/images/logos/openai.png",
+      "ratings": {
+        "overall": 1255,
+        "agentic": 1250,
+        "planning": 1255,
+        "debugging": 1260,
+        "refactoring": 1255,
+        "explaining": 1255
+      },
+      "votes": 0
+    },
+    {
+      "id": "gpt-5-high",
+      "name": "GPT-5 (high reasoning)",
+      "company": "OpenAI",
+      "costCredits": 2,
+      "contextWindow": 200000,
+      "speed": 190,
+      "logoUrl": "/images/logos/openai.png",
+      "ratings": {
+        "overall": 1260,
+        "agentic": 1255,
+        "planning": 1270,
+        "debugging": 1265,
+        "refactoring": 1260,
+        "explaining": 1270
+      },
+      "votes": 0
+    },
+    {
+      "id": "gpt-5-codex",
+      "name": "GPT-5-Codex",
+      "company": "OpenAI",
+      "costCredits": 0,
+      "contextWindow": 200000,
+      "speed": 280,
+      "logoUrl": "/images/logos/openai.png",
+      "ratings": {
+        "overall": 1215,
+        "agentic": 1205,
+        "planning": 1210,
+        "debugging": 1230,
+        "refactoring": 1225,
+        "explaining": 1205
+      },
+      "votes": 0
+    },
+    {
       "id": "gpt-4.1",
       "name": "GPT-4.1",
       "company": "OpenAI",
-      "costCredits": 0.25,
+      "costCredits": 1,
       "contextWindow": 1000000,
       "speed": 218,
       "logoUrl": "/images/logos/openai.png",
       "ratings": {
-        "overall": 1200,
-        "agentic": 1200,
-        "planning": 1200,
-        "debugging": 1200,
-        "refactoring": 1200,
-        "explaining": 1200
-      },
-      "votes": 0
-    },
-    {
-      "id": "o4-mini-medium",
-      "name": "O4-Mini (Medium)",
-      "company": "OpenAI",
-      "costCredits": 0.25,
-      "contextWindow": 200000,
-      "speed": 121,
-      "logoUrl": "/images/logos/openai.png",
-      "ratings": {
-        "overall": 1200,
-        "agentic": 1200,
-        "planning": 1200,
-        "debugging": 1200,
-        "refactoring": 1200,
-        "explaining": 1200
-      },
-      "votes": 0
-    },
-    {
-      "id": "o4-mini-high",
-      "name": "O4-Mini (High)",
-      "company": "OpenAI",
-      "costCredits": 0.5,
-      "contextWindow": 200000,
-      "speed": 98,
-      "logoUrl": "/images/logos/openai.png",
-      "ratings": {
-        "overall": 1200,
-        "agentic": 1200,
-        "planning": 1200,
-        "debugging": 1200,
-        "refactoring": 1200,
-        "explaining": 1200
+        "overall": 1250,
+        "agentic": 1245,
+        "planning": 1250,
+        "debugging": 1255,
+        "refactoring": 1250,
+        "explaining": 1255
       },
       "votes": 0
     },
@@ -58,17 +202,17 @@
       "id": "3.7-sonnet",
       "name": "Claude 3.7 Sonnet",
       "company": "Anthropic",
-      "costCredits": 1,
+      "costCredits": 2,
       "contextWindow": 200000,
       "speed": 77,
       "logoUrl": "/images/logos/anthropic.png",
       "ratings": {
-        "overall": 1200,
-        "agentic": 1200,
-        "planning": 1200,
-        "debugging": 1200,
-        "refactoring": 1200,
-        "explaining": 1200
+        "overall": 1245,
+        "agentic": 1240,
+        "planning": 1255,
+        "debugging": 1250,
+        "refactoring": 1245,
+        "explaining": 1260
       },
       "votes": 0
     },
@@ -76,17 +220,17 @@
       "id": "3.7-sonnet-thinking",
       "name": "Claude 3.7 Sonnet (Thinking)",
       "company": "Anthropic",
-      "costCredits": 1.25,
+      "costCredits": 3,
       "contextWindow": 200000,
       "speed": 77,
       "logoUrl": "/images/logos/anthropic.png",
       "ratings": {
-        "overall": 1200,
-        "agentic": 1200,
-        "planning": 1200,
-        "debugging": 1200,
-        "refactoring": 1200,
-        "explaining": 1200
+        "overall": 1245,
+        "agentic": 1235,
+        "planning": 1260,
+        "debugging": 1245,
+        "refactoring": 1240,
+        "explaining": 1265
       },
       "votes": 0
     },
@@ -99,48 +243,66 @@
       "speed": 198,
       "logoUrl": "/images/logos/google.png",
       "ratings": {
-        "overall": 1200,
-        "agentic": 1200,
-        "planning": 1200,
-        "debugging": 1200,
-        "refactoring": 1200,
-        "explaining": 1200
+        "overall": 1255,
+        "agentic": 1250,
+        "planning": 1255,
+        "debugging": 1260,
+        "refactoring": 1255,
+        "explaining": 1255
       },
       "votes": 0
     },
     {
-      "id": "o3-medium-reasoning",
-      "name": "O3 (Medium Reasoning)",
+      "id": "o3",
+      "name": "o3",
       "company": "OpenAI",
-      "costCredits": 7.5,
+      "costCredits": 1,
       "contextWindow": 200000,
       "speed": 177,
       "logoUrl": "/images/logos/openai.png",
       "ratings": {
-        "overall": 1200,
-        "agentic": 1200,
-        "planning": 1200,
-        "debugging": 1200,
-        "refactoring": 1200,
-        "explaining": 1200
+        "overall": 1175,
+        "agentic": 1170,
+        "planning": 1175,
+        "debugging": 1180,
+        "refactoring": 1175,
+        "explaining": 1175
       },
       "votes": 0
     },
     {
       "id": "o3-high-reasoning",
-      "name": "O3 (High Reasoning)",
+      "name": "o3 (high reasoning)",
       "company": "OpenAI",
-      "costCredits": 10,
+      "costCredits": 1,
       "contextWindow": 200000,
       "speed": 177,
       "logoUrl": "/images/logos/openai.png",
       "ratings": {
-        "overall": 1200,
-        "agentic": 1200,
-        "planning": 1200,
-        "debugging": 1200,
-        "refactoring": 1200,
-        "explaining": 1200
+        "overall": 1185,
+        "agentic": 1180,
+        "planning": 1195,
+        "debugging": 1185,
+        "refactoring": 1180,
+        "explaining": 1185
+      },
+      "votes": 0
+    },
+    {
+      "id": "gpt-oss-120b",
+      "name": "gpt-oss 120B (Medium)",
+      "company": "OpenAI",
+      "costCredits": 0.25,
+      "contextWindow": 200000,
+      "speed": 230,
+      "logoUrl": "/images/logos/openai.png",
+      "ratings": {
+        "overall": 1130,
+        "agentic": 1125,
+        "planning": 1130,
+        "debugging": 1135,
+        "refactoring": 1130,
+        "explaining": 1130
       },
       "votes": 0
     },
@@ -148,17 +310,17 @@
       "id": "3.5-sonnet",
       "name": "Claude 3.5 Sonnet",
       "company": "Anthropic",
-      "costCredits": 1,
+      "costCredits": 2,
       "contextWindow": 200000,
       "speed": 76,
       "logoUrl": "/images/logos/anthropic.png",
       "ratings": {
-        "overall": 1200,
-        "agentic": 1200,
-        "planning": 1200,
-        "debugging": 1200,
-        "refactoring": 1200,
-        "explaining": 1200
+        "overall": 1165,
+        "agentic": 1160,
+        "planning": 1165,
+        "debugging": 1170,
+        "refactoring": 1165,
+        "explaining": 1165
       },
       "votes": 0
     },
@@ -171,138 +333,66 @@
       "speed": 188,
       "logoUrl": "/images/logos/openai.png",
       "ratings": {
-        "overall": 1200,
-        "agentic": 1200,
-        "planning": 1200,
-        "debugging": 1200,
-        "refactoring": 1200,
-        "explaining": 1200
+        "overall": 1170,
+        "agentic": 1165,
+        "planning": 1170,
+        "debugging": 1175,
+        "refactoring": 1170,
+        "explaining": 1165
       },
       "votes": 0
     },
     {
       "id": "deepseek-v3",
-      "name": "DeepSeek V3 (0324)",
+      "name": "DeepSeek-V3-0324",
       "company": "DeepSeek",
       "costCredits": 0,
       "contextWindow": 128000,
       "speed": 25,
       "logoUrl": "/images/logos/deepseek.png",
       "ratings": {
-        "overall": 1200,
-        "agentic": 1200,
-        "planning": 1200,
-        "debugging": 1200,
-        "refactoring": 1200,
-        "explaining": 1200
+        "overall": 1140,
+        "agentic": 1135,
+        "planning": 1140,
+        "debugging": 1145,
+        "refactoring": 1140,
+        "explaining": 1140
       },
       "votes": 0
     },
     {
       "id": "deepseek-r1",
-      "name": "DeepSeek R1",
+      "name": "DeepSeek-R1",
       "company": "DeepSeek",
-      "costCredits": 0,
+      "costCredits": 0.5,
       "contextWindow": 128000,
       "speed": 23,
       "logoUrl": "/images/logos/deepseek.png",
       "ratings": {
-        "overall": 1200,
-        "agentic": 1200,
-        "planning": 1200,
-        "debugging": 1200,
-        "refactoring": 1200,
-        "explaining": 1200
+        "overall": 1220,
+        "agentic": 1210,
+        "planning": 1235,
+        "debugging": 1225,
+        "refactoring": 1215,
+        "explaining": 1215
       },
       "votes": 0
     },
     {
-      "id": "grok-3",
-      "name": "Grok 3",
+      "id": "grok-code-fast",
+      "name": "xAI Grok Code Fast",
       "company": "xAI",
-      "costCredits": 1,
-      "contextWindow": 1000000,
-      "speed": 200,
-      "logoUrl": "/images/logos/xai.png",
-      "ratings": {
-        "overall": 1200,
-        "agentic": 1200,
-        "planning": 1200,
-        "debugging": 1200,
-        "refactoring": 1200,
-        "explaining": 1200
-      },
-      "votes": 0
-    },
-    {
-      "id": "grok-3-mini-thinking",
-      "name": "Grok 3 Mini (Thinking)",
-      "company": "xAI",
-      "costCredits": 0.125,
-      "contextWindow": 1000000,
-      "speed": 200,
-      "logoUrl": "/images/logos/xai.png",
-      "ratings": {
-        "overall": 1200,
-        "agentic": 1200,
-        "planning": 1200,
-        "debugging": 1200,
-        "refactoring": 1200,
-        "explaining": 1200
-      },
-      "votes": 0
-    },
-    {
-      "id": "o3-mini-medium-reasoning",
-      "name": "O3 Mini (Medium Reasoning)",
-      "company": "OpenAI",
-      "costCredits": 1,
-      "contextWindow": 200000,
-      "speed": 177,
-      "logoUrl": "/images/logos/openai.png",
-      "ratings": {
-        "overall": 1200,
-        "agentic": 1200,
-        "planning": 1200,
-        "debugging": 1200,
-        "refactoring": 1200,
-        "explaining": 1200
-      },
-      "votes": 0
-    },
-    {
-      "id": "gemini-2.5-flash",
-      "name": "Gemini 2.5 Flash",
-      "company": "Google",
-      "costCredits": 0.125,
-      "contextWindow": 1000000,
-      "speed": 329,
-      "logoUrl": "/images/logos/google.png",
-      "ratings": {
-        "overall": 1200,
-        "agentic": 1200,
-        "planning": 1200,
-        "debugging": 1200,
-        "refactoring": 1200,
-        "explaining": 1200
-      },
-      "votes": 0
-    },
-    {
-      "id": "gemini-2.0-flash",
-      "name": "Gemini 2.0 Flash",
-      "company": "Google",
-      "costCredits": 0.125,
+      "costCredits": 0,
       "contextWindow": 1000000,
       "speed": 250,
-      "logoUrl": "/images/logos/google.png",
+      "logoUrl": "/images/logos/xai.png",
       "ratings": {
-        "overall": 1200,
-        "agentic": 1200,
-        "planning": 1200,
-        "debugging": 1200,
-        "refactoring": 1200,
-        "explaining": 1200
+        "overall": 1175,
+        "agentic": 1180,
+        "planning": 1170,
+        "debugging": 1185,
+        "refactoring": 1180,
+        "explaining": 1160
       },
       "votes": 0
     },
@@ -315,30 +405,102 @@
       "speed": 153,
       "logoUrl": "/images/logos/windsurf.png",
       "ratings": {
-        "overall": 1200,
-        "agentic": 1200,
-        "planning": 1200,
-        "debugging": 1200,
-        "refactoring": 1200,
-        "explaining": 1200
+        "overall": 1180,
+        "agentic": 1185,
+        "planning": 1175,
+        "debugging": 1190,
+        "refactoring": 1185,
+        "explaining": 1165
       },
       "votes": 0
     },
     {
-      "id": "swe-1-lite",
-      "name": "SWE-1 Lite",
-      "company": "Windsurf",
-      "costCredits": 0,
-      "contextWindow": 128000,
-      "speed": 188,
-      "logoUrl": "/images/logos/windsurf.png",
+      "id": "qwen3-coder",
+      "name": "Qwen3-Coder",
+      "company": "Alibaba",
+      "costCredits": 0.5,
+      "contextWindow": 262000,
+      "speed": 53,
+      "logoUrl": "/images/logos/alibaba.png",
       "ratings": {
-        "overall": 1200,
-        "agentic": 1200,
-        "planning": 1200,
-        "debugging": 1200,
-        "refactoring": 1200,
-        "explaining": 1200
+        "overall": 1165,
+        "agentic": 1170,
+        "planning": 1160,
+        "debugging": 1175,
+        "refactoring": 1170,
+        "explaining": 1150
+      },
+      "votes": 0
+    },
+    {
+      "id": "qwen3-coder-fast",
+      "name": "Qwen3-Coder (Fast)",
+      "company": "Alibaba",
+      "costCredits": 2,
+      "contextWindow": 262000,
+      "speed": 1747,
+      "logoUrl": "/images/logos/alibaba.png",
+      "ratings": {
+        "overall": 1130,
+        "agentic": 1125,
+        "planning": 1135,
+        "debugging": 1135,
+        "refactoring": 1130,
+        "explaining": 1125
+      },
+      "votes": 0
+    },
+    {
+      "id": "kimi-k2",
+      "name": "Kimi K2",
+      "company": "Moonshot AI",
+      "costCredits": 0.5,
+      "contextWindow": 130000,
+      "speed": 47,
+      "logoUrl": "/images/logos/moonshot.png",
+      "ratings": {
+        "overall": 1145,
+        "agentic": 1140,
+        "planning": 1150,
+        "debugging": 1150,
+        "refactoring": 1145,
+        "explaining": 1140
+      },
+      "votes": 0
+    },
+    {
+      "id": "claude-sonnet-4",
+      "name": "Claude Sonnet 4",
+      "company": "Anthropic",
+      "costCredits": 2,
+      "contextWindow": 200000,
+      "speed": 93,
+      "logoUrl": "/images/logos/anthropic.png",
+      "ratings": {
+        "overall": 1270,
+        "agentic": 1265,
+        "planning": 1270,
+        "debugging": 1275,
+        "refactoring": 1270,
+        "explaining": 1275
+      },
+      "votes": 0
+    },
+    {
+      "id": "claude-sonnet-4-thinking",
+      "name": "Claude Sonnet 4 (Thinking)",
+      "company": "Anthropic",
+      "costCredits": 3,
+      "contextWindow": 200000,
+      "speed": 64,
+      "logoUrl": "/images/logos/anthropic.png",
+      "ratings": {
+        "overall": 1270,
+        "agentic": 1265,
+        "planning": 1275,
+        "debugging": 1270,
+        "refactoring": 1265,
+        "explaining": 1280
       },
       "votes": 0
     }
