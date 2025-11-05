@@ -32,6 +32,12 @@ assessment of each model's capabilities.
   - Context window size
   - Processing speed (tokens per second)
 - **computerK's Take**: My personal opinions and commentary on select models, shown as a special icon next to the model name. Hover to see insights and subjective notes about the model's real-world strengths, quirks, or caveats.
+- **Model Recommender**: Interactive questionnaire-based tool that provides personalized model recommendations:
+  - 5-question workflow covering budget, task type, reasoning complexity, context needs, and speed preferences
+  - Intelligent scoring algorithm that evaluates all models against your requirements
+  - Top recommendation with detailed match score and reasoning
+  - Alternative suggestions with match percentages
+  - Direct integration with comparison tool to view recommended models side-by-side
 - **Sorting Capabilities**: Sort leaderboards by specific categories or model
   characteristics
 - **Voting System**: Cookie-based system allowing users to vote once per model
@@ -74,6 +80,7 @@ windsurf-model-comparison/
 │   │   ├── CategoriesPage.vue  # List of category leaderboards
 │   │   ├── CompareModelsPage.vue # Side-by-side model comparison
 │   │   ├── MainLeaderboardPage.vue # Overall model rankings
+│   │   ├── ModelRecommenderPage.vue # Personalized model recommendation tool
 │   │   └── ModelVotingPage.vue # Interface for voting on model pairs
 │   ├── router/                 # Vue Router configuration
 │   │   └── index.ts            # Route definitions and navigation setup
@@ -118,6 +125,34 @@ The application uses an adapted ELO rating system to rank models:
    - Ratings are adjusted proportionally to the difference between expected and
      actual outcomes
    - The K-factor (maximum rating change) will be tuned based on vote volume
+
+## 🎯 Model Recommender
+
+The Model Recommender is an intelligent tool designed to help users find the perfect model for their specific needs through a guided questionnaire:
+
+### How It Works
+
+1. **5-Question Assessment**: Users answer questions about:
+   - **Budget**: Credit budget per prompt (free to premium)
+   - **Task Type**: Primary use case (coding, debugging, refactoring, explaining, agentic workflows)
+   - **Reasoning Complexity**: Required thinking depth (simple & fast, moderate, deep reasoning)
+   - **Context Window**: Project size needs (small files to entire codebases)
+   - **Speed Preference**: Response time importance (critical, important, flexible)
+
+2. **Intelligent Scoring Algorithm**: 
+   - Evaluates all available models against your specific requirements
+   - Considers multiple factors including ELO ratings, cost efficiency, technical specs, and model capabilities
+   - Assigns match scores (0-100%) based on how well each model fits your criteria
+
+3. **Personalized Results**:
+   - **Top Recommendation**: Highlighted with detailed match score and reasoning
+   - **Alternative Options**: Up to 3 additional recommendations with match percentages
+   - Each recommendation includes explanation of why it fits your needs
+
+4. **Easy Next Steps**:
+   - Direct links to view detailed specifications
+   - "Compare Top 3" button to see recommended models side-by-side
+   - Option to restart the questionnaire for different scenarios
 
 ## 📊 Model Comparison & Voting
 
