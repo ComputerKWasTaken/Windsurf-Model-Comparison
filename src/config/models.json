@@ -9,12 +9,12 @@
       "speed": 200,
       "logoUrl": "/images/logos/windsurf.png",
       "ratings": {
-        "overall": 1290,
-        "agentic": 1300,
-        "planning": 1285,
-        "debugging": 1295,
-        "refactoring": 1290,
-        "explaining": 1280
+        "overall": 1205,
+        "agentic": 1210,
+        "planning": 1200,
+        "debugging": 1210,
+        "refactoring": 1205,
+        "explaining": 1195
       },
       "votes": 0
     },
@@ -171,12 +171,12 @@
       "speed": 280,
       "logoUrl": "/images/logos/openai.png",
       "ratings": {
-        "overall": 1215,
-        "agentic": 1205,
-        "planning": 1210,
-        "debugging": 1230,
-        "refactoring": 1225,
-        "explaining": 1205
+        "overall": 1275,
+        "agentic": 1265,
+        "planning": 1270,
+        "debugging": 1290,
+        "refactoring": 1285,
+        "explaining": 1265
       },
       "votes": 0
     },
