@@ -503,6 +503,114 @@
         "explaining": 1280
       },
       "votes": 0
+    },
+    {
+      "id": "gpt-5-1-low",
+      "name": "GPT-5.1 (low reasoning)",
+      "company": "OpenAI",
+      "costCredits": 0.5,
+      "contextWindow": 400000,
+      "speed": 240,
+      "logoUrl": "/images/logos/openai.png",
+      "ratings": {
+        "overall": 1225,
+        "agentic": 1220,
+        "planning": 1225,
+        "debugging": 1230,
+        "refactoring": 1225,
+        "explaining": 1225
+      },
+      "votes": 0
+    },
+    {
+      "id": "gpt-5-1-medium",
+      "name": "GPT-5.1 (medium reasoning)",
+      "company": "OpenAI",
+      "costCredits": 1,
+      "contextWindow": 400000,
+      "speed": 210,
+      "logoUrl": "/images/logos/openai.png",
+      "ratings": {
+        "overall": 1270,
+        "agentic": 1265,
+        "planning": 1270,
+        "debugging": 1275,
+        "refactoring": 1270,
+        "explaining": 1270
+      },
+      "votes": 0
+    },
+    {
+      "id": "gpt-5-1-high",
+      "name": "GPT-5.1 (high reasoning)",
+      "company": "OpenAI",
+      "costCredits": 2,
+      "contextWindow": 400000,
+      "speed": 180,
+      "logoUrl": "/images/logos/openai.png",
+      "ratings": {
+        "overall": 1275,
+        "agentic": 1270,
+        "planning": 1285,
+        "debugging": 1280,
+        "refactoring": 1275,
+        "explaining": 1285
+      },
+      "votes": 0
+    },
+    {
+      "id": "gpt-5-1-codex",
+      "name": "GPT-5.1 Codex",
+      "company": "OpenAI",
+      "costCredits": 0,
+      "contextWindow": 400000,
+      "speed": 290,
+      "logoUrl": "/images/logos/openai.png",
+      "ratings": {
+        "overall": 1290,
+        "agentic": 1280,
+        "planning": 1285,
+        "debugging": 1305,
+        "refactoring": 1300,
+        "explaining": 1280
+      },
+      "votes": 0
+    },
+    {
+      "id": "gpt-5-1-codex-mini",
+      "name": "GPT-5.1 Codex Mini",
+      "company": "OpenAI",
+      "costCredits": 0,
+      "contextWindow": 200000,
+      "speed": 320,
+      "logoUrl": "/images/logos/openai.png",
+      "ratings": {
+        "overall": 1265,
+        "agentic": 1255,
+        "planning": 1260,
+        "debugging": 1280,
+        "refactoring": 1275,
+        "explaining": 1255
+      },
+      "votes": 0
+    },
+    {
+      "id": "gemini-3-pro",
+      "name": "Gemini 3 Pro",
+      "company": "Google",
+      "costCredits": 1.5,
+      "contextWindow": 1000000,
+      "speed": 185,
+      "logoUrl": "/images/logos/google.png",
+      "ratings": {
+        "overall": 1310,
+        "agentic": 1305,
+        "planning": 1310,
+        "debugging": 1315,
+        "refactoring": 1310,
+        "explaining": 1310
+      },
+      "votes": 0
     }
   ]
 }
